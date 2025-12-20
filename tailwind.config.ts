@@ -6,6 +6,7 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     container: {
@@ -23,23 +24,6 @@ const config: Config = {
         lg: "1200px",
       },
       colors: {
-        primaryText: {
-          DEFAULT: "#ffffe3",
-        },
-        black: {
-          "100": "#000000",
-          "200": "rgba(17, 25, 40, 0.75)",
-          "300": "rgba(255, 255, 255, 0.125)",
-          DEFAULT: "#000",
-        },
-        white: {
-          "100": "#BEC1DD",
-          "200": "#C1C2D3",
-          DEFAULT: "#ffffe3",
-        },
-        blue: {
-          "100": "#E4ECFF",
-        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

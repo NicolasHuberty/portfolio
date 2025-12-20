@@ -111,19 +111,32 @@ export default function Hero() {
 
         <div className="flex justify-center">
           <div className="inline-flex rounded-full bg-gradient-to-r from-purple-400 to-pink-400 px-3 py-1 font-semibold text-neutral-950">
-            ✨ Secured £7.5M in Seed Funding
+            💼 AI Engineer & Freelance Developer
           </div>
         </div>
         <h1 className="mx-auto mt-6 max-w-4xl text-center text-4xl font-medium md:text-5xl lg:text-8xl">
-          Pitch Your Startup, <br />
-          Connect With Entrepreneurs
+          Hi, I'm Nicolas Huberty <br />
+          Building Intelligent Systems
         </h1>
         <p className="mx-auto mt-8 max-w-2xl text-center text-xl text-white/50">
-          Submit your startup ideas, explore innovative pitches, and shine in
-          virtual competitions with a sleek, user-friendly platform designed to
-          empower entrepreneurs.
+          I design, develop, and deploy AI-driven platforms that blend automation,
+          generative intelligence, and seamless user experiences — mainly for the
+          legal and medical industries.
         </p>
-        <SearchForm query={query} />
+        <div className="mx-auto mt-10 flex max-w-md justify-center gap-4">
+          <a
+            href="#projects"
+            className="inline-flex rounded-full bg-gradient-to-r from-purple-400 to-pink-400 px-8 py-3 font-semibold text-neutral-950 transition-transform hover:scale-105"
+          >
+            View Projects
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex rounded-full border border-purple-400 px-8 py-3 font-semibold text-white transition-all hover:bg-purple-400/10"
+          >
+            Get in Touch
+          </a>
+        </div>
       </div>
     </section>
   )

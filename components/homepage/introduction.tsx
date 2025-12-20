@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 
 import Tag from "../tag"
 
-const text = `Traditional platforms can be limiting, so we built a sleek, user-friendly space to showcase ideas, connect with innovators, and gain the recognition you deserve.`
+const text = `AI-powered solutions don't have to be complex. I build intelligent systems that seamlessly integrate into your workflows, empowering professionals in legal, medical, and business domains to work smarter, not harder.`
 const words = text.split(" ")
 
 export default function Introduction() {
@@ -31,11 +31,11 @@ export default function Introduction() {
       <div className="container">
         <div className="sticky top-20 md:top-28 lg:top-40">
           <div className="flex justify-center">
-            <Tag>Introducing Next ventures</Tag>
+            <Tag>My Approach</Tag>
           </div>
 
           <div className="mt-10 text-center text-4xl font-medium md:text-6xl lg:text-7xl">
-            <span>Your startup ideas deserve the spotlight.</span>{" "}
+            <span>Building intelligent systems that empower professionals.</span>{" "}
             <span className="">
               {words.map((word, wordIndex) => (
                 <span
@@ -48,7 +48,7 @@ export default function Introduction() {
               ))}
             </span>
             <span className="block text-pink-400">
-              That&apos;s why we built Next ventures.
+              That&apos;s my mission as an AI Engineer.
             </span>
           </div>
         </div>

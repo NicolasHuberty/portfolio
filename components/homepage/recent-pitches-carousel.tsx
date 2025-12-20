@@ -8,7 +8,12 @@ import StartupCard, { StartupTypeCard } from "../startup-card"
 import Tag from "../tag"
 
 export default async function RecentPitchesCarousel() {
-  const startups = await client.fetch(RECENT_STARTUPS_QUERY)
+  let startups = []
+  try {
+    startups = await client.fetch(RECENT_STARTUPS_QUERY)
+  } catch (error) {
+    console.log('Sanity fetch error:', error)
+  }
 
   return (
     <div className="mx-auto mt-10 flex w-full max-w-[1600px] flex-col items-center px-4 py-8">

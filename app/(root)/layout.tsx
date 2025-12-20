@@ -1,12 +1,17 @@
-import Navbar from "@/components/navigation-bar"
+"use client"
 
-export default function Layout({
+import Sidebar from "@/components/sidebar"
+import { SidebarProvider } from "@/components/sidebar-context"
+
+export default function SiteLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <main className="relative mx-auto">
-      <Navbar />
-      {children}
-    </main>
+    <SidebarProvider>
+      <Sidebar />
+      <main>
+        {children}
+      </main>
+    </SidebarProvider>
   )
 }

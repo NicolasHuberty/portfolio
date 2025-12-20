@@ -28,7 +28,7 @@ export default function LogoTicker() {
     <section className="overflow-x-clip py-24">
       <div className="container">
         <h3 className="text-center text-xl text-white/50">
-          Trusted by Innovative Companies
+          Working with Leading Organizations & Institutions
         </h3>
 
         <div className="mt-12 flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">

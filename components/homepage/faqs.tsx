@@ -7,29 +7,29 @@ import { cn } from "@/lib/utils"
 
 const faqs = [
   {
-    question: "What makes Next ventures unique?",
+    question: "What services do you offer?",
     answer:
-      "Next ventures combines simplicity with powerful features to help entrepreneurs share their ideas and gain exposure. It’s designed to be user-friendly and offers tools specifically tailored for virtual pitch competitions and networking.",
+      "I specialize in AI engineering, full-stack development, and cloud infrastructure. From building custom LLM applications and RAG systems to deploying scalable Kubernetes clusters, I handle end-to-end development of intelligent systems.",
   },
   {
-    question: "Is Next ventures suitable for beginners?",
+    question: "What industries do you work with?",
     answer:
-      "Absolutely! Next ventures is intuitive and easy to use from the start. Whether you’re an experienced entrepreneur or just starting out, the platform guides you every step of the way.",
+      "I primarily focus on legal tech, medical/healthcare, and business automation. My experience includes building de-identification systems for clinical documents, legal document processing platforms, and AI-powered workflow automation tools.",
   },
   {
-    question: "How does the pitch submission process work?",
+    question: "How do you approach new projects?",
     answer:
-      "Submitting your pitch is straightforward. Just create an account, upload your idea, and fill out a few details. Your pitch will be live and ready for others to discover and vote on.",
+      "I start by understanding your specific needs and challenges, then design solutions that integrate seamlessly into your existing workflows. My focus is on practical AI applications that deliver real value, not just impressive demos.",
   },
   {
-    question: "Can I collaborate with others on my pitch?",
+    question: "What technologies do you work with?",
     answer:
-      "Yes! Next ventures allows you to invite collaborators to work on pitches, share insights, and refine your ideas for the best presentation.",
+      "My core stack includes Python, React/Next.js, Rust, and cloud platforms like Azure and Kubernetes. For AI work, I use LangChain, Transformers, and various LLM frameworks. I also have strong expertise in DevOps, GitLab CI/CD, and infrastructure as code.",
   },
   {
-    question: "What kind of exposure can I expect?",
+    question: "Are you available for freelance work?",
     answer:
-      "Next ventures is designed to connect you with a global audience of entrepreneurs, investors, and innovators. Your ideas can gain visibility through voting, networking, and virtual competitions.",
+      "Yes! I'm currently open to freelance missions and collaborations in AI engineering, automation projects, and infrastructure design. I'm based in Belgium and work with clients globally.",
   },
 ]
 

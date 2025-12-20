@@ -4,19 +4,16 @@ import Avatar from "@/components/avatar"
 import FeatureCard from "@/components/feature-card"
 import Key from "@/components/key"
 import Tag from "@/components/tag"
-import avatar1 from "@/public/images/avatar-ashwin-santiago.jpg"
-import avatar3 from "@/public/images/avatar-florence-shaw.jpg"
-import avatar2 from "@/public/images/avatar-lula-meyers.jpg"
-import avatar4 from "@/public/images/avatar-owen-garcia.jpg"
+import avatar1 from "@/public/images/nicolas.jpeg"
 
 const features = [
-  "Idea Submission",
-  "Pitch Voting",
-  "Startup Showcase",
-  "Feedback Hub",
-  "Networking Platform",
-  "Virtual Competitions",
-  "Global Exposure",
+  "Custom AI Solutions",
+  "LLM Integration",
+  "RAG Systems",
+  "Process Automation",
+  "Cloud Infrastructure",
+  "Full-Stack Development",
+  "DevOps & CI/CD",
 ]
 
 export default function Features() {
@@ -27,59 +24,32 @@ export default function Features() {
       </div>
 
       <h2 className="mx-auto mt-6 max-w-2xl text-center text-6xl font-medium">
-        Where vision meets <span className="text-pink-400">execution</span>
+        Where AI meets <span className="text-pink-400">real-world impact</span>
       </h2>
 
       <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-3">
         <FeatureCard
-          title="Seamless Networking"
-          description="Connect with like-minded innovators and expand your entrepreneurial circle."
+          title="Collaborative Development"
+          description="Working together to build intelligent systems that solve real problems."
           className="group transition duration-500 hover:scale-105 md:col-span-2 lg:col-span-1"
         >
           <div className="flex aspect-video items-center justify-center">
-            {/* <Avatar className="size-20 overflow-hidden rounded-full border-4 border-blue-500 bg-neutral-900 p-1">
-              <AvatarImage
-                src="/images/avatar-ashwin-santiago.jpg"
-                alt="Avatar 1"
-              />
-            </Avatar> */}
             <Avatar className="z-40">
               <Image src={avatar1} alt="Avatar 1" className="rounded-full" />
-            </Avatar>
-            <Avatar className="z-30 -ml-6 border-indigo-500">
-              <Image src={avatar2} alt="Avatar 2" className="rounded-full" />
-            </Avatar>
-            <Avatar className="z-20 -ml-6 border-amber-500">
-              <Image src={avatar3} alt="Avatar 3" className="rounded-full" />
-            </Avatar>
-            <Avatar className="-ml-6 border-transparent transition group-hover:border-green-500">
-              <div className="relative inline-flex size-full items-center justify-center gap-1 rounded-full bg-neutral-700">
-                <Image
-                  src={avatar4}
-                  alt="Avatar 4"
-                  className="absolute size-full rounded-full opacity-0 transition-all duration-500 group-hover:opacity-100"
-                />
-                {Array.from({ length: 3 }).map((_, index) => (
-                  <span
-                    className="inline-flex size-1.5 rounded-full bg-white"
-                    key={index}
-                  ></span>
-                ))}
-              </div>
             </Avatar>
           </div>
         </FeatureCard>
 
         <FeatureCard
-          title="Empowering Startups"
-          description="Celebrate your journey and achievements while preparing for even greater opportunities ahead."
+          title="Proven Track Record"
+          description="Delivering AI-powered solutions that transform how professionals work."
           className="group transition duration-500 hover:scale-105 md:col-span-2 lg:col-span-1"
         >
           <div className="flex aspect-video items-center justify-center">
             <p className="text-center text-4xl font-extrabold text-white/20 transition duration-500 group-hover:text-white/10">
-              We&apos;ve achieved{" "}
+              Building{" "}
               <span className="relative bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                <span>incredible</span>
+                <span>intelligent</span>
                 <video
                   src="/gif-incredible.mp4"
                   autoPlay
@@ -90,14 +60,14 @@ export default function Features() {
                 ></video>
               </span>{" "}
               <br />
-              milestones this year.
+              systems that work.
             </p>
           </div>
         </FeatureCard>
 
         <FeatureCard
-          title="Keyboard Quick Actions"
-          description="Boost your productivity with intuitive shortcuts designed for effortless navigation and creation."
+          title="Rapid Development"
+          description="Efficient workflows and modern tooling for faster delivery without compromising quality."
           className="group transition duration-500 hover:scale-105 md:col-span-2 md:col-start-2 lg:col-span-1 lg:col-start-auto"
         >
           <div className="flex aspect-video items-center justify-center gap-4">

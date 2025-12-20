@@ -24,7 +24,10 @@ export default function CallToAction() {
   }, [isHovered])
 
   function handleClick() {
-    router.push("/startup/create")
+    const contactSection = document.getElementById("contact")
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" })
+    }
   }
 
   return (
@@ -40,7 +43,7 @@ export default function CallToAction() {
             <div key={index} className="flex items-center gap-16">
               <span className="text-7xl text-pink-400">&#10038;</span>
               <span className="transition duration-500 group-hover:text-pink-400">
-                Try it Now!
+                Let's Build Together
               </span>
             </div>
           ))}
