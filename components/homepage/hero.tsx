@@ -76,7 +76,7 @@ export default function Hero() {
             src={designExample1Image}
             alt="design example 1 image"
             draggable={false}
-            className="w-48 h-auto"
+            className="w-32 h-auto"
           />
         </motion.div>
         <motion.div
@@ -98,7 +98,7 @@ export default function Hero() {
             src={designExample2Image}
             alt="design example 2 image"
             draggable={false}
-            className="w-48 h-auto"
+            className="w-32 h-auto"
           />
         </motion.div>
         <motion.div
