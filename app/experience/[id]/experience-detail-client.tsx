@@ -55,7 +55,9 @@ export default function ExperienceDetailClient({
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900">
       {/* Hero Section */}
-      <div className={`relative bg-gradient-to-br from-violet-600 to-indigo-600 py-20`}>
+      <div
+        className={`relative bg-gradient-to-br from-violet-600 to-indigo-600 py-20`}
+      >
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
         <div className="container relative mx-auto px-6 lg:px-8">
           {/* Back button */}
@@ -141,28 +143,29 @@ export default function ExperienceDetailClient({
             </motion.div>
 
             {/* Responsibilities */}
-            {experience.responsibilities && experience.responsibilities.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <h2 className="mb-4 flex items-center gap-2 text-2xl font-semibold text-zinc-900 dark:text-white">
-                  <Wrench className="h-6 w-6 text-indigo-500" />
-                  {isWork ? "Key Responsibilities" : "Activities"}
-                </h2>
-                <ul className="space-y-3">
-                  {experience.responsibilities.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-indigo-500" />
-                      <span className="text-zinc-600 dark:text-slate-400">
-                        {parseMarkdown(item)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            )}
+            {experience.responsibilities &&
+              experience.responsibilities.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <h2 className="mb-4 flex items-center gap-2 text-2xl font-semibold text-zinc-900 dark:text-white">
+                    <Wrench className="h-6 w-6 text-indigo-500" />
+                    {isWork ? "Key Responsibilities" : "Activities"}
+                  </h2>
+                  <ul className="space-y-3">
+                    {experience.responsibilities.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-indigo-500" />
+                        <span className="text-zinc-600 dark:text-slate-400">
+                          {parseMarkdown(item)}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
           </div>
 
           {/* Sidebar */}
@@ -199,23 +202,24 @@ export default function ExperienceDetailClient({
               </div>
 
               {/* Technologies */}
-              {experience.technologies && experience.technologies.length > 0 && (
-                <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-slate-700 dark:bg-slate-800">
-                  <h3 className="mb-4 font-semibold text-zinc-900 dark:text-white">
-                    Technologies
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {experience.technologies.map(tech => (
-                      <span
-                        key={tech}
-                        className="rounded-lg border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-sm text-indigo-600 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-400"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+              {experience.technologies &&
+                experience.technologies.length > 0 && (
+                  <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-slate-700 dark:bg-slate-800">
+                    <h3 className="mb-4 font-semibold text-zinc-900 dark:text-white">
+                      Technologies
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {experience.technologies.map(tech => (
+                        <span
+                          key={tech}
+                          className="rounded-lg border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-sm text-indigo-600 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-400"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
               {/* Type Badge */}
               <div
