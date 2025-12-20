@@ -10,6 +10,7 @@
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
     "check": "bun run lint && bun run format:check",
+    "prepare": "husky"
   },
   "dependencies": {
     "@fingerprintjs/fingerprintjs": "^5.0.1",
