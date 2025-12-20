@@ -6,28 +6,11 @@ import Link from "next/link"
 import {
   ArrowLeft,
   Calendar,
-  MapPin,
   Briefcase,
   GraduationCap,
-  CheckCircle,
-  Lightbulb,
   Wrench,
-  ImageIcon,
 } from "lucide-react"
 import type { Experience } from "@/lib/experience-data"
-
-interface ExperienceDetails {
-  duration: string
-  role: string
-  location: string
-  overview: string
-  responsibilities: string[]
-  achievements: string[]
-  skills: string[]
-  learnings: string[]
-  gallery?: string[]
-  programLink?: string
-}
 
 function parseMarkdown(text: string) {
   // Regex matches **bold** OR [link](url)
@@ -63,10 +46,8 @@ function parseMarkdown(text: string) {
 
 export default function ExperienceDetailClient({
   experience,
-  details,
 }: {
   experience: Experience
-  details?: ExperienceDetails
 }) {
   const isWork = experience.type === "work"
   const Icon = isWork ? Briefcase : GraduationCap
@@ -74,7 +55,7 @@ export default function ExperienceDetailClient({
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900">
       {/* Hero Section */}
-      <div className={`relative bg-gradient-to-br ${experience.color} py-20`}>
+      <div className={`relative bg-gradient-to-br from-violet-600 to-indigo-600 py-20`}>
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
         <div className="container relative mx-auto px-6 lg:px-8">
           {/* Back button */}
@@ -135,12 +116,6 @@ export default function ExperienceDetailClient({
                 <Calendar className="h-4 w-4" />
                 <span>{experience.period}</span>
               </div>
-              {details?.location && (
-                <div className="flex items-center gap-2 text-white/80">
-                  <MapPin className="h-4 w-4" />
-                  <span>{details.location}</span>
-                </div>
-              )}
             </motion.div>
           </div>
         </div>
@@ -161,12 +136,12 @@ export default function ExperienceDetailClient({
                 Overview
               </h2>
               <p className="text-lg leading-relaxed text-zinc-600 dark:text-slate-400">
-                {parseMarkdown(details?.overview || experience.description)}
+                {parseMarkdown(experience.description)}
               </p>
             </motion.div>
 
             {/* Responsibilities */}
-            {details?.responsibilities && (
+            {experience.responsibilities && experience.responsibilities.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -174,10 +149,10 @@ export default function ExperienceDetailClient({
               >
                 <h2 className="mb-4 flex items-center gap-2 text-2xl font-semibold text-zinc-900 dark:text-white">
                   <Wrench className="h-6 w-6 text-indigo-500" />
-                  {isWork ? "What I Did" : "Coursework & Activities"}
+                  {isWork ? "Key Responsibilities" : "Activities"}
                 </h2>
                 <ul className="space-y-3">
-                  {details.responsibilities.map((item, i) => (
+                  {experience.responsibilities.map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-indigo-500" />
                       <span className="text-zinc-600 dark:text-slate-400">
@@ -186,59 +161,6 @@ export default function ExperienceDetailClient({
                     </li>
                   ))}
                 </ul>
-              </motion.div>
-            )}
-
-            {/* Achievements */}
-            {details?.achievements && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-              >
-                <h2 className="mb-4 flex items-center gap-2 text-2xl font-semibold text-zinc-900 dark:text-white">
-                  <CheckCircle className="h-6 w-6 text-emerald-500" />
-                  Key Achievements
-                </h2>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  {details.achievements.map((achievement, i) => (
-                    <div
-                      key={i}
-                      className="rounded-xl border border-emerald-100 bg-emerald-50 p-4 dark:border-emerald-500/20 dark:bg-emerald-500/10"
-                    >
-                      <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
-                        ✓ {parseMarkdown(achievement)}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
-            {/* Learnings */}
-            {details?.learnings && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-              >
-                <h2 className="mb-4 flex items-center gap-2 text-2xl font-semibold text-zinc-900 dark:text-white">
-                  <Lightbulb className="h-6 w-6 text-amber-500" />
-                  What I Learned
-                </h2>
-                <div className="space-y-4">
-                  {details.learnings.map((learning, i) => (
-                    <div
-                      key={i}
-                      className="flex items-start gap-3 rounded-xl border border-amber-100 bg-amber-50 p-4 dark:border-amber-500/20 dark:bg-amber-500/10"
-                    >
-                      <span className="text-2xl">💡</span>
-                      <p className="text-amber-800 dark:text-amber-300">
-                        {learning}
-                      </p>
-                    </div>
-                  ))}
-                </div>
               </motion.div>
             )}
           </div>
@@ -265,96 +187,39 @@ export default function ExperienceDetailClient({
                       {experience.period}
                     </dd>
                   </div>
-                  {details?.duration && (
-                    <div>
-                      <dt className="mb-1 text-xs text-zinc-500 dark:text-slate-500">
-                        Duration
-                      </dt>
-                      <dd className="font-medium text-zinc-900 dark:text-white">
-                        {details.duration}
-                      </dd>
-                    </div>
-                  )}
-                  {details?.role && (
-                    <div>
-                      <dt className="mb-1 text-xs text-zinc-500 dark:text-slate-500">
-                        Role
-                      </dt>
-                      <dd className="font-medium text-zinc-900 dark:text-white">
-                        {details.role}
-                      </dd>
-                    </div>
-                  )}
-                  {details?.location && (
-                    <div>
-                      <dt className="mb-1 text-xs text-zinc-500 dark:text-slate-500">
-                        Location
-                      </dt>
-                      <dd className="font-medium text-zinc-900 dark:text-white">
-                        {details.location}
-                      </dd>
-                    </div>
-                  )}
-                  {details?.programLink && (
-                    <div>
-                      <dt className="mb-1 text-xs text-zinc-500 dark:text-slate-500">
-                        Program Website
-                      </dt>
-                      <dd className="font-medium text-zinc-900 dark:text-white">
-                        <a
-                          href={details.programLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-indigo-600 hover:underline dark:text-indigo-400"
-                        >
-                          View Program{" "}
-                          <ArrowLeft className="h-3 w-3 rotate-180" />
-                        </a>
-                      </dd>
-                    </div>
-                  )}
+                  <div>
+                    <dt className="mb-1 text-xs text-zinc-500 dark:text-slate-500">
+                      Role
+                    </dt>
+                    <dd className="font-medium text-zinc-900 dark:text-white">
+                      {experience.role}
+                    </dd>
+                  </div>
                 </dl>
               </div>
 
-              {/* Skills */}
-              {details?.skills && (
+              {/* Technologies */}
+              {experience.technologies && experience.technologies.length > 0 && (
                 <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-slate-700 dark:bg-slate-800">
                   <h3 className="mb-4 font-semibold text-zinc-900 dark:text-white">
-                    Skills Developed
+                    Technologies
                   </h3>
                   <div className="flex flex-wrap gap-2">
-                    {details.skills.map(skill => (
+                    {experience.technologies.map(tech => (
                       <span
-                        key={skill}
-                        className="rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-700 dark:border-slate-600 dark:bg-slate-700 dark:text-slate-300"
+                        key={tech}
+                        className="rounded-lg border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-sm text-indigo-600 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-400"
                       >
-                        {skill}
+                        {tech}
                       </span>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* Technologies */}
-              <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-slate-700 dark:bg-slate-800">
-                <h3 className="mb-4 font-semibold text-zinc-900 dark:text-white">
-                  Technologies
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {experience.technologies.map(tech => (
-                    <span
-                      key={tech}
-                      className="rounded-lg border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-sm text-indigo-600 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-400"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
               {/* Type Badge */}
               <div
-                className={`rounded-2xl bg-gradient-to-br ${experience.color} p-6`}
+                className={`rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-600 p-6`}
               >
                 <div className="flex items-center gap-3 text-white">
                   <Icon className="h-8 w-8" />

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"
-import { experiences, experienceDetails } from "@/lib/experience-data"
+import { experiences } from "@/lib/experience-data"
 import ExperienceDetailClient from "./experience-detail-client"
 
 interface PageProps {
@@ -29,11 +29,10 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function ExperiencePage({ params }: PageProps) {
   const { id } = await params
   const experience = experiences.find(e => e.id === id)
-  const details = experienceDetails[id]
 
   if (!experience) {
     notFound()
   }
 
-  return <ExperienceDetailClient experience={experience} details={details} />
+  return <ExperienceDetailClient experience={experience} />
 }

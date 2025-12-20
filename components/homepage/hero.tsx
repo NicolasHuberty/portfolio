@@ -9,8 +9,6 @@ import cursorYouImage from "@/public/images/cursor-you.svg"
 import designExample1Image from "@/public/images/design-example-1.png"
 import designExample2Image from "@/public/images/design-example-2.png"
 
-import SearchForm from "../search-form"
-
 export default function Hero() {
   const searchParams = useSearchParams()
   const query = searchParams.get("query") || ""
@@ -78,6 +76,7 @@ export default function Hero() {
             src={designExample1Image}
             alt="design example 1 image"
             draggable={false}
+            className="w-48 h-auto"
           />
         </motion.div>
         <motion.div
@@ -99,6 +98,7 @@ export default function Hero() {
             src={designExample2Image}
             alt="design example 2 image"
             draggable={false}
+            className="w-48 h-auto"
           />
         </motion.div>
         <motion.div
