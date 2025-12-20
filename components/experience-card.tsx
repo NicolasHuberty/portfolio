@@ -46,13 +46,13 @@ export default function ExperienceCard({
         }}
       />
 
-      <div className="relative p-8">
+      <div className="relative p-6 sm:p-8">
         {/* Header */}
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex items-start gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+          <div className="flex items-start gap-3 sm:gap-4">
             {/* Icon/Logo */}
             <motion.div
-              className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-3xl backdrop-blur-sm ${logo ? "p-2" : ""}`}
+              className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-2xl backdrop-blur-sm sm:h-14 sm:w-14 sm:text-3xl ${logo ? "p-2" : ""}`}
               whileHover={{ rotate: [0, -10, 10, -10, 0] }}
               transition={{ duration: 0.5 }}
             >
@@ -68,22 +68,24 @@ export default function ExperienceCard({
             </motion.div>
 
             {/* Role and Company */}
-            <div>
-              <h3 className="text-2xl font-bold text-white">{role}</h3>
+            <div className="min-w-0 flex-1">
+              <h3 className="text-lg font-bold text-white sm:text-2xl">
+                {role}
+              </h3>
               <div className="mt-1 flex flex-wrap items-center gap-2">
-                <p className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-lg font-semibold text-transparent">
+                <p className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-base font-semibold text-transparent sm:text-lg">
                   {company}
                 </p>
-                <span className="rounded-full bg-purple-500/20 px-3 py-1 text-xs font-medium text-purple-300">
+                <span className="rounded-full bg-purple-500/20 px-2 py-0.5 text-xs font-medium text-purple-300 sm:px-3 sm:py-1">
                   {type}
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Period */}
+          {/* Period - shows below on mobile, right side on desktop */}
           {period && (
-            <div className="flex-shrink-0 text-right text-sm text-white/60">
+            <div className="pl-15 flex-shrink-0 text-xs text-white/60 sm:pl-0 sm:text-right sm:text-sm">
               {period}
             </div>
           )}
