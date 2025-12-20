@@ -3,8 +3,6 @@
 import { motion } from "framer-motion"
 import {
   ArrowRight,
-  Sparkles,
-  Building,
   Stethoscope,
   Scale,
   Code2,

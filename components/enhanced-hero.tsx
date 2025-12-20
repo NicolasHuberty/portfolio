@@ -105,8 +105,6 @@ export default function EnhancedHero() {
   // Smooth mouse tracking
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
-  const smoothMouseX = useSpring(mouseX, { damping: 20, stiffness: 100 })
-  const smoothMouseY = useSpring(mouseY, { damping: 20, stiffness: 100 })
 
   useEffect(() => {
     setMounted(true)

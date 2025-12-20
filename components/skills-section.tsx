@@ -5,19 +5,16 @@ import { useRef } from "react"
 import {
   Brain,
   Database,
-  Workflow,
-  MessageSquare,
-  FileSearch,
-  Cloud,
   Search,
-  Rocket,
-  Cog,
-  Sparkles,
-  ArrowRight,
   Cpu,
+  Cog,
+  Rocket,
+  ArrowRight,
   Code2,
   Layers,
   Network,
+  Workflow,
+  Sparkles,
 } from "lucide-react"
 import Image from "next/image"
 

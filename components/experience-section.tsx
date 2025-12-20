@@ -40,10 +40,11 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
           <div className="min-w-0 flex-1">
             {/* Type badge */}
             <span
-              className={`mb-2 inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium ${exp.type === "work"
-                ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400"
-                : "bg-violet-50 text-violet-600 dark:bg-violet-500/10 dark:text-violet-400"
-                }`}
+              className={`mb-2 inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium ${
+                exp.type === "work"
+                  ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400"
+                  : "bg-violet-50 text-violet-600 dark:bg-violet-500/10 dark:text-violet-400"
+              }`}
             >
               {exp.type === "work" ? (
                 <>
@@ -141,7 +142,7 @@ export default function ExperienceSection() {
               <Briefcase className="h-5 w-5 text-indigo-500" />
               Work Experience
             </h3>
-            <div className="relative space-y-8 border-l-0 border-zinc-200 pb-2 dark:border-slate-700 sm:ml-3 sm:border-l-2 sm:space-y-12">
+            <div className="relative space-y-8 border-l-0 border-zinc-200 pb-2 dark:border-slate-700 sm:ml-3 sm:space-y-12 sm:border-l-2">
               {workExperiences.map((exp, index) => (
                 <div key={exp.id} className="relative pl-0 sm:pl-10">
                   {/* Timeline Dot - Hidden on very small screens, shown above sm */}
@@ -159,7 +160,7 @@ export default function ExperienceSection() {
               <GraduationCap className="h-5 w-5 text-violet-500" />
               Education
             </h3>
-            <div className="relative space-y-8 border-l-0 border-zinc-200 pb-2 dark:border-slate-700 sm:ml-3 sm:border-l-2 sm:space-y-12">
+            <div className="relative space-y-8 border-l-0 border-zinc-200 pb-2 dark:border-slate-700 sm:ml-3 sm:space-y-12 sm:border-l-2">
               {educationExperiences.map((exp, index) => (
                 <div key={exp.id} className="relative pl-0 sm:pl-10">
                   {/* Timeline Dot - Hidden on very small screens, shown above sm */}

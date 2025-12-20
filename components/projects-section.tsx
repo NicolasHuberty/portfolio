@@ -11,10 +11,11 @@ function StatusBadge({ status }: { status: ProjectStatus }) {
   const isOnline = status === "online"
   return (
     <div
-      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${isOnline
+      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${
+        isOnline
           ? "border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-400"
           : "border border-zinc-200 bg-zinc-100 text-zinc-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400"
-        }`}
+      }`}
     >
       <Circle
         className={`h-2 w-2 ${isOnline ? "fill-emerald-500 text-emerald-500" : "fill-zinc-400 text-zinc-400"}`}
@@ -82,10 +83,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                         e.preventDefault()
                         setCurrentImage(i)
                       }}
-                      className={`h-2 w-2 rounded-full transition-all ${i === currentImage
+                      className={`h-2 w-2 rounded-full transition-all ${
+                        i === currentImage
                           ? "w-6 bg-white"
                           : "bg-white/50 hover:bg-white/75"
-                        }`}
+                      }`}
                     />
                   ))}
                 </div>
