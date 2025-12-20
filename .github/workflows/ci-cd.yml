@@ -8,7 +8,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
   # ArgoCD Config
   ARGO_APP_NAME: "portfolio-dev"
   ARGO_SERVER: "argo.huberty.pro"
@@ -79,13 +78,17 @@ jobs:
       packages: write
     outputs:
       short_sha: ${{ steps.vars.outputs.short_sha }}
+      lower_image_name: ${{ steps.vars.outputs.lower_image_name }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Set short SHA
+      - name: Set Variables (Short SHA and Lowercase Image Name)
         id: vars
-        run: echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+        run: |
+          echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+          # This converts "NicolasHuberty/portfolio" to "nicolashuberty/portfolio"
+          echo "lower_image_name=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -103,8 +106,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ steps.vars.outputs.short_sha }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ steps.vars.outputs.lower_image_name }}:sha-${{ steps.vars.outputs.short_sha }}
+            ${{ env.REGISTRY }}/${{ steps.vars.outputs.lower_image_name }}:latest
           platforms: linux/amd64,linux/arm64
 
   # Job 5: ArgoCD Rollout via API
@@ -119,8 +122,6 @@ jobs:
           
           echo "Updating ${{ env.ARGO_APP_NAME }} to tag $NEW_TAG"
           
-          # This PATCH command overrides the Helm image.tag parameter
-          # It does not create any commits in your Infra Git repo.
           curl -f -X PATCH "https://${{ env.ARGO_SERVER }}/api/v1/applications/${{ env.ARGO_APP_NAME }}" \
             -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
             -H "Content-Type: application/merge-patch+json" \
@@ -141,6 +142,5 @@ jobs:
 
       - name: Trigger Sync
         run: |
-          # Force ArgoCD to sync immediately with the new parameter
           curl -f -X POST "https://${{ env.ARGO_SERVER }}/api/v1/applications/${{ env.ARGO_APP_NAME }}/sync" \
             -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}"
