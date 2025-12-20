@@ -9,6 +9,9 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  # ArgoCD Config
+  ARGO_APP_NAME: "portfolio-dev"
+  ARGO_SERVER: "argo.huberty.pro"
 
 jobs:
   # Job 1: Lint and Format Check
@@ -18,18 +21,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-
       - name: Install dependencies
         run: bun install --frozen-lockfile
-
       - name: Run ESLint
         run: bun run lint
-
       - name: Check formatting
         run: bun run format:check
 
@@ -40,15 +39,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-
       - name: Install dependencies
         run: bun install --frozen-lockfile
-
       - name: Run TypeScript check
         run: bunx tsc --noEmit
         continue-on-error: true
@@ -61,15 +57,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
-
       - name: Install dependencies
         run: bun install --frozen-lockfile
-
       - name: Build application
         run: bun run build
         env:
@@ -80,14 +73,19 @@ jobs:
     name: Docker Build & Push
     runs-on: ubuntu-latest
     needs: [build]
-    # Build Docker for main, master, OR dev branches
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev')
     permissions:
       contents: read
       packages: write
+    outputs:
+      short_sha: ${{ steps.vars.outputs.short_sha }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      
+      - name: Set short SHA
+        id: vars
+        run: echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -99,26 +97,50 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels)
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            # Branch name tag (main, dev, etc.)
-            type=ref,event=branch
-            # Git SHA (short) for traceability
-            type=sha,prefix=,format=short
-            # 'latest' only for main/master branch
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' }}
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ steps.vars.outputs.short_sha }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           platforms: linux/amd64,linux/arm64
+
+  # Job 5: ArgoCD Rollout via API
+  deploy:
+    name: ArgoCD API Rollout
+    runs-on: ubuntu-latest
+    needs: [docker]
+    steps:
+      - name: Update ArgoCD Image Parameter
+        run: |
+          NEW_TAG="sha-${{ needs.docker.outputs.short_sha }}"
+          
+          echo "Updating ${{ env.ARGO_APP_NAME }} to tag $NEW_TAG"
+          
+          # This PATCH command overrides the Helm image.tag parameter
+          # It does not create any commits in your Infra Git repo.
+          curl -f -X PATCH "https://${{ env.ARGO_SERVER }}/api/v1/applications/${{ env.ARGO_APP_NAME }}" \
+            -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
+            -H "Content-Type: application/merge-patch+json" \
+            -d '{
+              "spec": {
+                "source": {
+                  "helm": {
+                    "parameters": [
+                      {
+                        "name": "image.tag",
+                        "value": "'"$NEW_TAG"'"
+                      }
+                    ]
+                  }
+                }
+              }
+            }'
+
+      - name: Trigger Sync
+        run: |
+          # Force ArgoCD to sync immediately with the new parameter
+          curl -f -X POST "https://${{ env.ARGO_SERVER }}/api/v1/applications/${{ env.ARGO_APP_NAME }}/sync" \
+            -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}"
