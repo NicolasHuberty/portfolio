@@ -15,7 +15,7 @@ export default function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    window.location.href = `mailto:contact@nicolashuberty.com?subject=Contact from ${formState.name}&body=${formState.message}`
+    window.location.href = `mailto:huberty.nicolas@hotmail.com?subject=Contact from ${formState.name}&body=${formState.message}`
   }
 
   return (
@@ -133,11 +133,11 @@ export default function ContactSection() {
               Or reach out directly
             </p>
             <a
-              href="mailto:contact@nicolashuberty.com"
+              href="mailto:huberty.nicolas@hotmail.com"
               className="inline-flex items-center gap-2 text-zinc-600 transition-colors hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400"
             >
               <Mail className="h-4 w-4" />
-              contact@nicolashuberty.com
+              huberty.nicolas@hotmail.com
             </a>
           </motion.div>
         </div>

@@ -175,11 +175,10 @@ export default function Sidebar() {
 
                     <button
                       onClick={() => setTheme("light")}
-                      className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 ${
-                        theme === "light"
-                          ? "text-indigo-600 dark:text-white"
-                          : "text-zinc-500 hover:text-zinc-800 dark:text-slate-400 dark:hover:text-slate-200"
-                      }`}
+                      className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 ${theme === "light"
+                        ? "text-indigo-600 dark:text-white"
+                        : "text-zinc-500 hover:text-zinc-800 dark:text-slate-400 dark:hover:text-slate-200"
+                        }`}
                     >
                       <Sun
                         className={`h-4 w-4 transition-transform duration-500 ${theme === "light" ? "rotate-0 scale-110" : "rotate-[20deg] scale-90 opacity-70"}`}
@@ -188,11 +187,10 @@ export default function Sidebar() {
                     </button>
                     <button
                       onClick={() => setTheme("dark")}
-                      className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 ${
-                        theme === "dark"
-                          ? "text-indigo-600 dark:text-white"
-                          : "text-zinc-500 hover:text-zinc-800 dark:text-slate-400 dark:hover:text-slate-200"
-                      }`}
+                      className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 ${theme === "dark"
+                        ? "text-indigo-600 dark:text-white"
+                        : "text-zinc-500 hover:text-zinc-800 dark:text-slate-400 dark:hover:text-slate-200"
+                        }`}
                     >
                       <Moon
                         className={`h-4 w-4 transition-transform duration-500 ${theme === "dark" ? "rotate-0 scale-110" : "-rotate-[20deg] scale-90 opacity-70"}`}
@@ -220,7 +218,7 @@ export default function Sidebar() {
                   <Github className="h-4 w-4" />
                 </a>
                 <a
-                  href="https://linkedin.com/in/nicolas-huberty"
+                  href="https://www.linkedin.com/in/nicolas-huberty-a1068723b"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 transition-all hover:bg-[#0077b5] hover:text-white dark:bg-slate-700 dark:text-slate-400"
@@ -229,7 +227,7 @@ export default function Sidebar() {
                   <Linkedin className="h-4 w-4" />
                 </a>
                 <a
-                  href="mailto:contact@nicolashuberty.com"
+                  href="mailto:huberty.nicolas@hotmail.com"
                   className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 transition-all hover:bg-rose-500 hover:text-white dark:bg-slate-700 dark:text-slate-400"
                   title="Email"
                 >
@@ -346,11 +344,10 @@ export default function Sidebar() {
 
                       <button
                         onClick={() => setTheme("light")}
-                        className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 ${
-                          theme === "light"
-                            ? "text-indigo-600 dark:text-white"
-                            : "text-zinc-500 dark:text-slate-400"
-                        }`}
+                        className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 ${theme === "light"
+                          ? "text-indigo-600 dark:text-white"
+                          : "text-zinc-500 dark:text-slate-400"
+                          }`}
                       >
                         <Sun
                           className={`h-4 w-4 transition-transform duration-500 ${theme === "light" ? "rotate-0 scale-110" : "rotate-[20deg] scale-90 opacity-70"}`}
@@ -359,11 +356,10 @@ export default function Sidebar() {
                       </button>
                       <button
                         onClick={() => setTheme("dark")}
-                        className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 ${
-                          theme === "dark"
-                            ? "text-indigo-600 dark:text-white"
-                            : "text-zinc-500 dark:text-slate-400"
-                        }`}
+                        className={`relative z-10 flex flex-1 items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-300 ${theme === "dark"
+                          ? "text-indigo-600 dark:text-white"
+                          : "text-zinc-500 dark:text-slate-400"
+                          }`}
                       >
                         <Moon
                           className={`h-4 w-4 transition-transform duration-500 ${theme === "dark" ? "rotate-0 scale-110" : "-rotate-[20deg] scale-90 opacity-70"}`}
@@ -385,7 +381,7 @@ export default function Sidebar() {
                     <Github className="h-4 w-4" />
                   </a>
                   <a
-                    href="https://linkedin.com/in/nicolas-huberty"
+                    href="https://www.linkedin.com/in/nicolas-huberty-a1068723b"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 transition-all hover:bg-[#0077b5] hover:text-white dark:bg-slate-700 dark:text-slate-400"
@@ -393,7 +389,7 @@ export default function Sidebar() {
                     <Linkedin className="h-4 w-4" />
                   </a>
                   <a
-                    href="mailto:contact@nicolashuberty.com"
+                    href="mailto:huberty.nicolas@hotmail.com"
                     className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 transition-all hover:bg-rose-500 hover:text-white dark:bg-slate-700 dark:text-slate-400"
                   >
                     <Mail className="h-4 w-4" />

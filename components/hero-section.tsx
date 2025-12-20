@@ -123,10 +123,10 @@ export default function HeroSection() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="relative hidden lg:block"
+            className="relative order-first lg:order-last"
           >
             {/* Main visual container */}
-            <div className="relative mx-auto aspect-square w-full max-w-lg">
+            <div className="relative mx-auto aspect-square w-full max-w-sm">
               {/* Rotating gradient ring */}
               <div className="animate-spin-slow absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-500 via-cyan-500 to-violet-500 opacity-20 blur-3xl" />
 
