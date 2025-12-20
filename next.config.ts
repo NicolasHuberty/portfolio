@@ -2,6 +2,7 @@ import { withSentryConfig } from "@sentry/nextjs"
 import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -14,8 +15,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  cacheComponents: true,
 }
+
 
 export default withSentryConfig(nextConfig, {
   // For all available options, see:

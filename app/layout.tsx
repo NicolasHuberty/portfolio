@@ -1,5 +1,4 @@
 import "./globals.css"
-import "easymde/dist/easymde.min.css"
 
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"

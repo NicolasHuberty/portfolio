@@ -1,21 +1,16 @@
 <div align="center">
-  <!-- <br /> -->
-    <!-- <a href="https://aayushbharti.vercel.app" target="_blank">
-      <img src="https://github.com/user-attachments/assets/471e2baa-8781-43b8-aaed-62e313d03e99" alt="Project Banner">
-    </a> -->
-  <!-- <br /> -->
 
   <div>
-    <img src="https://img.shields.io/badge/-Typescript-black?style=for-the-badge&logoColor=white&logo=react&color=3178C6" alt="typescript" />
+    <img src="https://img.shields.io/badge/-Typescript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="typescript" />
     <img src="https://img.shields.io/badge/-Next_JS-black?style=for-the-badge&logoColor=white&logo=nextdotjs&color=000000" alt="nextdotjs" />
     <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
-    <img src="https://img.shields.io/badge/-Sanity-black?style=for-the-badge&logoColor=white&logo=sanity&color=F03E2F" alt="sanity" />
+    <img src="https://img.shields.io/badge/-Docker-black?style=for-the-badge&logoColor=white&logo=docker&color=2496ED" alt="docker" />
   </div>
 
-<h3 align="center">Next ventures - Startup Directory Platform</h3>
+<h3 align="center">Nicolas Huberty - Portfolio</h3>
 
    <div align="center">
-     A platform where entrepreneurs can submit their startup ideas for virtual pitch competitions, browse other pitches, and gain exposure through a clean minimalistic design for a smooth user experience.
+     Personal portfolio website showcasing AI engineering expertise, projects, and professional experience.
     </div>
 </div>
 
@@ -25,66 +20,40 @@
 2. ⚙️ [Tech Stack](#tech-stack)
 3. 🔋 [Features](#features)
 4. 🤸 [Quick Start](#quick-start)
-<!-- 5. 🚀 [More](#more) -->
-
-## 🚨 About
-
-This project showcases the latest features of Next.js 15, including Next.js Form
-for seamless client-side form submissions, Unstable After for background tasks,
-Server Component HMR Cache for faster development, and Partial Prerendering for
-performance optimization.
+5. 🐳 [Docker Deployment](#docker)
+6. 🚀 [CI/CD Pipeline](#cicd)
 
 ## <a name="introduction">🤖 Introduction</a>
 
-A Next.js 15 platform where entrepreneurs can submit their startup ideas for
-virtual pitch competitions, browse other pitches, and gain exposure through a
-clean minimalistic design for a smooth user experience.
+A modern, responsive portfolio website built with Next.js 16, featuring smooth animations, 
+dark/light theme support, and optimized for production deployment with Docker.
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
 - React 19
-- Next.js 15
+- Next.js 16
 - TypeScript
-- Sanity
-- Next-Auth
 - TailwindCSS
-- ShadCN
-- Groq
-- Sentry
-- Markdown
+- Framer Motion
+- ShadCN UI
+- Sentry (Error Tracking)
+- Docker
 
 ## <a name="features">🔋 Features</a>
 
-👉 **Live Content API**: Displays the latest startup ideas dynamically on the
-homepage using Sanity's Content API.
+👉 **Responsive Design**: Fully responsive layout that works on all devices
 
-👉 **GitHub Authentication**: Allows users to log in easily using their GitHub
-account.
+👉 **Dark/Light Theme**: System-aware theme switching with smooth transitions
 
-👉 **Pitch Submission**: Users can submit startup ideas, including title,
-description, category, and multimedia links ( image or video).
+👉 **Animated UI**: Smooth animations powered by Framer Motion
 
-👉 **View Pitches**: Browse through submitted ideas with filtering options by
-category.
+👉 **Project Showcase**: Detailed project pages with descriptions and links
 
-👉 **Pitch Details Page**: Click on any pitch to view its details, with
-multimedia and description displayed.
+👉 **Experience Timeline**: Professional experience with interactive navigation
 
-👉 **Profile Page**: Users can view the list of pitches they've submitted.
+👉 **Contact Section**: Easy-to-use contact form
 
-👉 **Editor Picks**: Admins can highlight top startup ideas using the "Editor
-Picks" feature managed via Sanity Studio.
-
-👉 **Views Counter**: Tracks the number of views for each pitch instead of an
-upvote system.
-
-👉 **Search**: Search functionality to load and view pitches efficiently.
-
-👉 **Minimalistic Design**: Fresh and simple UI with only the essential pages
-for ease of use and a clean aesthetic.
-
-and many more, including the latest **React 19**, **Next.js 15** and **Sanity**
-features alongside code architecture and reusability
+👉 **Performance Optimized**: Standalone Next.js build for minimal Docker images
 
 ## <a name="quick-start">🤸 Quick Start</a>
 
@@ -95,49 +64,83 @@ Follow these steps to set up the project locally on your machine.
 Make sure you have the following installed on your machine:
 
 - [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/en)
-- [npm](https://www.npmjs.com/) (Node Package Manager)
+- [Bun](https://bun.sh/) (recommended) or [Node.js](https://nodejs.org/en)
 
 **Cloning the Repository**
 
 ```bash
-git clone https://github.com/AayushBharti/Next-ventures.git
-cd pitchify
+git clone <your-repo-url>
+cd portfolio
 ```
 
-<!-- **Installation**
+**Installation**
 
-Install the project dependencies using npm:
+Install the project dependencies:
 
 ```bash
-npm install
+bun install
 ```
-
-**Set Up Environment Variables**
-
-Create a new file named `.env.local` in the root of your project and add the
-following content:
-
-```env
-NEXT_PUBLIC_SANITY_PROJECT_ID=
-NEXT_PUBLIC_SANITY_DATASET=
-NEXT_PUBLIC_SANITY_API_VERSION='vX'
-SANITY_TOKEN=
-
-AUTH_SECRET=
-AUTH_GITHUB_ID=
-AUTH_GITHUB_SECRET=
-``` -->
-
-<!-- Replace the placeholder values with your actual Sanity credentials. You can
-obtain these credentials by signing up & creating a new project on the
-[Sanity website](https://www.sanity.io/).
 
 **Running the Project**
 
 ```bash
-npm run dev
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the
-project. -->
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
+
+## <a name="docker">🐳 Docker Deployment</a>
+
+This project includes Docker support optimized for production deployments.
+
+### Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/) (optional)
+
+### Building the Docker Image
+
+```bash
+docker build -t portfolio:latest .
+```
+
+### Running the Container
+
+```bash
+docker run -d -p 3000:3000 portfolio:latest
+```
+
+### Using Docker Compose
+
+```bash
+# Production mode
+docker-compose up -d portfolio
+
+# Development mode with hot reload
+docker-compose --profile dev up portfolio-dev
+```
+
+### Health Check
+
+The container includes a health check endpoint at `/api/health`:
+
+```bash
+curl http://localhost:3000/api/health
+```
+
+## <a name="cicd">🚀 CI/CD Pipeline</a>
+
+This project includes a GitHub Actions workflow that:
+
+1. **Lints and Format Checks** - Runs ESLint and Prettier checks
+2. **Type Checks** - Validates TypeScript types
+3. **Builds** - Verifies the Next.js build succeeds
+4. **Docker Build & Push** - Builds and pushes Docker image to GitHub Container Registry (on main/master push)
+
+### Optional GitHub Secrets
+
+For GitHub authentication (optional), add these secrets:
+
+- `AUTH_SECRET` - Secret for NextAuth.js
+- `AUTH_GITHUB_ID` - GitHub OAuth App ID
+- `AUTH_GITHUB_SECRET` - GitHub OAuth App Secret
