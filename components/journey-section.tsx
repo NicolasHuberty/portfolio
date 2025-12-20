@@ -70,7 +70,7 @@ export default function JourneySection() {
         {/* Timeline */}
         <div className="relative space-y-16">
           {/* Vertical line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-emerald-500 to-blue-500 opacity-20 lg:left-1/2" />
+          <div className="absolute bottom-0 left-8 top-0 w-0.5 bg-gradient-to-b from-blue-500 via-emerald-500 to-blue-500 opacity-20 lg:left-1/2" />
 
           {journeySteps.map((step, index) => (
             <motion.div
@@ -89,24 +89,32 @@ export default function JourneySection() {
               {/* Content */}
               <div
                 className={`lg:col-span-1 ${
-                  index % 2 === 1 ? "lg:col-start-2 lg:text-left" : "lg:text-right"
+                  index % 2 === 1
+                    ? "lg:col-start-2 lg:text-left"
+                    : "lg:text-right"
                 }`}
               >
-                <div className={`ml-20 lg:ml-0 ${index % 2 === 1 ? "" : "lg:mr-12"}`}>
+                <div
+                  className={`ml-20 lg:ml-0 ${index % 2 === 1 ? "" : "lg:mr-12"}`}
+                >
                   <div
                     className={`mb-3 inline-block rounded-full px-4 py-1.5 text-sm font-semibold ${
                       step.color === "blue"
                         ? "bg-blue-500/10 text-blue-400"
                         : step.color === "emerald"
-                        ? "bg-emerald-500/10 text-emerald-400"
-                        : "bg-gradient-to-r from-blue-500/10 to-emerald-500/10 text-blue-400"
+                          ? "bg-emerald-500/10 text-emerald-400"
+                          : "bg-gradient-to-r from-blue-500/10 to-emerald-500/10 text-blue-400"
                     }`}
                   >
                     {step.year}
                   </div>
-                  <h3 className="mb-2 text-3xl font-bold text-white">{step.title}</h3>
+                  <h3 className="mb-2 text-3xl font-bold text-white">
+                    {step.title}
+                  </h3>
                   <p className="mb-4 text-lg text-slate-300">{step.subtitle}</p>
-                  <p className="mb-4 text-slate-400 leading-relaxed">{step.description}</p>
+                  <p className="mb-4 leading-relaxed text-slate-400">
+                    {step.description}
+                  </p>
 
                   {/* Highlights */}
                   {step.highlights && (

@@ -40,10 +40,20 @@ export function FacebookPixel({ pixelId }: FacebookPixelProps) {
     // Initialize Facebook Pixel
     if (typeof window !== "undefined" && !window.fbq) {
       // Load Facebook Pixel script
-      ;(function (f: any, b: Document, e: string, v: string, n: any, t: any, s: any) {
+      ;(function (
+        f: any,
+        b: Document,
+        e: string,
+        v: string,
+        n: any,
+        t: any,
+        s: any,
+      ) {
         if (f.fbq) return
         n = f.fbq = function () {
-          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments)
         }
         if (!f._fbq) f._fbq = n
         n.push = n
@@ -62,7 +72,7 @@ export function FacebookPixel({ pixelId }: FacebookPixelProps) {
         "https://connect.facebook.net/en_US/fbevents.js",
         undefined,
         undefined,
-        undefined
+        undefined,
       )
 
       window.fbq("init", pixelId)

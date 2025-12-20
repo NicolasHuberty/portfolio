@@ -27,10 +27,12 @@ export default function Skills() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-6 backdrop-blur"
             >
-              <h3 className="text-2xl font-bold text-purple-400">{category.title}</h3>
+              <h3 className="text-2xl font-bold text-purple-400">
+                {category.title}
+              </h3>
 
               <ul className="mt-6 space-y-3">
-                {category.items.map((skill) => (
+                {category.items.map(skill => (
                   <li
                     key={skill}
                     className="flex items-start gap-2 text-white/80"

@@ -31,8 +31,8 @@ export default function BackgroundExperienceSection() {
               </span>
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-white/60">
-              A passionate journey through AI, computer science, and cutting-edge
-              technology
+              A passionate journey through AI, computer science, and
+              cutting-edge technology
             </p>
           </div>
         </ScrollReveal>
@@ -58,7 +58,11 @@ export default function BackgroundExperienceSection() {
                 <motion.div
                   className="mb-2 text-4xl"
                   animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: index * 0.2,
+                  }}
                 >
                   {stat.icon}
                 </motion.div>
@@ -230,7 +234,10 @@ export default function BackgroundExperienceSection() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.05 }}
-                        whileHover={{ x: 10, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+                        whileHover={{
+                          x: 10,
+                          backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        }}
                       >
                         <div className="h-2 w-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400" />
                         <span className="text-white/80">{interest}</span>

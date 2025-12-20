@@ -10,7 +10,12 @@ interface TimelineItemProps {
   side?: "left" | "right"
 }
 
-function TimelineItem({ children, date, index, side = "right" }: TimelineItemProps) {
+function TimelineItem({
+  children,
+  date,
+  index,
+  side = "right",
+}: TimelineItemProps) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
@@ -56,7 +61,9 @@ function TimelineItem({ children, date, index, side = "right" }: TimelineItemPro
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.6, delay: index * 0.2 + 0.4 }}
         >
-          <div className="mb-2 text-sm font-semibold text-purple-400">{date}</div>
+          <div className="mb-2 text-sm font-semibold text-purple-400">
+            {date}
+          </div>
           {children}
         </motion.div>
       </div>
@@ -78,8 +85,18 @@ export default function AnimatedTimeline({ children }: AnimatedTimelineProps) {
         animate={{ scale: 1, rotate: 0 }}
         transition={{ duration: 0.6, type: "spring" }}
       >
-        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        <svg
+          className="h-6 w-6 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+          />
         </svg>
       </motion.div>
 
@@ -93,8 +110,18 @@ export default function AnimatedTimeline({ children }: AnimatedTimelineProps) {
         viewport={{ once: true }}
         transition={{ duration: 0.6, type: "spring" }}
       >
-        <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        <svg
+          className="h-6 w-6 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M5 13l4 4L19 7"
+          />
         </svg>
       </motion.div>
     </div>

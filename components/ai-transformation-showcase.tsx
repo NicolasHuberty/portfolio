@@ -82,7 +82,7 @@ export default function AITransformationShowcase() {
 
       // Draw by layers (back to front)
       for (let currentLayer = 0; currentLayer < numLayers; currentLayer++) {
-        const layerParticles = particles.filter((p) => p.layer === currentLayer)
+        const layerParticles = particles.filter(p => p.layer === currentLayer)
         const layerOpacity = 0.3 + (currentLayer / numLayers) * 0.7
 
         // Update and draw particles for this layer
@@ -95,8 +95,10 @@ export default function AITransformationShowcase() {
           const layerInfluence = mouseInfluence * (1 + currentLayer * 0.3)
           if (distToMouse < layerInfluence) {
             const force = (layerInfluence - distToMouse) / layerInfluence
-            particle.vx += (dx / distToMouse) * force * 0.15 * (1 + currentLayer * 0.2)
-            particle.vy += (dy / distToMouse) * force * 0.15 * (1 + currentLayer * 0.2)
+            particle.vx +=
+              (dx / distToMouse) * force * 0.15 * (1 + currentLayer * 0.2)
+            particle.vy +=
+              (dy / distToMouse) * force * 0.15 * (1 + currentLayer * 0.2)
           }
 
           // Update position
@@ -130,7 +132,8 @@ export default function AITransformationShowcase() {
             const distance = Math.sqrt(dx * dx + dy * dy)
 
             if (distance < maxDistance) {
-              const baseOpacity = (1 - distance / maxDistance) * 0.4 * layerOpacity
+              const baseOpacity =
+                (1 - distance / maxDistance) * 0.4 * layerOpacity
               const opacity = layerDiff === 0 ? baseOpacity : baseOpacity * 0.3
 
               // Color based on distance to mouse and layer
@@ -138,7 +141,9 @@ export default function AITransformationShowcase() {
               const avgY = (particle.y + other.y) / 2
               const dxMouse = mousePos.x - avgX
               const dyMouse = mousePos.y - avgY
-              const distToMouseLine = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse)
+              const distToMouseLine = Math.sqrt(
+                dxMouse * dxMouse + dyMouse * dyMouse,
+              )
 
               let color = `rgba(${100 - currentLayer * 20}, ${116 - currentLayer * 15}, 139, `
               if (distToMouseLine < mouseInfluence * 1.8) {
@@ -164,10 +169,12 @@ export default function AITransformationShowcase() {
         })
 
         // Draw particles for this layer
-        layerParticles.forEach((particle) => {
+        layerParticles.forEach(particle => {
           const dxMouse = mousePos.x - particle.x
           const dyMouse = mousePos.y - particle.y
-          const distToMouseParticle = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse)
+          const distToMouseParticle = Math.sqrt(
+            dxMouse * dxMouse + dyMouse * dyMouse,
+          )
 
           // Size and color based on proximity to mouse and layer
           let size = particle.baseSize
@@ -176,7 +183,9 @@ export default function AITransformationShowcase() {
 
           const layerInfluence = mouseInfluence * (1 + currentLayer * 0.3)
           if (distToMouseParticle < layerInfluence * 1.5) {
-            size = particle.baseSize + (1 - distToMouseParticle / (layerInfluence * 1.5)) * 3
+            size =
+              particle.baseSize +
+              (1 - distToMouseParticle / (layerInfluence * 1.5)) * 3
             const ratio = distToMouseParticle / (layerInfluence * 1.5)
             if (ratio < 0.33) {
               particleColor = `rgba(59, 130, 246, ${0.8 + layerOpacity * 0.2})`
@@ -229,8 +238,12 @@ export default function AITransformationShowcase() {
       {/* Overlay text - subtle */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 hover:opacity-100">
         <div className="text-center">
-          <div className="text-sm font-semibold text-slate-400/60">AI Neural Network</div>
-          <div className="mt-1 text-xs text-slate-500/40">3 Depth Layers • 400 Nodes</div>
+          <div className="text-sm font-semibold text-slate-400/60">
+            AI Neural Network
+          </div>
+          <div className="mt-1 text-xs text-slate-500/40">
+            3 Depth Layers • 400 Nodes
+          </div>
         </div>
       </div>
 

@@ -5,7 +5,10 @@ import logoImage from "@/public/images/logo.svg"
 const footerLinks = [
   { href: "#contact", label: "Contact" },
   { href: "https://github.com/NicolasHuberty", label: "GitHub" },
-  { href: "https://www.linkedin.com/in/nicolas-huberty-a1068723b/", label: "LinkedIn" },
+  {
+    href: "https://www.linkedin.com/in/nicolas-huberty-a1068723b/",
+    label: "LinkedIn",
+  },
 ]
 
 export default function Footer() {

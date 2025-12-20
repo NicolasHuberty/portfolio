@@ -36,7 +36,8 @@ export default function SmartGreeting() {
       let browser = "Unknown Browser"
       if (ua.includes("Firefox")) browser = "Firefox"
       else if (ua.includes("Chrome") && !ua.includes("Edg")) browser = "Chrome"
-      else if (ua.includes("Safari") && !ua.includes("Chrome")) browser = "Safari"
+      else if (ua.includes("Safari") && !ua.includes("Chrome"))
+        browser = "Safari"
       else if (ua.includes("Edg")) browser = "Edge"
 
       // Detect OS
@@ -49,8 +50,14 @@ export default function SmartGreeting() {
 
       // Detect device type
       let device = "Desktop"
-      if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) device = "Tablet"
-      else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) device = "Mobile"
+      if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua))
+        device = "Tablet"
+      else if (
+        /Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+          ua,
+        )
+      )
+        device = "Mobile"
 
       return {
         browser,
@@ -114,101 +121,119 @@ export default function SmartGreeting() {
     setGreeting(personalizedGreeting)
 
     // Simulate what Facebook Pixel WOULD send (but can't get back)
-    setFacebookPixelDemo([
-      "✅ PageView event sent to Facebook",
-      `✅ Device: ${deviceInfo.device} (${deviceInfo.os})`,
-      `✅ Browser: ${deviceInfo.browser}`,
-      `✅ Screen: ${deviceInfo.screenResolution}`,
-      `✅ Language: ${deviceInfo.language}`,
-      visitorInfo.country ? `✅ Country: ${visitorInfo.country}` : "",
-      "❌ User's Name: NOT AVAILABLE",
-      "❌ Facebook Profile: NOT AVAILABLE",
-      "❌ Email: NOT AVAILABLE",
-      "ℹ️  Facebook uses this data for ad targeting",
-      "ℹ️  But YOU can't retrieve user identity",
-    ].filter(Boolean))
+    setFacebookPixelDemo(
+      [
+        "✅ PageView event sent to Facebook",
+        `✅ Device: ${deviceInfo.device} (${deviceInfo.os})`,
+        `✅ Browser: ${deviceInfo.browser}`,
+        `✅ Screen: ${deviceInfo.screenResolution}`,
+        `✅ Language: ${deviceInfo.language}`,
+        visitorInfo.country ? `✅ Country: ${visitorInfo.country}` : "",
+        "❌ User's Name: NOT AVAILABLE",
+        "❌ Facebook Profile: NOT AVAILABLE",
+        "❌ Email: NOT AVAILABLE",
+        "ℹ️  Facebook uses this data for ad targeting",
+        "ℹ️  But YOU can't retrieve user identity",
+      ].filter(Boolean),
+    )
   }, [visitorInfo, deviceInfo])
 
   if (loading) {
     return (
-      <div className="w-full max-w-4xl mx-auto p-8 space-y-6">
+      <div className="mx-auto w-full max-w-4xl space-y-6 p-8">
         <div className="animate-pulse space-y-4">
-          <div className="h-20 bg-slate-800 rounded-lg"></div>
-          <div className="h-64 bg-slate-800 rounded-lg"></div>
+          <div className="h-20 rounded-lg bg-slate-800"></div>
+          <div className="h-64 rounded-lg bg-slate-800"></div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-8 space-y-6">
+    <div className="mx-auto w-full max-w-4xl space-y-6 p-8">
       {/* Smart Greeting - The "WOW" Factor */}
       <div className="relative overflow-hidden rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-950/50 to-blue-950/50 p-8">
-        <div className="absolute inset-0 bg-grid-white/[0.02]"></div>
+        <div className="bg-grid-white/[0.02] absolute inset-0"></div>
         <div className="relative">
-          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400 mb-2">
+          <h1 className="mb-2 bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-4xl font-bold text-transparent">
             {greeting}
           </h1>
-          <p className="text-slate-400 text-sm">
+          <p className="text-sm text-slate-400">
             No login required • No OAuth • Just smart detection
           </p>
         </div>
       </div>
 
       {/* What We Know About You */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-6">
-          <h3 className="text-lg font-semibold text-slate-300 mb-4 flex items-center gap-2">
+          <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-300">
             <span className="text-2xl">📍</span> Location Info
           </h3>
           <div className="space-y-2 text-sm">
             {visitorInfo?.city && (
               <div className="flex justify-between">
                 <span className="text-slate-500">City:</span>
-                <span className="text-slate-300 font-medium">{visitorInfo.city}</span>
+                <span className="font-medium text-slate-300">
+                  {visitorInfo.city}
+                </span>
               </div>
             )}
             {visitorInfo?.region && (
               <div className="flex justify-between">
                 <span className="text-slate-500">Region:</span>
-                <span className="text-slate-300 font-medium">{visitorInfo.region}</span>
+                <span className="font-medium text-slate-300">
+                  {visitorInfo.region}
+                </span>
               </div>
             )}
             {visitorInfo?.country && (
               <div className="flex justify-between">
                 <span className="text-slate-500">Country:</span>
-                <span className="text-slate-300 font-medium">{visitorInfo.country}</span>
+                <span className="font-medium text-slate-300">
+                  {visitorInfo.country}
+                </span>
               </div>
             )}
             {visitorInfo?.timezone && (
               <div className="flex justify-between">
                 <span className="text-slate-500">Timezone:</span>
-                <span className="text-slate-300 font-medium">{visitorInfo.timezone}</span>
+                <span className="font-medium text-slate-300">
+                  {visitorInfo.timezone}
+                </span>
               </div>
             )}
           </div>
         </div>
 
         <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-6">
-          <h3 className="text-lg font-semibold text-slate-300 mb-4 flex items-center gap-2">
+          <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-slate-300">
             <span className="text-2xl">💻</span> Device Info
           </h3>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-slate-500">Browser:</span>
-              <span className="text-slate-300 font-medium">{deviceInfo?.browser}</span>
+              <span className="font-medium text-slate-300">
+                {deviceInfo?.browser}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-slate-500">OS:</span>
-              <span className="text-slate-300 font-medium">{deviceInfo?.os}</span>
+              <span className="font-medium text-slate-300">
+                {deviceInfo?.os}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-slate-500">Device:</span>
-              <span className="text-slate-300 font-medium">{deviceInfo?.device}</span>
+              <span className="font-medium text-slate-300">
+                {deviceInfo?.device}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-slate-500">Screen:</span>
-              <span className="text-slate-300 font-medium">{deviceInfo?.screenResolution}</span>
+              <span className="font-medium text-slate-300">
+                {deviceInfo?.screenResolution}
+              </span>
             </div>
           </div>
         </div>
@@ -216,22 +241,22 @@ export default function SmartGreeting() {
 
       {/* Facebook Pixel Reality Check */}
       <div className="rounded-xl border border-yellow-500/20 bg-yellow-950/10 p-6">
-        <h3 className="text-lg font-semibold text-yellow-400 mb-4 flex items-center gap-2">
+        <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-yellow-400">
           <span className="text-2xl">⚠️</span> Facebook Pixel Reality Check
         </h3>
-        <p className="text-slate-400 text-sm mb-4">
+        <p className="mb-4 text-sm text-slate-400">
           If you had Facebook Pixel installed, here's what would happen:
         </p>
         <div className="space-y-1 font-mono text-xs">
           {facebookPixelDemo.map((line, idx) => (
             <div
               key={idx}
-              className={`p-2 rounded ${
+              className={`rounded p-2 ${
                 line.includes("✅")
                   ? "bg-emerald-950/30 text-emerald-400"
                   : line.includes("❌")
-                  ? "bg-red-950/30 text-red-400"
-                  : "bg-blue-950/30 text-blue-400"
+                    ? "bg-red-950/30 text-red-400"
+                    : "bg-blue-950/30 text-blue-400"
               }`}
             >
               {line}
@@ -242,29 +267,41 @@ export default function SmartGreeting() {
 
       {/* The Truth */}
       <div className="rounded-xl border border-purple-500/20 bg-purple-950/10 p-6">
-        <h3 className="text-lg font-semibold text-purple-400 mb-4">
+        <h3 className="mb-4 text-lg font-semibold text-purple-400">
           💡 The Bottom Line
         </h3>
         <ul className="space-y-3 text-sm text-slate-300">
           <li className="flex gap-3">
-            <span className="text-red-400 font-bold">✗</span>
-            <span>Facebook Pixel <strong>cannot</strong> give you the visitor's name</span>
+            <span className="font-bold text-red-400">✗</span>
+            <span>
+              Facebook Pixel <strong>cannot</strong> give you the visitor's name
+            </span>
           </li>
           <li className="flex gap-3">
-            <span className="text-red-400 font-bold">✗</span>
-            <span>No way to get identity from just cookies/fingerprint without OAuth</span>
+            <span className="font-bold text-red-400">✗</span>
+            <span>
+              No way to get identity from just cookies/fingerprint without OAuth
+            </span>
           </li>
           <li className="flex gap-3">
-            <span className="text-emerald-400 font-bold">✓</span>
-            <span>You <strong>can</strong> use IP geolocation for city/country (shown above)</span>
+            <span className="font-bold text-emerald-400">✓</span>
+            <span>
+              You <strong>can</strong> use IP geolocation for city/country
+              (shown above)
+            </span>
           </li>
           <li className="flex gap-3">
-            <span className="text-emerald-400 font-bold">✓</span>
-            <span>You <strong>can</strong> detect device, browser, time of day (shown above)</span>
+            <span className="font-bold text-emerald-400">✓</span>
+            <span>
+              You <strong>can</strong> detect device, browser, time of day
+              (shown above)
+            </span>
           </li>
           <li className="flex gap-3">
-            <span className="text-emerald-400 font-bold">✓</span>
-            <span>Creating smart, contextual greetings is the best "wow" factor</span>
+            <span className="font-bold text-emerald-400">✓</span>
+            <span>
+              Creating smart, contextual greetings is the best "wow" factor
+            </span>
           </li>
         </ul>
       </div>

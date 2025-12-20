@@ -35,7 +35,9 @@ export default function Introduction() {
           </div>
 
           <div className="mt-10 text-center text-4xl font-medium md:text-6xl lg:text-7xl">
-            <span>Building intelligent systems that empower professionals.</span>{" "}
+            <span>
+              Building intelligent systems that empower professionals.
+            </span>{" "}
             <span className="">
               {words.map((word, wordIndex) => (
                 <span

@@ -82,7 +82,7 @@ export default function SpotifySidebar() {
             { name: "GitHub", icon: "G", href: "https://github.com" },
             { name: "LinkedIn", icon: "L", href: "https://linkedin.com" },
             { name: "Twitter", icon: "T", href: "https://twitter.com" },
-          ].map((social) => (
+          ].map(social => (
             <motion.a
               key={social.name}
               href={social.href}

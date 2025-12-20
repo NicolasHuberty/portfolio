@@ -9,7 +9,7 @@ const SkillColumn = ({
   items,
   reverse = false,
   duration = 20,
-  delay = 0
+  delay = 0,
 }: {
   items: string[]
   reverse?: boolean
@@ -24,7 +24,7 @@ const SkillColumn = ({
         duration,
         repeat: Infinity,
         ease: "linear",
-        delay
+        delay,
       }}
       className="flex flex-col gap-4 pb-4"
     >
@@ -39,7 +39,9 @@ const SkillColumn = ({
             >
               <div className="flex items-center gap-3">
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-400/20 to-pink-400/20 transition-all duration-300 group-hover:from-purple-400/30 group-hover:to-pink-400/30 group-hover:shadow-md group-hover:shadow-pink-400/20">
-                  <span className="text-xl text-pink-400 transition-transform duration-300 group-hover:scale-110">▹</span>
+                  <span className="text-xl text-pink-400 transition-transform duration-300 group-hover:scale-110">
+                    ▹
+                  </span>
                 </div>
                 <span className="text-base font-medium text-white/90 transition-colors duration-300 group-hover:text-white">
                   {item}
@@ -56,11 +58,36 @@ const SkillColumn = ({
 export default function Integrations() {
   const skillCategories = [
     { title: skills.ai.title, items: skills.ai.items, duration: 35, delay: 0 },
-    { title: skills.programming.title, items: skills.programming.items, duration: 25, delay: 0.5 },
-    { title: skills.frameworks.title, items: skills.frameworks.items, duration: 30, delay: 1 },
-    { title: skills.devops.title, items: skills.devops.items, duration: 28, delay: 0.3 },
-    { title: skills.data.title, items: skills.data.items, duration: 32, delay: 0.7 },
-    { title: skills.other.title, items: skills.other.items, duration: 38, delay: 0.2 },
+    {
+      title: skills.programming.title,
+      items: skills.programming.items,
+      duration: 25,
+      delay: 0.5,
+    },
+    {
+      title: skills.frameworks.title,
+      items: skills.frameworks.items,
+      duration: 30,
+      delay: 1,
+    },
+    {
+      title: skills.devops.title,
+      items: skills.devops.items,
+      duration: 28,
+      delay: 0.3,
+    },
+    {
+      title: skills.data.title,
+      items: skills.data.items,
+      duration: 32,
+      delay: 0.7,
+    },
+    {
+      title: skills.other.title,
+      items: skills.other.items,
+      duration: 38,
+      delay: 0.2,
+    },
   ]
 
   return (
@@ -74,8 +101,9 @@ export default function Integrations() {
               Technologies
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg text-white/50">
-              From AI and machine learning to cloud infrastructure and modern web frameworks,
-              I leverage the best tools to build scalable, intelligent systems.
+              From AI and machine learning to cloud infrastructure and modern
+              web frameworks, I leverage the best tools to build scalable,
+              intelligent systems.
             </p>
           </div>
 

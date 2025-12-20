@@ -14,7 +14,16 @@ interface MetricCardProps {
   delay?: number
 }
 
-function MetricCard({ title, value, suffix = "", prefix = "", color, trend, icon, delay = 0 }: MetricCardProps) {
+function MetricCard({
+  title,
+  value,
+  suffix = "",
+  prefix = "",
+  color,
+  trend,
+  icon,
+  delay = 0,
+}: MetricCardProps) {
   const [displayValue, setDisplayValue] = useState(0)
 
   useEffect(() => {
@@ -90,7 +99,17 @@ function MetricCard({ title, value, suffix = "", prefix = "", color, trend, icon
   )
 }
 
-function ProgressBar({ label, value, color, delay = 0 }: { label: string; value: number; color: string; delay?: number }) {
+function ProgressBar({
+  label,
+  value,
+  color,
+  delay = 0,
+}: {
+  label: string
+  value: number
+  color: string
+  delay?: number
+}) {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
@@ -124,7 +143,15 @@ function ProgressBar({ label, value, color, delay = 0 }: { label: string; value:
   )
 }
 
-function MiniChart({ data, color, delay = 0 }: { data: number[]; color: string; delay?: number }) {
+function MiniChart({
+  data,
+  color,
+  delay = 0,
+}: {
+  data: number[]
+  color: string
+  delay?: number
+}) {
   const max = Math.max(...data)
   const min = Math.min(...data)
   const range = max - min
@@ -160,9 +187,9 @@ export default function AIDashboard() {
   // Simulate real-time updates
   useEffect(() => {
     const interval = setInterval(() => {
-      setApiCalls((prev) => prev + Math.floor(Math.random() * 5))
+      setApiCalls(prev => prev + Math.floor(Math.random() * 5))
       if (Math.random() > 0.7) {
-        setActiveModels((prev) => Math.min(prev + 1, 8))
+        setActiveModels(prev => Math.min(prev + 1, 8))
       }
     }, 3000)
 
@@ -185,7 +212,9 @@ export default function AIDashboard() {
       >
         <div>
           <h3 className="text-xl font-bold text-white">AI Operations</h3>
-          <p className="text-sm text-slate-400">Real-time performance metrics</p>
+          <p className="text-sm text-slate-400">
+            Real-time performance metrics
+          </p>
         </div>
         <div className="flex items-center gap-2">
           <motion.div
@@ -204,7 +233,7 @@ export default function AIDashboard() {
       </motion.div>
 
       {/* Metrics Grid */}
-      <div className="relative z-10 grid grid-cols-2 gap-4 mb-6">
+      <div className="relative z-10 mb-6 grid grid-cols-2 gap-4">
         <MetricCard
           title="Model Accuracy"
           value={98}
@@ -248,13 +277,30 @@ export default function AIDashboard() {
         className="relative z-10 space-y-4 rounded-xl border border-slate-800/50 bg-slate-900/50 p-4 backdrop-blur-sm"
       >
         <div className="mb-3 flex items-center justify-between">
-          <span className="text-sm font-semibold text-slate-300">Training Progress</span>
+          <span className="text-sm font-semibold text-slate-300">
+            Training Progress
+          </span>
           <span className="text-xs text-slate-500">Last 7 days</span>
         </div>
 
-        <ProgressBar label="GPT Fine-tuning" value={94} color="#10b981" delay={0.6} />
-        <ProgressBar label="Image Classification" value={87} color="#3b82f6" delay={0.7} />
-        <ProgressBar label="Sentiment Analysis" value={98} color="#8b5cf6" delay={0.8} />
+        <ProgressBar
+          label="GPT Fine-tuning"
+          value={94}
+          color="#10b981"
+          delay={0.6}
+        />
+        <ProgressBar
+          label="Image Classification"
+          value={87}
+          color="#3b82f6"
+          delay={0.7}
+        />
+        <ProgressBar
+          label="Sentiment Analysis"
+          value={98}
+          color="#8b5cf6"
+          delay={0.8}
+        />
       </motion.div>
 
       {/* Mini Chart */}
@@ -265,7 +311,9 @@ export default function AIDashboard() {
         className="relative z-10 mt-4 rounded-xl border border-slate-800/50 bg-slate-900/50 p-4 backdrop-blur-sm"
       >
         <div className="mb-3 flex items-center justify-between">
-          <span className="text-sm font-semibold text-slate-300">Accuracy Trend</span>
+          <span className="text-sm font-semibold text-slate-300">
+            Accuracy Trend
+          </span>
           <span className="flex items-center gap-1 text-xs text-emerald-400">
             <span>↗</span>
             <span>+12.3%</span>

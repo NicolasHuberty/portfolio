@@ -38,7 +38,8 @@ export default function VisitorGreeting() {
       let browser = "Unknown Browser"
       if (ua.includes("Firefox")) browser = "Firefox"
       else if (ua.includes("Chrome") && !ua.includes("Edg")) browser = "Chrome"
-      else if (ua.includes("Safari") && !ua.includes("Chrome")) browser = "Safari"
+      else if (ua.includes("Safari") && !ua.includes("Chrome"))
+        browser = "Safari"
       else if (ua.includes("Edg")) browser = "Edge"
 
       let os = "Unknown OS"
@@ -49,8 +50,13 @@ export default function VisitorGreeting() {
       else if (ua.includes("iOS")) os = "iOS"
 
       let device = "Desktop"
-      if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) device = "Tablet"
-      else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua))
+      if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua))
+        device = "Tablet"
+      else if (
+        /Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+          ua,
+        )
+      )
         device = "Mobile"
 
       return {
@@ -111,9 +117,13 @@ export default function VisitorGreeting() {
     }
 
     if (visitorInfo?.city && visitorInfo?.country) {
-      setGreeting(`${timeGreeting}, visitor from ${visitorInfo.city}, ${visitorInfo.country}! ${emoji}`)
+      setGreeting(
+        `${timeGreeting}, visitor from ${visitorInfo.city}, ${visitorInfo.country}! ${emoji}`,
+      )
     } else if (visitorInfo?.country) {
-      setGreeting(`${timeGreeting}, visitor from ${visitorInfo.country}! ${emoji}`)
+      setGreeting(
+        `${timeGreeting}, visitor from ${visitorInfo.country}! ${emoji}`,
+      )
     } else {
       setGreeting(`${timeGreeting}, ${deviceInfo.browser} user! ${emoji}`)
     }
@@ -127,10 +137,10 @@ export default function VisitorGreeting() {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="animate-pulse space-y-3">
-          <div className="h-8 w-3/4 bg-slate-700 rounded"></div>
+          <div className="h-8 w-3/4 rounded bg-slate-700"></div>
           <div className="grid grid-cols-2 gap-3">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-16 bg-slate-700 rounded-lg"></div>
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="h-16 rounded-lg bg-slate-700"></div>
             ))}
           </div>
         </div>
@@ -148,7 +158,7 @@ export default function VisitorGreeting() {
       className="relative z-20"
     >
       <motion.div
-        className="relative overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-950/60 via-purple-950/40 to-emerald-950/60 p-6 backdrop-blur-xl shadow-2xl shadow-blue-500/10"
+        className="relative overflow-hidden rounded-2xl border border-blue-500/30 bg-gradient-to-br from-blue-950/60 via-purple-950/40 to-emerald-950/60 p-6 shadow-2xl shadow-blue-500/10 backdrop-blur-xl"
         whileHover={{ scale: 1.01, borderColor: "rgba(59, 130, 246, 0.5)" }}
       >
         {/* Animated gradient overlay */}
@@ -167,7 +177,7 @@ export default function VisitorGreeting() {
         <div className="relative z-10">
           {/* Main Greeting */}
           <motion.h2
-            className="text-2xl font-bold mb-4"
+            className="mb-4 text-2xl font-bold"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -178,19 +188,22 @@ export default function VisitorGreeting() {
           </motion.h2>
 
           {/* Visitor Data Grid */}
-          <div className="grid grid-cols-2 gap-3 text-sm mb-4">
+          <div className="mb-4 grid grid-cols-2 gap-3 text-sm">
             {visitorInfo?.city && (
               <motion.div
-                className="flex items-center gap-2 rounded-lg bg-slate-900/60 border border-slate-700/50 p-3 backdrop-blur-sm"
+                className="flex items-center gap-2 rounded-lg border border-slate-700/50 bg-slate-900/60 p-3 backdrop-blur-sm"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.1 }}
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(15, 23, 42, 0.9)" }}
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "rgba(15, 23, 42, 0.9)",
+                }}
               >
                 <span className="text-xl">📍</span>
                 <div className="flex-1">
-                  <div className="text-slate-500 text-xs mb-0.5">Location</div>
-                  <div className="text-slate-200 font-semibold">
+                  <div className="mb-0.5 text-xs text-slate-500">Location</div>
+                  <div className="font-semibold text-slate-200">
                     {visitorInfo.city}, {visitorInfo.country_code}
                   </div>
                 </div>
@@ -199,64 +212,82 @@ export default function VisitorGreeting() {
 
             {deviceInfo && (
               <motion.div
-                className="flex items-center gap-2 rounded-lg bg-slate-900/60 border border-slate-700/50 p-3 backdrop-blur-sm"
+                className="flex items-center gap-2 rounded-lg border border-slate-700/50 bg-slate-900/60 p-3 backdrop-blur-sm"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.15 }}
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(15, 23, 42, 0.9)" }}
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "rgba(15, 23, 42, 0.9)",
+                }}
               >
                 <span className="text-xl">💻</span>
                 <div className="flex-1">
-                  <div className="text-slate-500 text-xs mb-0.5">Device</div>
-                  <div className="text-slate-200 font-semibold">{deviceInfo.device}</div>
+                  <div className="mb-0.5 text-xs text-slate-500">Device</div>
+                  <div className="font-semibold text-slate-200">
+                    {deviceInfo.device}
+                  </div>
                 </div>
               </motion.div>
             )}
 
             {deviceInfo?.browser && (
               <motion.div
-                className="flex items-center gap-2 rounded-lg bg-slate-900/60 border border-slate-700/50 p-3 backdrop-blur-sm"
+                className="flex items-center gap-2 rounded-lg border border-slate-700/50 bg-slate-900/60 p-3 backdrop-blur-sm"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(15, 23, 42, 0.9)" }}
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "rgba(15, 23, 42, 0.9)",
+                }}
               >
                 <span className="text-xl">🌐</span>
                 <div className="flex-1">
-                  <div className="text-slate-500 text-xs mb-0.5">Browser</div>
-                  <div className="text-slate-200 font-semibold">{deviceInfo.browser}</div>
+                  <div className="mb-0.5 text-xs text-slate-500">Browser</div>
+                  <div className="font-semibold text-slate-200">
+                    {deviceInfo.browser}
+                  </div>
                 </div>
               </motion.div>
             )}
 
             {deviceInfo?.os && (
               <motion.div
-                className="flex items-center gap-2 rounded-lg bg-slate-900/60 border border-slate-700/50 p-3 backdrop-blur-sm"
+                className="flex items-center gap-2 rounded-lg border border-slate-700/50 bg-slate-900/60 p-3 backdrop-blur-sm"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.25 }}
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(15, 23, 42, 0.9)" }}
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "rgba(15, 23, 42, 0.9)",
+                }}
               >
                 <span className="text-xl">🖥️</span>
                 <div className="flex-1">
-                  <div className="text-slate-500 text-xs mb-0.5">OS</div>
-                  <div className="text-slate-200 font-semibold">{deviceInfo.os}</div>
+                  <div className="mb-0.5 text-xs text-slate-500">OS</div>
+                  <div className="font-semibold text-slate-200">
+                    {deviceInfo.os}
+                  </div>
                 </div>
               </motion.div>
             )}
 
             {visitorInfo?.timezone && (
               <motion.div
-                className="flex items-center gap-2 rounded-lg bg-slate-900/60 border border-slate-700/50 p-3 backdrop-blur-sm"
+                className="flex items-center gap-2 rounded-lg border border-slate-700/50 bg-slate-900/60 p-3 backdrop-blur-sm"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 }}
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(15, 23, 42, 0.9)" }}
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "rgba(15, 23, 42, 0.9)",
+                }}
               >
                 <span className="text-xl">🕐</span>
                 <div className="flex-1">
-                  <div className="text-slate-500 text-xs mb-0.5">Timezone</div>
-                  <div className="text-slate-200 font-semibold">
+                  <div className="mb-0.5 text-xs text-slate-500">Timezone</div>
+                  <div className="font-semibold text-slate-200">
                     {visitorInfo.timezone.split("/").pop()}
                   </div>
                 </div>
@@ -265,16 +296,21 @@ export default function VisitorGreeting() {
 
             {deviceInfo?.screenResolution && (
               <motion.div
-                className="flex items-center gap-2 rounded-lg bg-slate-900/60 border border-slate-700/50 p-3 backdrop-blur-sm"
+                className="flex items-center gap-2 rounded-lg border border-slate-700/50 bg-slate-900/60 p-3 backdrop-blur-sm"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.35 }}
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(15, 23, 42, 0.9)" }}
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "rgba(15, 23, 42, 0.9)",
+                }}
               >
                 <span className="text-xl">📐</span>
                 <div className="flex-1">
-                  <div className="text-slate-500 text-xs mb-0.5">Screen</div>
-                  <div className="text-slate-200 font-semibold">{deviceInfo.screenResolution}</div>
+                  <div className="mb-0.5 text-xs text-slate-500">Screen</div>
+                  <div className="font-semibold text-slate-200">
+                    {deviceInfo.screenResolution}
+                  </div>
                 </div>
               </motion.div>
             )}
@@ -282,30 +318,35 @@ export default function VisitorGreeting() {
 
           {/* Privacy note */}
           <motion.div
-            className="flex items-center gap-2 text-xs text-slate-400 border-t border-slate-700/50 pt-3"
+            className="flex items-center gap-2 border-t border-slate-700/50 pt-3 text-xs text-slate-400"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
             <span>🔒</span>
             <span>
-              Detected via IP geolocation & browser APIs • No cookies required • All data shown above
+              Detected via IP geolocation & browser APIs • No cookies required •
+              All data shown above
             </span>
           </motion.div>
 
           {/* What Facebook Pixel CAN'T get */}
           <motion.div
-            className="mt-3 rounded-lg bg-red-950/20 border border-red-500/20 p-3"
+            className="mt-3 rounded-lg border border-red-500/20 bg-red-950/20 p-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <div className="text-xs text-red-300 font-semibold mb-1">⚠️ Facebook Pixel Reality:</div>
-            <div className="text-xs text-slate-400 space-y-0.5">
+            <div className="mb-1 text-xs font-semibold text-red-300">
+              ⚠️ Facebook Pixel Reality:
+            </div>
+            <div className="space-y-0.5 text-xs text-slate-400">
               <div>❌ Cannot get your name</div>
               <div>❌ Cannot get your email</div>
               <div>❌ Cannot get your social profiles</div>
-              <div className="text-emerald-400 mt-1">✅ Can only get data shown above (legally!)</div>
+              <div className="mt-1 text-emerald-400">
+                ✅ Can only get data shown above (legally!)
+              </div>
             </div>
           </motion.div>
         </div>

@@ -33,7 +33,8 @@ export default function NeuralNetworkVisualization() {
     // Generate neurons
     const newNeurons: Neuron[] = []
     for (let layer = 0; layer < LAYERS; layer++) {
-      const neuronsInLayer = layer === 0 || layer === LAYERS - 1 ? 6 : NEURONS_PER_LAYER
+      const neuronsInLayer =
+        layer === 0 || layer === LAYERS - 1 ? 6 : NEURONS_PER_LAYER
       for (let i = 0; i < neuronsInLayer; i++) {
         const x = (layer / (LAYERS - 1)) * WIDTH
         const ySpread = layer === 0 || layer === LAYERS - 1 ? 200 : 400
@@ -53,18 +54,17 @@ export default function NeuralNetworkVisualization() {
     // Generate connections between adjacent layers
     const newConnections: Connection[] = []
     for (let layer = 0; layer < LAYERS - 1; layer++) {
-      const currentLayerNeurons = newNeurons.filter((n) => n.layer === layer)
-      const nextLayerNeurons = newNeurons.filter((n) => n.layer === layer + 1)
+      const currentLayerNeurons = newNeurons.filter(n => n.layer === layer)
+      const nextLayerNeurons = newNeurons.filter(n => n.layer === layer + 1)
 
-      currentLayerNeurons.forEach((from) => {
+      currentLayerNeurons.forEach(from => {
         // Chaque neurone se connecte à 2 neurones (réduit de 4 à 2)
         const connectionCount = Math.min(2, nextLayerNeurons.length)
-        const indices = Array.from(
-          { length: connectionCount },
-          () => Math.floor(Math.random() * nextLayerNeurons.length)
+        const indices = Array.from({ length: connectionCount }, () =>
+          Math.floor(Math.random() * nextLayerNeurons.length),
         )
 
-        indices.forEach((idx) => {
+        indices.forEach(idx => {
           const to = nextLayerNeurons[idx]
           if (to) {
             newConnections.push({
@@ -85,26 +85,27 @@ export default function NeuralNetworkVisualization() {
   // Animation de propagation d'onde
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveWave((prev) => (prev + 1) % LAYERS)
+      setActiveWave(prev => (prev + 1) % LAYERS)
 
       // Active les neurones de la couche actuelle
-      setNeurons((prev) =>
-        prev.map((neuron) => ({
+      setNeurons(prev =>
+        prev.map(neuron => ({
           ...neuron,
           activation:
             neuron.layer === activeWave
               ? 1
               : Math.max(0, neuron.activation - 0.05),
-        }))
+        })),
       )
 
       // Active les connexions
-      setConnections((prev) =>
-        prev.map((conn) => ({
+      setConnections(prev =>
+        prev.map(conn => ({
           ...conn,
           active: conn.from.layer === activeWave,
-          flow: conn.from.layer === activeWave ? 1 : Math.max(0, conn.flow - 0.1),
-        }))
+          flow:
+            conn.from.layer === activeWave ? 1 : Math.max(0, conn.flow - 0.1),
+        })),
       )
     }, 100)
 
@@ -114,7 +115,9 @@ export default function NeuralNetworkVisualization() {
   // Mouse tracking
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = document.getElementById('neural-net')?.getBoundingClientRect()
+      const rect = document
+        .getElementById("neural-net")
+        ?.getBoundingClientRect()
       if (rect) {
         setMousePosition({
           x: e.clientX - rect.left,
@@ -122,8 +125,8 @@ export default function NeuralNetworkVisualization() {
         })
       }
     }
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
   return (
@@ -166,17 +169,35 @@ export default function NeuralNetworkVisualization() {
       <svg className="h-full w-full" viewBox={`0 0 ${WIDTH} ${HEIGHT}`}>
         <defs>
           {/* Gradient pour les connexions */}
-          <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient
+            id="connectionGradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
             <stop offset="0%" stopColor="rgb(59, 130, 246)" stopOpacity="0.1" />
-            <stop offset="50%" stopColor="rgb(16, 185, 129)" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="rgb(139, 92, 246)" stopOpacity="0.1" />
+            <stop
+              offset="50%"
+              stopColor="rgb(16, 185, 129)"
+              stopOpacity="0.3"
+            />
+            <stop
+              offset="100%"
+              stopColor="rgb(139, 92, 246)"
+              stopOpacity="0.1"
+            />
           </linearGradient>
 
           {/* Gradient pour connexions actives */}
           <linearGradient id="activeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="rgb(251, 146, 60)" stopOpacity="0.8" />
             <stop offset="50%" stopColor="rgb(234, 179, 8)" stopOpacity="1" />
-            <stop offset="100%" stopColor="rgb(236, 72, 153)" stopOpacity="0.8" />
+            <stop
+              offset="100%"
+              stopColor="rgb(236, 72, 153)"
+              stopOpacity="0.8"
+            />
           </linearGradient>
 
           {/* Glow filter */}
@@ -203,7 +224,7 @@ export default function NeuralNetworkVisualization() {
         {connections.map((conn, i) => {
           const distance = Math.sqrt(
             Math.pow(mousePosition.x - conn.from.x, 2) +
-            Math.pow(mousePosition.y - conn.from.y, 2)
+              Math.pow(mousePosition.y - conn.from.y, 2),
           )
           const isNearMouse = distance < 100
 
@@ -215,7 +236,11 @@ export default function NeuralNetworkVisualization() {
                 y1={conn.from.y}
                 x2={conn.to.x}
                 y2={conn.to.y}
-                stroke={conn.active || conn.flow > 0.5 ? "url(#activeGradient)" : "url(#connectionGradient)"}
+                stroke={
+                  conn.active || conn.flow > 0.5
+                    ? "url(#activeGradient)"
+                    : "url(#connectionGradient)"
+                }
                 strokeWidth={conn.active || conn.flow > 0.5 ? 2 : 1}
                 opacity={isNearMouse ? 0.8 : 0.3}
                 filter={conn.active ? "url(#glow)" : undefined}
@@ -249,10 +274,10 @@ export default function NeuralNetworkVisualization() {
         })}
 
         {/* Render neurons */}
-        {neurons.map((neuron) => {
+        {neurons.map(neuron => {
           const distance = Math.sqrt(
             Math.pow(mousePosition.x - neuron.x, 2) +
-            Math.pow(mousePosition.y - neuron.y, 2)
+              Math.pow(mousePosition.y - neuron.y, 2),
           )
           const isNearMouse = distance < 80
           const isActive = neuron.activation > 0.5
@@ -363,7 +388,9 @@ export default function NeuralNetworkVisualization() {
 
       {/* Info technique */}
       <div className="absolute right-6 top-6 rounded-xl border border-slate-800 bg-slate-900/80 px-4 py-3 backdrop-blur-sm">
-        <div className="text-xs font-semibold text-blue-400">Deep Learning Model</div>
+        <div className="text-xs font-semibold text-blue-400">
+          Deep Learning Model
+        </div>
         <div className="mt-1 text-xs text-slate-400">
           Transformer Architecture
         </div>

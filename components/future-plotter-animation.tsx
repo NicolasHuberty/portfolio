@@ -19,13 +19,16 @@ export default function FuturePlotterAnimation() {
   // Generate hundreds of possible future paths
   useEffect(() => {
     const pathCount = 200
-    const generatedLines: PathLine[] = Array.from({ length: pathCount }, (_, i) => ({
-      id: i,
-      angle: (Math.random() - 0.5) * 60, // Spread between -30 and +30 degrees
-      length: 50 + Math.random() * 150,
-      opacity: 0.1 + Math.random() * 0.2,
-      isOptimal: i === Math.floor(pathCount / 2), // One optimal path in the middle
-    }))
+    const generatedLines: PathLine[] = Array.from(
+      { length: pathCount },
+      (_, i) => ({
+        id: i,
+        angle: (Math.random() - 0.5) * 60, // Spread between -30 and +30 degrees
+        length: 50 + Math.random() * 150,
+        opacity: 0.1 + Math.random() * 0.2,
+        isOptimal: i === Math.floor(pathCount / 2), // One optimal path in the middle
+      }),
+    )
     setLines(generatedLines)
   }, [])
 
@@ -35,7 +38,7 @@ export default function FuturePlotterAnimation() {
       // Phase 1: Fog (2s)
       setPhase("fog")
       setScanProgress(0)
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      await new Promise(resolve => setTimeout(resolve, 2000))
 
       // Phase 2: Scanning (2s)
       setPhase("scanning")
@@ -43,12 +46,14 @@ export default function FuturePlotterAnimation() {
       const scanSteps = 60
       for (let i = 0; i <= scanSteps; i++) {
         setScanProgress(i / scanSteps)
-        await new Promise((resolve) => setTimeout(resolve, scanDuration / scanSteps))
+        await new Promise(resolve =>
+          setTimeout(resolve, scanDuration / scanSteps),
+        )
       }
 
       // Phase 3: Clear path (3s)
       setPhase("clear")
-      await new Promise((resolve) => setTimeout(resolve, 3000))
+      await new Promise(resolve => setTimeout(resolve, 3000))
 
       // Loop
       cycle()
@@ -119,8 +124,10 @@ export default function FuturePlotterAnimation() {
         {lines.map((line, i) => {
           const startX = 100
           const startY = 250
-          const endX = startX + Math.cos((line.angle * Math.PI) / 180) * line.length * 3
-          const endY = startY + Math.sin((line.angle * Math.PI) / 180) * line.length
+          const endX =
+            startX + Math.cos((line.angle * Math.PI) / 180) * line.length * 3
+          const endY =
+            startY + Math.sin((line.angle * Math.PI) / 180) * line.length
 
           // Calculate if this line is being scanned
           const lineProgress = i / lines.length
@@ -135,23 +142,28 @@ export default function FuturePlotterAnimation() {
               y2={endY}
               initial={{ pathLength: 0, opacity: 0 }}
               animate={{
-                pathLength: phase === "fog" || phase === "scanning" ? 1 : line.isOptimal ? 1 : 0,
+                pathLength:
+                  phase === "fog" || phase === "scanning"
+                    ? 1
+                    : line.isOptimal
+                      ? 1
+                      : 0,
                 opacity:
                   phase === "clear" && !line.isOptimal
                     ? 0
                     : phase === "clear" && line.isOptimal
-                    ? 1
-                    : isScanned
-                    ? 0.4
-                    : line.opacity,
+                      ? 1
+                      : isScanned
+                        ? 0.4
+                        : line.opacity,
                 strokeWidth: phase === "clear" && line.isOptimal ? 3 : 1,
               }}
               stroke={
                 phase === "clear" && line.isOptimal
                   ? "url(#optimalGradient)"
                   : isScanned
-                  ? "rgba(139, 92, 246, 0.4)"
-                  : "rgba(148, 163, 184, 0.2)"
+                    ? "rgba(139, 92, 246, 0.4)"
+                    : "rgba(148, 163, 184, 0.2)"
               }
               strokeLinecap="round"
               transition={{
@@ -236,7 +248,13 @@ export default function FuturePlotterAnimation() {
 
         {/* Gradients and filters */}
         <defs>
-          <linearGradient id="startGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient
+            id="startGradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
             <stop offset="0%" stopColor="#3b82f6" />
             <stop offset="100%" stopColor="#8b5cf6" />
           </linearGradient>
@@ -245,7 +263,13 @@ export default function FuturePlotterAnimation() {
             <stop offset="50%" stopColor="#3b82f6" />
             <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.2" />
           </linearGradient>
-          <linearGradient id="optimalGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient
+            id="optimalGradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
             <stop offset="0%" stopColor="#3b82f6" />
             <stop offset="50%" stopColor="#8b5cf6" />
             <stop offset="100%" stopColor="#10b981" />
@@ -275,7 +299,9 @@ export default function FuturePlotterAnimation() {
         </motion.div>
         <motion.div
           className="flex items-center gap-2 rounded-lg border border-slate-700/50 bg-slate-950/80 px-3 py-1.5 backdrop-blur-sm"
-          animate={{ opacity: phase === "fog" || phase === "scanning" ? 1 : 0.3 }}
+          animate={{
+            opacity: phase === "fog" || phase === "scanning" ? 1 : 0.3,
+          }}
         >
           <div className="h-1 w-8 rounded-full bg-slate-500/30" />
           <span className="text-xs text-slate-400">Possibilities</span>

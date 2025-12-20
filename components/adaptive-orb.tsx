@@ -25,7 +25,7 @@ export default function AdaptiveOrb() {
     centerY: number,
     baseRadius: number,
     points: number,
-    variation: number
+    variation: number,
   ) => {
     let path = `M `
     const angleStep = (Math.PI * 2) / points
@@ -33,7 +33,10 @@ export default function AdaptiveOrb() {
     for (let i = 0; i <= points; i++) {
       const angle = i * angleStep
       // Add organic variation to radius
-      const radiusVariation = baseRadius + Math.sin(angle * 3 + variation) * 20 + Math.cos(angle * 5 + variation * 1.5) * 15
+      const radiusVariation =
+        baseRadius +
+        Math.sin(angle * 3 + variation) * 20 +
+        Math.cos(angle * 5 + variation * 1.5) * 15
       const x = centerX + Math.cos(angle) * radiusVariation
       const y = centerY + Math.sin(angle) * radiusVariation
 
@@ -42,9 +45,18 @@ export default function AdaptiveOrb() {
       } else {
         // Use quadratic curves for smooth organic shape
         const prevAngle = (i - 1) * angleStep
-        const prevRadius = baseRadius + Math.sin(prevAngle * 3 + variation) * 20 + Math.cos(prevAngle * 5 + variation * 1.5) * 15
-        const controlX = centerX + Math.cos(prevAngle + angleStep / 2) * ((radiusVariation + prevRadius) / 2)
-        const controlY = centerY + Math.sin(prevAngle + angleStep / 2) * ((radiusVariation + prevRadius) / 2)
+        const prevRadius =
+          baseRadius +
+          Math.sin(prevAngle * 3 + variation) * 20 +
+          Math.cos(prevAngle * 5 + variation * 1.5) * 15
+        const controlX =
+          centerX +
+          Math.cos(prevAngle + angleStep / 2) *
+            ((radiusVariation + prevRadius) / 2)
+        const controlY =
+          centerY +
+          Math.sin(prevAngle + angleStep / 2) *
+            ((radiusVariation + prevRadius) / 2)
         path += `Q ${controlX},${controlY} ${x},${y} `
       }
     }
@@ -97,7 +109,11 @@ export default function AdaptiveOrb() {
 
           {/* Blur filter for glow */}
           <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur" />
+            <feGaussianBlur
+              in="SourceGraphic"
+              stdDeviation="20"
+              result="blur"
+            />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -105,8 +121,18 @@ export default function AdaptiveOrb() {
           </filter>
 
           {/* Strong glow filter */}
-          <filter id="strongGlow" x="-100%" y="-100%" width="300%" height="300%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="40" result="blur" />
+          <filter
+            id="strongGlow"
+            x="-100%"
+            y="-100%"
+            width="300%"
+            height="300%"
+          >
+            <feGaussianBlur
+              in="SourceGraphic"
+              stdDeviation="40"
+              result="blur"
+            />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="blur" />
@@ -116,7 +142,7 @@ export default function AdaptiveOrb() {
         </defs>
 
         {/* Background blob layers for depth */}
-        {[0, 1, 2].map((layer) => (
+        {[0, 1, 2].map(layer => (
           <motion.path
             key={`bg-blob-${layer}`}
             fill="url(#orbGradient)"
@@ -125,10 +151,34 @@ export default function AdaptiveOrb() {
             animate={{
               d: [
                 generateBlobPath(300, 250, 180 + layer * 20, 12, layer * 0.5),
-                generateBlobPath(300, 250, 180 + layer * 20, 12, layer * 0.5 + Math.PI * 0.5),
-                generateBlobPath(300, 250, 180 + layer * 20, 12, layer * 0.5 + Math.PI),
-                generateBlobPath(300, 250, 180 + layer * 20, 12, layer * 0.5 + Math.PI * 1.5),
-                generateBlobPath(300, 250, 180 + layer * 20, 12, layer * 0.5 + Math.PI * 2),
+                generateBlobPath(
+                  300,
+                  250,
+                  180 + layer * 20,
+                  12,
+                  layer * 0.5 + Math.PI * 0.5,
+                ),
+                generateBlobPath(
+                  300,
+                  250,
+                  180 + layer * 20,
+                  12,
+                  layer * 0.5 + Math.PI,
+                ),
+                generateBlobPath(
+                  300,
+                  250,
+                  180 + layer * 20,
+                  12,
+                  layer * 0.5 + Math.PI * 1.5,
+                ),
+                generateBlobPath(
+                  300,
+                  250,
+                  180 + layer * 20,
+                  12,
+                  layer * 0.5 + Math.PI * 2,
+                ),
               ],
               scale: [1, 1.05, 0.98, 1.02, 1],
             }}
@@ -236,7 +286,11 @@ export default function AdaptiveOrb() {
               transition={{
                 cx: { duration: 20 + i * 2, repeat: Infinity, ease: "linear" },
                 cy: { duration: 20 + i * 2, repeat: Infinity, ease: "linear" },
-                opacity: { duration: 3 + i * 0.2, repeat: Infinity, ease: "easeInOut" },
+                opacity: {
+                  duration: 3 + i * 0.2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                },
               }}
             />
           )
@@ -271,7 +325,9 @@ export default function AdaptiveOrb() {
           <div className="text-sm font-semibold text-white/80 backdrop-blur-sm">
             L'Orbe Adaptatif
           </div>
-          <div className="mt-1 text-xs text-slate-400">Intelligent • Fluide • Réactif</div>
+          <div className="mt-1 text-xs text-slate-400">
+            Intelligent • Fluide • Réactif
+          </div>
         </motion.div>
       </div>
 

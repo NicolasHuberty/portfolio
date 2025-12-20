@@ -6,7 +6,13 @@ import AIDashboard from "./ai-dashboard"
 import MaximumVisitorTracking from "./maximum-visitor-tracking"
 
 // Magnetic Button Component
-function MagneticButton({ children, href }: { children: React.ReactNode; href: string }) {
+function MagneticButton({
+  children,
+  href,
+}: {
+  children: React.ReactNode
+  href: string
+}) {
   const buttonRef = useRef<HTMLAnchorElement>(null)
   const [isHovered, setIsHovered] = useState(false)
   const mouseX = useMotionValue(0)
@@ -55,7 +61,13 @@ function MagneticButton({ children, href }: { children: React.ReactNode; href: s
 }
 
 // Counter Animation Component
-function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
+function AnimatedCounter({
+  value,
+  suffix = "",
+}: {
+  value: number
+  suffix?: string
+}) {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
@@ -117,7 +129,11 @@ export default function EnhancedHero() {
   }))
 
   return (
-    <section id="home" ref={heroRef} className="relative min-h-screen overflow-hidden">
+    <section
+      id="home"
+      ref={heroRef}
+      className="relative min-h-screen overflow-hidden"
+    >
       {/* Mouse spotlight effect */}
       <motion.div
         className="pointer-events-none absolute inset-0 z-10"
@@ -148,7 +164,7 @@ export default function EnhancedHero() {
       </div>
 
       {/* Animated grid background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)] opacity-20" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
 
       {/* Enhanced floating particles */}
       <div className="absolute inset-0">
@@ -305,9 +321,16 @@ export default function EnhancedHero() {
                     transition={{ duration: 0.5, delay: 1.5 + index * 0.1 }}
                   >
                     <div className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-3xl font-bold text-transparent">
-                      {mounted && <AnimatedCounter value={stat.value} suffix={stat.suffix} />}
+                      {mounted && (
+                        <AnimatedCounter
+                          value={stat.value}
+                          suffix={stat.suffix}
+                        />
+                      )}
                     </div>
-                    <div className="mt-1 text-sm text-slate-500">{stat.label}</div>
+                    <div className="mt-1 text-sm text-slate-500">
+                      {stat.label}
+                    </div>
                   </motion.div>
                 ))}
               </motion.div>

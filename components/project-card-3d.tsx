@@ -27,8 +27,16 @@ export default function ProjectCard3D({
   const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 })
   const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 })
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["17.5deg", "-17.5deg"])
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-17.5deg", "17.5deg"])
+  const rotateX = useTransform(
+    mouseYSpring,
+    [-0.5, 0.5],
+    ["17.5deg", "-17.5deg"],
+  )
+  const rotateY = useTransform(
+    mouseXSpring,
+    [-0.5, 0.5],
+    ["-17.5deg", "17.5deg"],
+  )
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -103,7 +111,9 @@ export default function ProjectCard3D({
           <h3 className="mb-3 text-2xl font-bold text-white">{title}</h3>
 
           {/* Description */}
-          <p className="mb-4 line-clamp-3 text-sm text-white/60">{description}</p>
+          <p className="mb-4 line-clamp-3 text-sm text-white/60">
+            {description}
+          </p>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2">

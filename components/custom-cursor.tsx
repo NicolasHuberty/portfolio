@@ -24,15 +24,17 @@ export default function CustomCursor() {
     window.addEventListener("mousemove", moveCursor)
 
     // Add hover effects to interactive elements
-    const interactiveElements = document.querySelectorAll("a, button, [role='button']")
-    interactiveElements.forEach((el) => {
+    const interactiveElements = document.querySelectorAll(
+      "a, button, [role='button']",
+    )
+    interactiveElements.forEach(el => {
       el.addEventListener("mouseenter", handleMouseEnter)
       el.addEventListener("mouseleave", handleMouseLeave)
     })
 
     return () => {
       window.removeEventListener("mousemove", moveCursor)
-      interactiveElements.forEach((el) => {
+      interactiveElements.forEach(el => {
         el.removeEventListener("mouseenter", handleMouseEnter)
         el.removeEventListener("mouseleave", handleMouseLeave)
       })

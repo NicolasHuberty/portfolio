@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { useEffect, useState } from "react"
-import FingerprintJS from '@fingerprintjs/fingerprintjs'
+import FingerprintJS from "@fingerprintjs/fingerprintjs"
 
 interface VisitorInfo {
   city?: string
@@ -80,7 +80,7 @@ export default function UltimateVisitorTracking() {
     twitter: false,
     tiktok: false,
     reddit: false,
-    snapchat: false
+    snapchat: false,
   })
   const [greeting, setGreeting] = useState("")
   const [loading, setLoading] = useState(true)
@@ -94,7 +94,8 @@ export default function UltimateVisitorTracking() {
       let browser = "Unknown"
       if (ua.includes("Firefox")) browser = "Firefox"
       else if (ua.includes("Chrome") && !ua.includes("Edg")) browser = "Chrome"
-      else if (ua.includes("Safari") && !ua.includes("Chrome")) browser = "Safari"
+      else if (ua.includes("Safari") && !ua.includes("Chrome"))
+        browser = "Safari"
       else if (ua.includes("Edg")) browser = "Edge"
 
       let os = "Unknown"
@@ -116,8 +117,10 @@ export default function UltimateVisitorTracking() {
         language: navigator.language,
         platform: navigator.platform,
         cpuCores: navigator.hardwareConcurrency || 0,
-        memory: (navigator as any).deviceMemory ? `${(navigator as any).deviceMemory}GB` : undefined,
-        touchSupport: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
+        memory: (navigator as any).deviceMemory
+          ? `${(navigator as any).deviceMemory}GB`
+          : undefined,
+        touchSupport: "ontouchstart" in window || navigator.maxTouchPoints > 0,
         doNotTrack: navigator.doNotTrack === "1",
         cookiesEnabled: navigator.cookieEnabled,
         javaEnabled: false, // Deprecated
@@ -135,22 +138,22 @@ export default function UltimateVisitorTracking() {
 
         const devices = await navigator.mediaDevices.enumerateDevices()
 
-        const cameras = devices.filter(d => d.kind === 'videoinput').length
-        const microphones = devices.filter(d => d.kind === 'audioinput').length
-        const speakers = devices.filter(d => d.kind === 'audiooutput').length
+        const cameras = devices.filter(d => d.kind === "videoinput").length
+        const microphones = devices.filter(d => d.kind === "audioinput").length
+        const speakers = devices.filter(d => d.kind === "audiooutput").length
         const deviceIds = devices
           .map(d => d.deviceId)
-          .filter(id => id && id !== 'default')
+          .filter(id => id && id !== "default")
           .map(id => id.substring(0, 8))
 
         setMediaDevices({
           cameras,
           microphones,
           speakers,
-          deviceIds
+          deviceIds,
         })
       } catch (error) {
-        console.error('MediaDevices error:', error)
+        console.error("MediaDevices error:", error)
       }
     }
 
@@ -160,16 +163,17 @@ export default function UltimateVisitorTracking() {
   // Network Information API (NEW!)
   useEffect(() => {
     const getNetworkInfo = () => {
-      const conn = (navigator as any).connection ||
-                    (navigator as any).mozConnection ||
-                    (navigator as any).webkitConnection
+      const conn =
+        (navigator as any).connection ||
+        (navigator as any).mozConnection ||
+        (navigator as any).webkitConnection
 
       if (conn) {
         setNetworkInfo({
           type: conn.type || conn.effectiveType,
           downlink: conn.downlink,
           rtt: conn.rtt,
-          effectiveType: conn.effectiveType
+          effectiveType: conn.effectiveType,
         })
       }
     }
@@ -189,7 +193,7 @@ export default function UltimateVisitorTracking() {
           confidence: result.confidence.score,
         })
       } catch (error) {
-        console.error('Fingerprint error:', error)
+        console.error("Fingerprint error:", error)
       }
     }
 
@@ -201,13 +205,13 @@ export default function UltimateVisitorTracking() {
     const detectWebRTCIP = () => {
       try {
         const pc = new RTCPeerConnection({
-          iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+          iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
         })
 
-        pc.createDataChannel('')
+        pc.createDataChannel("")
         pc.createOffer().then(offer => pc.setLocalDescription(offer))
 
-        pc.onicecandidate = (ice) => {
+        pc.onicecandidate = ice => {
           if (!ice || !ice.candidate) return
           const regex = /([0-9]{1,3}\.){3}[0-9]{1,3}/
           const match = ice.candidate.candidate.match(regex)
@@ -219,7 +223,7 @@ export default function UltimateVisitorTracking() {
 
         setTimeout(() => pc.close(), 5000)
       } catch (error) {
-        console.error('WebRTC error:', error)
+        console.error("WebRTC error:", error)
       }
     }
 
@@ -229,7 +233,7 @@ export default function UltimateVisitorTracking() {
   // Return Visitor Tracking
   useEffect(() => {
     const trackReturnVisitor = () => {
-      const storageKey = 'visitor_tracking'
+      const storageKey = "visitor_tracking"
       const stored = localStorage.getItem(storageKey)
 
       if (stored) {
@@ -268,11 +272,11 @@ export default function UltimateVisitorTracking() {
     // Simulate checking for tracking pixels
     setTimeout(() => {
       setPixels({
-        facebook: true,  // Your site could have Meta Pixel
-        linkedin: true,  // LinkedIn Insight Tag (for B2B)
-        twitter: false,  // X Pixel
-        tiktok: false,   // TikTok Pixel
-        reddit: false,   // Reddit Pixel
+        facebook: true, // Your site could have Meta Pixel
+        linkedin: true, // LinkedIn Insight Tag (for B2B)
+        twitter: false, // X Pixel
+        tiktok: false, // TikTok Pixel
+        reddit: false, // Reddit Pixel
         snapchat: false, // Snapchat Pixel
       })
     }, 1000)
@@ -354,10 +358,10 @@ export default function UltimateVisitorTracking() {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="animate-pulse space-y-3">
-          <div className="h-8 w-3/4 bg-slate-700 rounded"></div>
+          <div className="h-8 w-3/4 rounded bg-slate-700"></div>
           <div className="grid grid-cols-2 gap-3">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-16 bg-slate-700 rounded-lg"></div>
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="h-16 rounded-lg bg-slate-700"></div>
             ))}
           </div>
         </div>
@@ -373,7 +377,7 @@ export default function UltimateVisitorTracking() {
     returnVisitor !== null,
     mediaDevices !== null,
     networkInfo !== null,
-    Object.values(pixels).some(p => p)
+    Object.values(pixels).some(p => p),
   ].filter(Boolean).length
 
   return (
@@ -384,7 +388,7 @@ export default function UltimateVisitorTracking() {
       className="relative z-20"
     >
       <motion.div
-        className="relative overflow-hidden rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-950/60 via-blue-950/40 to-pink-950/60 p-6 backdrop-blur-xl shadow-2xl shadow-purple-500/10"
+        className="relative overflow-hidden rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-950/60 via-blue-950/40 to-pink-950/60 p-6 shadow-2xl shadow-purple-500/10 backdrop-blur-xl"
         whileHover={{ borderColor: "rgba(168, 85, 247, 0.5)" }}
       >
         {/* Animated gradient */}
@@ -396,10 +400,10 @@ export default function UltimateVisitorTracking() {
 
         <div className="relative z-10">
           {/* Header */}
-          <div className="flex items-start justify-between mb-4">
+          <div className="mb-4 flex items-start justify-between">
             <div className="flex-1">
               <motion.h2
-                className="text-2xl font-bold mb-1"
+                className="mb-1 text-2xl font-bold"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
@@ -420,12 +424,12 @@ export default function UltimateVisitorTracking() {
 
             {returnVisitor?.returningUser && (
               <motion.div
-                className="flex items-center gap-1 rounded-full bg-purple-500/20 border border-purple-500/40 px-3 py-1"
+                className="flex items-center gap-1 rounded-full border border-purple-500/40 bg-purple-500/20 px-3 py-1"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.3, type: "spring" }}
               >
-                <span className="text-purple-300 text-sm font-semibold">
+                <span className="text-sm font-semibold text-purple-300">
                   Visit #{returnVisitor.visitCount}
                 </span>
               </motion.div>
@@ -433,15 +437,49 @@ export default function UltimateVisitorTracking() {
           </div>
 
           {/* Primary Data Grid */}
-          <div className="grid grid-cols-2 gap-3 text-sm mb-4">
+          <div className="mb-4 grid grid-cols-2 gap-3 text-sm">
             {visitorInfo?.city && (
-              <DataCard icon="📍" label="Location" value={`${visitorInfo.city}, ${visitorInfo.country_code}`} delay={0.1} />
+              <DataCard
+                icon="📍"
+                label="Location"
+                value={`${visitorInfo.city}, ${visitorInfo.country_code}`}
+                delay={0.1}
+              />
             )}
-            {deviceInfo && <DataCard icon="💻" label="Device" value={deviceInfo.device} delay={0.15} />}
-            {deviceInfo?.browser && <DataCard icon="🌐" label="Browser" value={deviceInfo.browser} delay={0.2} />}
-            {deviceInfo?.os && <DataCard icon="🖥️" label="OS" value={deviceInfo.os} delay={0.25} />}
+            {deviceInfo && (
+              <DataCard
+                icon="💻"
+                label="Device"
+                value={deviceInfo.device}
+                delay={0.15}
+              />
+            )}
+            {deviceInfo?.browser && (
+              <DataCard
+                icon="🌐"
+                label="Browser"
+                value={deviceInfo.browser}
+                delay={0.2}
+              />
+            )}
+            {deviceInfo?.os && (
+              <DataCard
+                icon="🖥️"
+                label="OS"
+                value={deviceInfo.os}
+                delay={0.25}
+              />
+            )}
 
-            {webRTCIP && <DataCard icon="🔓" label="Real IP" value={webRTCIP} delay={0.3} highlight />}
+            {webRTCIP && (
+              <DataCard
+                icon="🔓"
+                label="Real IP"
+                value={webRTCIP}
+                delay={0.3}
+                highlight
+              />
+            )}
             {fingerprint && (
               <DataCard
                 icon="🔑"
@@ -478,12 +516,12 @@ export default function UltimateVisitorTracking() {
           {/* Tracking Pixels Detected */}
           {Object.values(pixels).some(p => p) && (
             <motion.div
-              className="mb-4 rounded-lg bg-blue-950/30 border border-blue-500/20 p-3"
+              className="mb-4 rounded-lg border border-blue-500/20 bg-blue-950/30 p-3"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <div className="text-xs font-semibold text-blue-300 mb-2 flex items-center gap-2">
+              <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-blue-300">
                 <span>📊 Tracking Pixels Detected:</span>
               </div>
               <div className="grid grid-cols-3 gap-2 text-xs">
@@ -494,8 +532,9 @@ export default function UltimateVisitorTracking() {
                 {pixels.reddit && <PixelBadge name="Reddit" active />}
                 {pixels.snapchat && <PixelBadge name="Snapchat" active />}
               </div>
-              <div className="text-xs text-slate-400 mt-2">
-                These pixels send data TO platforms but don't reveal your identity to me
+              <div className="mt-2 text-xs text-slate-400">
+                These pixels send data TO platforms but don't reveal your
+                identity to me
               </div>
             </motion.div>
           )}
@@ -503,21 +542,25 @@ export default function UltimateVisitorTracking() {
           {/* Advanced Data Toggle */}
           <motion.button
             onClick={() => setExpanded(!expanded)}
-            className="w-full text-sm text-slate-400 hover:text-slate-300 transition-colors mb-2 flex items-center justify-center gap-2"
+            className="mb-2 flex w-full items-center justify-center gap-2 text-sm text-slate-400 transition-colors hover:text-slate-300"
             whileHover={{ scale: 1.02 }}
           >
-            <span>{expanded ? "Hide" : "Show"} Advanced Data ({
-              [
-                visitorInfo?.timezone,
-                deviceInfo?.screenResolution,
-                deviceInfo?.language,
-                deviceInfo?.cpuCores,
-                deviceInfo?.memory,
-                mediaDevices?.deviceIds.length,
-                networkInfo?.downlink,
-                fingerprint?.confidence
-              ].filter(Boolean).length
-            } more fields)</span>
+            <span>
+              {expanded ? "Hide" : "Show"} Advanced Data (
+              {
+                [
+                  visitorInfo?.timezone,
+                  deviceInfo?.screenResolution,
+                  deviceInfo?.language,
+                  deviceInfo?.cpuCores,
+                  deviceInfo?.memory,
+                  mediaDevices?.deviceIds.length,
+                  networkInfo?.downlink,
+                  fingerprint?.confidence,
+                ].filter(Boolean).length
+              }{" "}
+              more fields)
+            </span>
             <motion.span
               animate={{ rotate: expanded ? 180 : 0 }}
               transition={{ duration: 0.3 }}
@@ -536,24 +579,77 @@ export default function UltimateVisitorTracking() {
                 transition={{ duration: 0.3 }}
                 className="overflow-hidden"
               >
-                <div className="grid grid-cols-2 gap-2 text-xs border-t border-slate-700/50 pt-3 mb-3">
-                  {visitorInfo?.timezone && <MiniCard label="Timezone" value={visitorInfo.timezone.split("/").pop()!} />}
-                  {deviceInfo?.screenResolution && <MiniCard label="Screen" value={deviceInfo.screenResolution} />}
-                  {deviceInfo?.language && <MiniCard label="Language" value={deviceInfo.language} />}
-                  {deviceInfo?.cpuCores && <MiniCard label="CPU Cores" value={`${deviceInfo.cpuCores}`} />}
-                  {deviceInfo?.memory && <MiniCard label="RAM" value={deviceInfo.memory} />}
-                  {deviceInfo?.touchSupport !== undefined && <MiniCard label="Touch" value={deviceInfo.touchSupport ? "Yes" : "No"} />}
-                  {fingerprint?.confidence && <MiniCard label="Fingerprint Accuracy" value={`${(fingerprint.confidence * 100).toFixed(1)}%`} />}
-                  {visitorInfo?.isp && <MiniCard label="ISP" value={visitorInfo.isp.substring(0, 20)} />}
-                  {networkInfo?.downlink && <MiniCard label="Download Speed" value={`${networkInfo.downlink} Mbps`} />}
-                  {networkInfo?.rtt && <MiniCard label="Latency" value={`${networkInfo.rtt}ms`} />}
-                  {mediaDevices?.speakers && <MiniCard label="Speakers" value={`${mediaDevices.speakers}`} />}
-                  {deviceInfo?.doNotTrack !== undefined && <MiniCard label="Do Not Track" value={deviceInfo.doNotTrack ? "Enabled" : "Disabled"} />}
+                <div className="mb-3 grid grid-cols-2 gap-2 border-t border-slate-700/50 pt-3 text-xs">
+                  {visitorInfo?.timezone && (
+                    <MiniCard
+                      label="Timezone"
+                      value={visitorInfo.timezone.split("/").pop()!}
+                    />
+                  )}
+                  {deviceInfo?.screenResolution && (
+                    <MiniCard
+                      label="Screen"
+                      value={deviceInfo.screenResolution}
+                    />
+                  )}
+                  {deviceInfo?.language && (
+                    <MiniCard label="Language" value={deviceInfo.language} />
+                  )}
+                  {deviceInfo?.cpuCores && (
+                    <MiniCard
+                      label="CPU Cores"
+                      value={`${deviceInfo.cpuCores}`}
+                    />
+                  )}
+                  {deviceInfo?.memory && (
+                    <MiniCard label="RAM" value={deviceInfo.memory} />
+                  )}
+                  {deviceInfo?.touchSupport !== undefined && (
+                    <MiniCard
+                      label="Touch"
+                      value={deviceInfo.touchSupport ? "Yes" : "No"}
+                    />
+                  )}
+                  {fingerprint?.confidence && (
+                    <MiniCard
+                      label="Fingerprint Accuracy"
+                      value={`${(fingerprint.confidence * 100).toFixed(1)}%`}
+                    />
+                  )}
+                  {visitorInfo?.isp && (
+                    <MiniCard
+                      label="ISP"
+                      value={visitorInfo.isp.substring(0, 20)}
+                    />
+                  )}
+                  {networkInfo?.downlink && (
+                    <MiniCard
+                      label="Download Speed"
+                      value={`${networkInfo.downlink} Mbps`}
+                    />
+                  )}
+                  {networkInfo?.rtt && (
+                    <MiniCard label="Latency" value={`${networkInfo.rtt}ms`} />
+                  )}
+                  {mediaDevices?.speakers && (
+                    <MiniCard
+                      label="Speakers"
+                      value={`${mediaDevices.speakers}`}
+                    />
+                  )}
+                  {deviceInfo?.doNotTrack !== undefined && (
+                    <MiniCard
+                      label="Do Not Track"
+                      value={deviceInfo.doNotTrack ? "Enabled" : "Disabled"}
+                    />
+                  )}
                 </div>
 
                 {/* All Techniques */}
-                <div className="bg-purple-950/30 border border-purple-500/20 rounded-lg p-3 mb-3">
-                  <div className="text-xs font-semibold text-purple-300 mb-2">🔬 All Techniques Used:</div>
+                <div className="mb-3 rounded-lg border border-purple-500/20 bg-purple-950/30 p-3">
+                  <div className="mb-2 text-xs font-semibold text-purple-300">
+                    🔬 All Techniques Used:
+                  </div>
                   <div className="grid grid-cols-2 gap-1 text-xs text-slate-400">
                     <div>✅ IP Geolocation</div>
                     <div>✅ Browser Fingerprinting</div>
@@ -575,34 +671,39 @@ export default function UltimateVisitorTracking() {
 
           {/* Privacy Notice */}
           <motion.div
-            className="flex items-start gap-2 text-xs text-slate-400 border-t border-slate-700/50 pt-3"
+            className="flex items-start gap-2 border-t border-slate-700/50 pt-3 text-xs text-slate-400"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
             <span className="text-base">🔒</span>
             <span>
-              {techniqueCount} tracking techniques active • LinkedIn Insight Tag for B2B data • Still <strong>no name or email</strong>
+              {techniqueCount} tracking techniques active • LinkedIn Insight Tag
+              for B2B data • Still <strong>no name or email</strong>
             </span>
           </motion.div>
 
           {/* Reality Check */}
           <motion.div
-            className="mt-3 rounded-lg bg-red-950/20 border border-red-500/20 p-3"
+            className="mt-3 rounded-lg border border-red-500/20 bg-red-950/20 p-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
           >
-            <div className="text-xs text-red-300 font-semibold mb-1">
+            <div className="mb-1 text-xs font-semibold text-red-300">
               ⚠️ With ALL Pixels + Advanced APIs:
             </div>
-            <div className="text-xs text-slate-400 space-y-0.5">
+            <div className="space-y-0.5 text-xs text-slate-400">
               <div>❌ Still cannot get your name</div>
               <div>❌ Still cannot get your email</div>
               <div>❌ Still cannot get your identity</div>
-              <div>❌ LinkedIn Insight Tag: Only shows company data (B2B), not personal names</div>
-              <div className="text-emerald-400 mt-1">
-                ✅ Maximum legal tracking = Device ID + Location + Company (B2B only)
+              <div>
+                ❌ LinkedIn Insight Tag: Only shows company data (B2B), not
+                personal names
+              </div>
+              <div className="mt-1 text-emerald-400">
+                ✅ Maximum legal tracking = Device ID + Location + Company (B2B
+                only)
               </div>
             </div>
           </motion.div>
@@ -613,7 +714,13 @@ export default function UltimateVisitorTracking() {
 }
 
 // Helper Components
-function DataCard({ icon, label, value, delay, highlight }: {
+function DataCard({
+  icon,
+  label,
+  value,
+  delay,
+  highlight,
+}: {
   icon: string
   label: string
   value: string
@@ -623,7 +730,9 @@ function DataCard({ icon, label, value, delay, highlight }: {
   return (
     <motion.div
       className={`flex items-center gap-2 rounded-lg ${
-        highlight ? 'bg-pink-950/30 border border-pink-500/30' : 'bg-slate-900/60 border border-slate-700/50'
+        highlight
+          ? "border border-pink-500/30 bg-pink-950/30"
+          : "border border-slate-700/50 bg-slate-900/60"
       } p-3 backdrop-blur-sm`}
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -631,11 +740,15 @@ function DataCard({ icon, label, value, delay, highlight }: {
       whileHover={{ scale: 1.05, backgroundColor: "rgba(15, 23, 42, 0.9)" }}
     >
       <span className="text-xl">{icon}</span>
-      <div className="flex-1 min-w-0">
-        <div className={`text-xs mb-0.5 ${highlight ? 'text-pink-500' : 'text-slate-500'}`}>
+      <div className="min-w-0 flex-1">
+        <div
+          className={`mb-0.5 text-xs ${highlight ? "text-pink-500" : "text-slate-500"}`}
+        >
           {label}
         </div>
-        <div className={`font-semibold truncate ${highlight ? 'text-pink-300' : 'text-slate-200'}`}>
+        <div
+          className={`truncate font-semibold ${highlight ? "text-pink-300" : "text-slate-200"}`}
+        >
           {value}
         </div>
       </div>
@@ -645,20 +758,24 @@ function DataCard({ icon, label, value, delay, highlight }: {
 
 function MiniCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex justify-between items-center p-2 rounded bg-slate-800/50">
+    <div className="flex items-center justify-between rounded bg-slate-800/50 p-2">
       <span className="text-slate-500">{label}:</span>
-      <span className="text-slate-300 font-medium truncate ml-2">{value}</span>
+      <span className="ml-2 truncate font-medium text-slate-300">{value}</span>
     </div>
   )
 }
 
 function PixelBadge({ name, active }: { name: string; active?: boolean }) {
   return (
-    <div className={`flex items-center gap-1 px-2 py-1 rounded ${
-      active ? 'bg-blue-500/20 text-blue-300' : 'bg-slate-700/30 text-slate-500'
-    }`}>
-      <span className="text-xs">{active ? '✓' : '○'}</span>
-      <span className="text-xs font-medium truncate">{name}</span>
+    <div
+      className={`flex items-center gap-1 rounded px-2 py-1 ${
+        active
+          ? "bg-blue-500/20 text-blue-300"
+          : "bg-slate-700/30 text-slate-500"
+      }`}
+    >
+      <span className="text-xs">{active ? "✓" : "○"}</span>
+      <span className="truncate text-xs font-medium">{name}</span>
     </div>
   )
 }

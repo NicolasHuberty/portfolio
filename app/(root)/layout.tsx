@@ -9,9 +9,7 @@ export default function SiteLayout({
   return (
     <SidebarProvider>
       <Sidebar />
-      <main>
-        {children}
-      </main>
+      <main>{children}</main>
     </SidebarProvider>
   )
 }

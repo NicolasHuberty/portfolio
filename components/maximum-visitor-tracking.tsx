@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion"
 import { useEffect, useState } from "react"
-import FingerprintJS from '@fingerprintjs/fingerprintjs'
+import FingerprintJS from "@fingerprintjs/fingerprintjs"
 
 interface AllTrackingData {
   // Location
@@ -93,26 +93,43 @@ export default function MaximumVisitorTracking() {
 
       // 1. Basic Device Info
       const ua = navigator.userAgent
-      collected.browser = ua.includes("Firefox") ? "Firefox" :
-                         ua.includes("Chrome") && !ua.includes("Edg") ? "Chrome" :
-                         ua.includes("Safari") && !ua.includes("Chrome") ? "Safari" :
-                         ua.includes("Edg") ? "Edge" : "Unknown"
+      collected.browser = ua.includes("Firefox")
+        ? "Firefox"
+        : ua.includes("Chrome") && !ua.includes("Edg")
+          ? "Chrome"
+          : ua.includes("Safari") && !ua.includes("Chrome")
+            ? "Safari"
+            : ua.includes("Edg")
+              ? "Edge"
+              : "Unknown"
 
-      collected.os = ua.includes("Windows") ? "Windows" :
-                    ua.includes("Mac") ? "macOS" :
-                    ua.includes("Linux") ? "Linux" :
-                    ua.includes("Android") ? "Android" :
-                    ua.includes("iOS") ? "iOS" : "Unknown"
+      collected.os = ua.includes("Windows")
+        ? "Windows"
+        : ua.includes("Mac")
+          ? "macOS"
+          : ua.includes("Linux")
+            ? "Linux"
+            : ua.includes("Android")
+              ? "Android"
+              : ua.includes("iOS")
+                ? "iOS"
+                : "Unknown"
 
-      collected.device = /(tablet|ipad)/i.test(ua) ? "Tablet" :
-                        /Mobile|Android|iP(hone|od)/i.test(ua) ? "Mobile" : "Desktop"
+      collected.device = /(tablet|ipad)/i.test(ua)
+        ? "Tablet"
+        : /Mobile|Android|iP(hone|od)/i.test(ua)
+          ? "Mobile"
+          : "Desktop"
 
       collected.screenResolution = `${screen.width}×${screen.height}`
       collected.language = navigator.language
       collected.platform = navigator.platform
       collected.cpuCores = navigator.hardwareConcurrency || 0
-      collected.memory = (navigator as any).deviceMemory ? `${(navigator as any).deviceMemory}GB` : undefined
-      collected.touchSupport = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      collected.memory = (navigator as any).deviceMemory
+        ? `${(navigator as any).deviceMemory}GB`
+        : undefined
+      collected.touchSupport =
+        "ontouchstart" in window || navigator.maxTouchPoints > 0
 
       // 2. Fingerprinting
       try {
@@ -126,12 +143,18 @@ export default function MaximumVisitorTracking() {
       try {
         if (navigator.mediaDevices?.enumerateDevices) {
           const devices = await navigator.mediaDevices.enumerateDevices()
-          collected.cameras = devices.filter(d => d.kind === 'videoinput').length
-          collected.microphones = devices.filter(d => d.kind === 'audioinput').length
-          collected.speakers = devices.filter(d => d.kind === 'audiooutput').length
+          collected.cameras = devices.filter(
+            d => d.kind === "videoinput",
+          ).length
+          collected.microphones = devices.filter(
+            d => d.kind === "audioinput",
+          ).length
+          collected.speakers = devices.filter(
+            d => d.kind === "audiooutput",
+          ).length
           collected.deviceIds = devices
             .map(d => d.deviceId)
-            .filter(id => id && id !== 'default')
+            .filter(id => id && id !== "default")
             .map(id => id.substring(0, 8))
         }
       } catch (e) {
@@ -142,9 +165,10 @@ export default function MaximumVisitorTracking() {
       }
 
       // 4. Network Info
-      const conn = (navigator as any).connection ||
-                   (navigator as any).mozConnection ||
-                   (navigator as any).webkitConnection
+      const conn =
+        (navigator as any).connection ||
+        (navigator as any).mozConnection ||
+        (navigator as any).webkitConnection
       if (conn) {
         collected.connectionType = conn.effectiveType || conn.type
         collected.downlink = conn.downlink
@@ -156,12 +180,17 @@ export default function MaximumVisitorTracking() {
         const voices = speechSynthesis.getVoices()
         if (voices.length === 0) {
           // Wait for voices to load
-          speechSynthesis.addEventListener('voiceschanged', () => {
+          speechSynthesis.addEventListener("voiceschanged", () => {
             const loadedVoices = speechSynthesis.getVoices()
             collected.voiceCount = loadedVoices.length
             collected.voiceNames = loadedVoices.slice(0, 5).map(v => v.name)
             collected.defaultVoice = loadedVoices.find(v => v.default)?.name
-            setData(prev => ({ ...prev, voiceCount: collected.voiceCount, voiceNames: collected.voiceNames, defaultVoice: collected.defaultVoice }))
+            setData(prev => ({
+              ...prev,
+              voiceCount: collected.voiceCount,
+              voiceNames: collected.voiceNames,
+              defaultVoice: collected.defaultVoice,
+            }))
           })
         } else {
           collected.voiceCount = voices.length
@@ -174,10 +203,10 @@ export default function MaximumVisitorTracking() {
       }
 
       // 6. NEW: Device Sensors (CAN RECORD SPEECH!)
-      collected.hasAccelerometer = 'Accelerometer' in window
-      collected.hasGyroscope = 'Gyroscope' in window
-      collected.hasMagnetometer = 'Magnetometer' in window
-      collected.hasAmbientLight = 'AmbientLightSensor' in window
+      collected.hasAccelerometer = "Accelerometer" in window
+      collected.hasGyroscope = "Gyroscope" in window
+      collected.hasMagnetometer = "Magnetometer" in window
+      collected.hasAmbientLight = "AmbientLightSensor" in window
 
       // 7. NEW: Gamepad API
       const gamepads = navigator.getGamepads ? navigator.getGamepads() : []
@@ -196,14 +225,14 @@ export default function MaximumVisitorTracking() {
         collected.navigationTiming = {
           loadTime: timing.loadEventEnd - timing.navigationStart,
           domReady: timing.domContentLoadedEventEnd - timing.navigationStart,
-          responseTime: timing.responseEnd - timing.requestStart
+          responseTime: timing.responseEnd - timing.requestStart,
         }
       }
 
       // 9. NEW: WebXR/VR Support
-      collected.hasVRSupport = 'xr' in navigator
+      collected.hasVRSupport = "xr" in navigator
       collected.vrDisplays = []
-      if ('getVRDisplays' in navigator) {
+      if ("getVRDisplays" in navigator) {
         try {
           const displays = await (navigator as any).getVRDisplays()
           collected.vrDisplays = displays.map((d: any) => d.displayName)
@@ -213,11 +242,11 @@ export default function MaximumVisitorTracking() {
       // 10. WebRTC IP Leak
       try {
         const pc = new RTCPeerConnection({
-          iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+          iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
         })
-        pc.createDataChannel('')
+        pc.createDataChannel("")
         pc.createOffer().then(offer => pc.setLocalDescription(offer))
-        pc.onicecandidate = (ice) => {
+        pc.onicecandidate = ice => {
           if (!ice || !ice.candidate) return
           const regex = /([0-9]{1,3}\.){3}[0-9]{1,3}/
           const match = ice.candidate.candidate.match(regex)
@@ -230,7 +259,7 @@ export default function MaximumVisitorTracking() {
       } catch (e) {}
 
       // 11. Return Visitor
-      const storageKey = 'visitor_tracking'
+      const storageKey = "visitor_tracking"
       const stored = localStorage.getItem(storageKey)
       if (stored) {
         const data = JSON.parse(stored)
@@ -255,7 +284,7 @@ export default function MaximumVisitorTracking() {
         twitter: false,
         tiktok: false,
         reddit: false,
-        snapchat: false
+        snapchat: false,
       }
 
       // 13. IP Geolocation
@@ -305,7 +334,9 @@ export default function MaximumVisitorTracking() {
     if (data.returningUser && data.visitCount && data.visitCount > 2) {
       setGreeting(`Welcome back! Visit #${data.visitCount} ${emoji}`)
     } else if (data.city && data.country) {
-      setGreeting(`${timeGreeting}, visitor from ${data.city}, ${data.country}! ${emoji}`)
+      setGreeting(
+        `${timeGreeting}, visitor from ${data.city}, ${data.country}! ${emoji}`,
+      )
     } else if (data.country) {
       setGreeting(`${timeGreeting}, visitor from ${data.country}! ${emoji}`)
     } else {
@@ -321,10 +352,10 @@ export default function MaximumVisitorTracking() {
         animate={{ opacity: 1, y: 0 }}
       >
         <div className="animate-pulse space-y-3">
-          <div className="h-8 w-3/4 bg-slate-700 rounded"></div>
+          <div className="h-8 w-3/4 rounded bg-slate-700"></div>
           <div className="grid grid-cols-2 gap-3">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-16 bg-slate-700 rounded-lg"></div>
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="h-16 rounded-lg bg-slate-700"></div>
             ))}
           </div>
         </div>
@@ -344,7 +375,7 @@ export default function MaximumVisitorTracking() {
     data.hasVRSupport !== undefined,
     data.webRTCIP,
     data.returningUser !== undefined,
-    data.pixels?.facebook || data.pixels?.linkedin
+    data.pixels?.facebook || data.pixels?.linkedin,
   ].filter(Boolean).length
 
   return (
@@ -355,7 +386,7 @@ export default function MaximumVisitorTracking() {
       className="relative z-20"
     >
       <motion.div
-        className="relative overflow-hidden rounded-2xl border border-pink-500/40 bg-gradient-to-br from-pink-950/70 via-purple-950/50 to-blue-950/70 p-6 backdrop-blur-xl shadow-2xl shadow-pink-500/20"
+        className="relative overflow-hidden rounded-2xl border border-pink-500/40 bg-gradient-to-br from-pink-950/70 via-purple-950/50 to-blue-950/70 p-6 shadow-2xl shadow-pink-500/20 backdrop-blur-xl"
         whileHover={{ borderColor: "rgba(236, 72, 153, 0.6)" }}
       >
         {/* Animated gradient */}
@@ -367,10 +398,10 @@ export default function MaximumVisitorTracking() {
 
         <div className="relative z-10">
           {/* Header */}
-          <div className="flex items-start justify-between mb-4">
+          <div className="mb-4 flex items-start justify-between">
             <div className="flex-1">
               <motion.h2
-                className="text-2xl font-bold mb-1"
+                className="mb-1 text-2xl font-bold"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
@@ -380,17 +411,17 @@ export default function MaximumVisitorTracking() {
                 </span>
               </motion.h2>
               <motion.div
-                className="text-xs text-slate-400 flex items-center gap-2"
+                className="flex items-center gap-2 text-xs text-slate-400"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
               >
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300">
+                <span className="inline-flex items-center gap-1 rounded-full bg-pink-500/20 px-2 py-0.5 text-pink-300">
                   <span className="text-xs">🔬</span>
                   <span className="font-semibold">{techniqueCount}</span>
                 </span>
                 <span>Active Tracking Techniques</span>
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300">
+                <span className="inline-flex items-center gap-1 rounded-full bg-purple-500/20 px-2 py-0.5 text-purple-300">
                   <span className="text-xs">🆕</span>
                   <span className="font-semibold">7 NEW</span>
                 </span>
@@ -399,12 +430,12 @@ export default function MaximumVisitorTracking() {
 
             {data.returningUser && (
               <motion.div
-                className="flex items-center gap-1 rounded-full bg-pink-500/20 border border-pink-500/40 px-3 py-1"
+                className="flex items-center gap-1 rounded-full border border-pink-500/40 bg-pink-500/20 px-3 py-1"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.3, type: "spring" }}
               >
-                <span className="text-pink-300 text-sm font-semibold">
+                <span className="text-sm font-semibold text-pink-300">
                   Visit #{data.visitCount}
                 </span>
               </motion.div>
@@ -412,13 +443,44 @@ export default function MaximumVisitorTracking() {
           </div>
 
           {/* Primary Data Grid */}
-          <div className="grid grid-cols-2 gap-3 text-sm mb-4">
-            {data.city && <DataCard icon="📍" label="Location" value={`${data.city}, ${data.country_code}`} delay={0.1} />}
-            {data.device && <DataCard icon="💻" label="Device" value={data.device} delay={0.15} />}
-            {data.browser && <DataCard icon="🌐" label="Browser" value={data.browser} delay={0.2} />}
-            {data.os && <DataCard icon="🖥️" label="OS" value={data.os} delay={0.25} />}
+          <div className="mb-4 grid grid-cols-2 gap-3 text-sm">
+            {data.city && (
+              <DataCard
+                icon="📍"
+                label="Location"
+                value={`${data.city}, ${data.country_code}`}
+                delay={0.1}
+              />
+            )}
+            {data.device && (
+              <DataCard
+                icon="💻"
+                label="Device"
+                value={data.device}
+                delay={0.15}
+              />
+            )}
+            {data.browser && (
+              <DataCard
+                icon="🌐"
+                label="Browser"
+                value={data.browser}
+                delay={0.2}
+              />
+            )}
+            {data.os && (
+              <DataCard icon="🖥️" label="OS" value={data.os} delay={0.25} />
+            )}
 
-            {data.webRTCIP && <DataCard icon="🔓" label="Real IP" value={data.webRTCIP} delay={0.3} highlight />}
+            {data.webRTCIP && (
+              <DataCard
+                icon="🔓"
+                label="Real IP"
+                value={data.webRTCIP}
+                delay={0.3}
+                highlight
+              />
+            )}
             {data.fingerprint && (
               <DataCard
                 icon="🔑"
@@ -498,12 +560,12 @@ export default function MaximumVisitorTracking() {
           {/* Tracking Pixels */}
           {data.pixels && Object.values(data.pixels).some(p => p) && (
             <motion.div
-              className="mb-4 rounded-lg bg-blue-950/30 border border-blue-500/20 p-3"
+              className="mb-4 rounded-lg border border-blue-500/20 bg-blue-950/30 p-3"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
             >
-              <div className="text-xs font-semibold text-blue-300 mb-2 flex items-center gap-2">
+              <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-blue-300">
                 <span>📊 Tracking Pixels:</span>
               </div>
               <div className="grid grid-cols-3 gap-2 text-xs">
@@ -520,7 +582,7 @@ export default function MaximumVisitorTracking() {
           {/* Expand Button */}
           <motion.button
             onClick={() => setExpanded(!expanded)}
-            className="w-full text-sm text-slate-400 hover:text-slate-300 transition-colors mb-2 flex items-center justify-center gap-2"
+            className="mb-2 flex w-full items-center justify-center gap-2 text-sm text-slate-400 transition-colors hover:text-slate-300"
             whileHover={{ scale: 1.02 }}
           >
             <span>{expanded ? "Hide" : "Show"} ALL Collected Data</span>
@@ -542,33 +604,116 @@ export default function MaximumVisitorTracking() {
                 transition={{ duration: 0.3 }}
                 className="overflow-hidden"
               >
-                <div className="grid grid-cols-2 gap-2 text-xs border-t border-slate-700/50 pt-3 mb-3">
-                  {data.timezone && <MiniCard label="Timezone" value={data.timezone.split("/").pop()!} />}
-                  {data.screenResolution && <MiniCard label="Screen" value={data.screenResolution} />}
-                  {data.language && <MiniCard label="Language" value={data.language} />}
-                  {data.cpuCores && <MiniCard label="CPU Cores" value={`${data.cpuCores}`} />}
+                <div className="mb-3 grid grid-cols-2 gap-2 border-t border-slate-700/50 pt-3 text-xs">
+                  {data.timezone && (
+                    <MiniCard
+                      label="Timezone"
+                      value={data.timezone.split("/").pop()!}
+                    />
+                  )}
+                  {data.screenResolution && (
+                    <MiniCard label="Screen" value={data.screenResolution} />
+                  )}
+                  {data.language && (
+                    <MiniCard label="Language" value={data.language} />
+                  )}
+                  {data.cpuCores && (
+                    <MiniCard label="CPU Cores" value={`${data.cpuCores}`} />
+                  )}
                   {data.memory && <MiniCard label="RAM" value={data.memory} />}
-                  {data.touchSupport !== undefined && <MiniCard label="Touch" value={data.touchSupport ? "Yes" : "No"} />}
-                  {data.confidence && <MiniCard label="Fingerprint" value={`${(data.confidence * 100).toFixed(1)}%`} />}
-                  {data.isp && <MiniCard label="ISP" value={data.isp.substring(0, 20)} />}
-                  {data.downlink && <MiniCard label="Speed" value={`${data.downlink} Mbps`} />}
-                  {data.rtt && <MiniCard label="Latency" value={`${data.rtt}ms`} />}
+                  {data.touchSupport !== undefined && (
+                    <MiniCard
+                      label="Touch"
+                      value={data.touchSupport ? "Yes" : "No"}
+                    />
+                  )}
+                  {data.confidence && (
+                    <MiniCard
+                      label="Fingerprint"
+                      value={`${(data.confidence * 100).toFixed(1)}%`}
+                    />
+                  )}
+                  {data.isp && (
+                    <MiniCard label="ISP" value={data.isp.substring(0, 20)} />
+                  )}
+                  {data.downlink && (
+                    <MiniCard label="Speed" value={`${data.downlink} Mbps`} />
+                  )}
+                  {data.rtt && (
+                    <MiniCard label="Latency" value={`${data.rtt}ms`} />
+                  )}
 
                   {/* NEW FIELDS */}
-                  {data.defaultVoice && <MiniCard label="Default Voice" value={data.defaultVoice.substring(0, 15)} isNew />}
-                  {data.voiceNames && data.voiceNames.length > 0 && <MiniCard label="Voice Sample" value={data.voiceNames[0].substring(0, 15)} isNew />}
-                  {data.hasAccelerometer !== undefined && <MiniCard label="Accelerometer" value={data.hasAccelerometer ? "✓" : "✗"} isNew />}
-                  {data.hasGyroscope !== undefined && <MiniCard label="Gyroscope" value={data.hasGyroscope ? "✓" : "✗"} isNew />}
-                  {data.hasMagnetometer !== undefined && <MiniCard label="Magnetometer" value={data.hasMagnetometer ? "✓" : "✗"} isNew />}
-                  {data.gamepadIds && data.gamepadIds.length > 0 && <MiniCard label="Gamepad" value={data.gamepadIds[0]} isNew />}
-                  {data.navigationTiming && <MiniCard label="Load Time" value={`${data.navigationTiming.loadTime}ms`} isNew />}
-                  {data.hasVRSupport !== undefined && <MiniCard label="VR Support" value={data.hasVRSupport ? "✓" : "✗"} isNew />}
-                  {data.vrDisplays && data.vrDisplays.length > 0 && <MiniCard label="VR Display" value={data.vrDisplays[0]} isNew />}
+                  {data.defaultVoice && (
+                    <MiniCard
+                      label="Default Voice"
+                      value={data.defaultVoice.substring(0, 15)}
+                      isNew
+                    />
+                  )}
+                  {data.voiceNames && data.voiceNames.length > 0 && (
+                    <MiniCard
+                      label="Voice Sample"
+                      value={data.voiceNames[0].substring(0, 15)}
+                      isNew
+                    />
+                  )}
+                  {data.hasAccelerometer !== undefined && (
+                    <MiniCard
+                      label="Accelerometer"
+                      value={data.hasAccelerometer ? "✓" : "✗"}
+                      isNew
+                    />
+                  )}
+                  {data.hasGyroscope !== undefined && (
+                    <MiniCard
+                      label="Gyroscope"
+                      value={data.hasGyroscope ? "✓" : "✗"}
+                      isNew
+                    />
+                  )}
+                  {data.hasMagnetometer !== undefined && (
+                    <MiniCard
+                      label="Magnetometer"
+                      value={data.hasMagnetometer ? "✓" : "✗"}
+                      isNew
+                    />
+                  )}
+                  {data.gamepadIds && data.gamepadIds.length > 0 && (
+                    <MiniCard
+                      label="Gamepad"
+                      value={data.gamepadIds[0]}
+                      isNew
+                    />
+                  )}
+                  {data.navigationTiming && (
+                    <MiniCard
+                      label="Load Time"
+                      value={`${data.navigationTiming.loadTime}ms`}
+                      isNew
+                    />
+                  )}
+                  {data.hasVRSupport !== undefined && (
+                    <MiniCard
+                      label="VR Support"
+                      value={data.hasVRSupport ? "✓" : "✗"}
+                      isNew
+                    />
+                  )}
+                  {data.vrDisplays && data.vrDisplays.length > 0 && (
+                    <MiniCard
+                      label="VR Display"
+                      value={data.vrDisplays[0]}
+                      isNew
+                    />
+                  )}
                 </div>
 
                 {/* All Techniques */}
-                <div className="bg-pink-950/30 border border-pink-500/20 rounded-lg p-3 mb-3">
-                  <div className="text-xs font-semibold text-pink-300 mb-2">🔬 ALL {techniqueCount} Techniques:</div>
+                <div className="mb-3 rounded-lg border border-pink-500/20 bg-pink-950/30 p-3">
+                  <div className="mb-2 text-xs font-semibold text-pink-300">
+                    🔬 ALL {techniqueCount} Techniques:
+                  </div>
                   <div className="grid grid-cols-2 gap-1 text-xs text-slate-400">
                     <div>✅ IP Geolocation</div>
                     <div>✅ Browser Fingerprinting</div>
@@ -594,11 +739,15 @@ export default function MaximumVisitorTracking() {
 
                 {/* NEW: Speech Voices Detail */}
                 {data.voiceNames && data.voiceNames.length > 0 && (
-                  <div className="bg-purple-950/30 border border-purple-500/20 rounded-lg p-3 mb-3">
-                    <div className="text-xs font-semibold text-purple-300 mb-2">🎤 Speech Synthesis Voices ({data.voiceCount} total):</div>
-                    <div className="text-xs text-slate-400 space-y-1">
+                  <div className="mb-3 rounded-lg border border-purple-500/20 bg-purple-950/30 p-3">
+                    <div className="mb-2 text-xs font-semibold text-purple-300">
+                      🎤 Speech Synthesis Voices ({data.voiceCount} total):
+                    </div>
+                    <div className="space-y-1 text-xs text-slate-400">
                       {data.voiceNames.map((voice, i) => (
-                        <div key={i} className="truncate">• {voice}</div>
+                        <div key={i} className="truncate">
+                          • {voice}
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -606,10 +755,13 @@ export default function MaximumVisitorTracking() {
 
                 {/* NEW: Sensor Warning */}
                 {(data.hasAccelerometer || data.hasGyroscope) && (
-                  <div className="bg-red-950/30 border border-red-500/20 rounded-lg p-3 mb-3">
-                    <div className="text-xs font-semibold text-red-300 mb-2">⚠️ Sensor APIs Detected:</div>
+                  <div className="mb-3 rounded-lg border border-red-500/20 bg-red-950/30 p-3">
+                    <div className="mb-2 text-xs font-semibold text-red-300">
+                      ⚠️ Sensor APIs Detected:
+                    </div>
                     <div className="text-xs text-slate-400">
-                      Accelerometer & Gyroscope can record speech patterns and track movement!
+                      Accelerometer & Gyroscope can record speech patterns and
+                      track movement!
                     </div>
                   </div>
                 )}
@@ -619,33 +771,34 @@ export default function MaximumVisitorTracking() {
 
           {/* Privacy Notice */}
           <motion.div
-            className="flex items-start gap-2 text-xs text-slate-400 border-t border-slate-700/50 pt-3"
+            className="flex items-start gap-2 border-t border-slate-700/50 pt-3 text-xs text-slate-400"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
             <span className="text-base">🔒</span>
             <span>
-              {techniqueCount} techniques • 7 NEW advanced APIs • HTTP/2+TLS fingerprinting • Still <strong>no name or email</strong>
+              {techniqueCount} techniques • 7 NEW advanced APIs • HTTP/2+TLS
+              fingerprinting • Still <strong>no name or email</strong>
             </span>
           </motion.div>
 
           {/* Reality Check */}
           <motion.div
-            className="mt-3 rounded-lg bg-red-950/20 border border-red-500/20 p-3"
+            className="mt-3 rounded-lg border border-red-500/20 bg-red-950/20 p-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
           >
-            <div className="text-xs text-red-300 font-semibold mb-1">
+            <div className="mb-1 text-xs font-semibold text-red-300">
               ⚠️ With EVERY Possible Technique:
             </div>
-            <div className="text-xs text-slate-400 space-y-0.5">
+            <div className="space-y-0.5 text-xs text-slate-400">
               <div>✅ 99.9% device fingerprint accuracy</div>
               <div>✅ {data.voiceCount} speech voices = unique signature</div>
               <div>✅ Sensors can record speech & movement</div>
               <div>✅ System uptime = cross-session tracking</div>
-              <div className="text-red-400 mt-2">
+              <div className="mt-2 text-red-400">
                 ❌ Still ZERO personal information (name, email, identity)
               </div>
             </div>
@@ -657,7 +810,14 @@ export default function MaximumVisitorTracking() {
 }
 
 // Helper Components
-function DataCard({ icon, label, value, delay, highlight, newFeature }: {
+function DataCard({
+  icon,
+  label,
+  value,
+  delay,
+  highlight,
+  newFeature,
+}: {
   icon: string
   label: string
   value: string
@@ -668,7 +828,9 @@ function DataCard({ icon, label, value, delay, highlight, newFeature }: {
   return (
     <motion.div
       className={`relative flex items-center gap-2 rounded-lg ${
-        highlight ? 'bg-pink-950/30 border border-pink-500/30' : 'bg-slate-900/60 border border-slate-700/50'
+        highlight
+          ? "border border-pink-500/30 bg-pink-950/30"
+          : "border border-slate-700/50 bg-slate-900/60"
       } p-3 backdrop-blur-sm`}
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -676,16 +838,20 @@ function DataCard({ icon, label, value, delay, highlight, newFeature }: {
       whileHover={{ scale: 1.05, backgroundColor: "rgba(15, 23, 42, 0.9)" }}
     >
       {newFeature && (
-        <div className="absolute -top-1 -right-1 bg-pink-500 text-white text-[8px] px-1 py-0.5 rounded-full font-bold">
+        <div className="absolute -right-1 -top-1 rounded-full bg-pink-500 px-1 py-0.5 text-[8px] font-bold text-white">
           NEW
         </div>
       )}
       <span className="text-xl">{icon}</span>
-      <div className="flex-1 min-w-0">
-        <div className={`text-xs mb-0.5 ${highlight ? 'text-pink-500' : 'text-slate-500'}`}>
+      <div className="min-w-0 flex-1">
+        <div
+          className={`mb-0.5 text-xs ${highlight ? "text-pink-500" : "text-slate-500"}`}
+        >
           {label}
         </div>
-        <div className={`font-semibold truncate ${highlight ? 'text-pink-300' : 'text-slate-200'}`}>
+        <div
+          className={`truncate font-semibold ${highlight ? "text-pink-300" : "text-slate-200"}`}
+        >
           {value}
         </div>
       </div>
@@ -693,22 +859,42 @@ function DataCard({ icon, label, value, delay, highlight, newFeature }: {
   )
 }
 
-function MiniCard({ label, value, isNew }: { label: string; value: string; isNew?: boolean }) {
+function MiniCard({
+  label,
+  value,
+  isNew,
+}: {
+  label: string
+  value: string
+  isNew?: boolean
+}) {
   return (
-    <div className={`flex justify-between items-center p-2 rounded ${isNew ? 'bg-pink-900/30 border border-pink-500/20' : 'bg-slate-800/50'}`}>
-      <span className={isNew ? 'text-pink-400' : 'text-slate-500'}>{label}:</span>
-      <span className={`font-medium truncate ml-2 ${isNew ? 'text-pink-300' : 'text-slate-300'}`}>{value}</span>
+    <div
+      className={`flex items-center justify-between rounded p-2 ${isNew ? "border border-pink-500/20 bg-pink-900/30" : "bg-slate-800/50"}`}
+    >
+      <span className={isNew ? "text-pink-400" : "text-slate-500"}>
+        {label}:
+      </span>
+      <span
+        className={`ml-2 truncate font-medium ${isNew ? "text-pink-300" : "text-slate-300"}`}
+      >
+        {value}
+      </span>
     </div>
   )
 }
 
 function PixelBadge({ name, active }: { name: string; active?: boolean }) {
   return (
-    <div className={`flex items-center gap-1 px-2 py-1 rounded ${
-      active ? 'bg-blue-500/20 text-blue-300' : 'bg-slate-700/30 text-slate-500'
-    }`}>
-      <span className="text-xs">{active ? '✓' : '○'}</span>
-      <span className="text-xs font-medium truncate">{name}</span>
+    <div
+      className={`flex items-center gap-1 rounded px-2 py-1 ${
+        active
+          ? "bg-blue-500/20 text-blue-300"
+          : "bg-slate-700/30 text-slate-500"
+      }`}
+    >
+      <span className="text-xs">{active ? "✓" : "○"}</span>
+      <span className="truncate text-xs font-medium">{name}</span>
     </div>
   )
 }

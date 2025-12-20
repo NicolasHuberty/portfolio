@@ -51,7 +51,10 @@ export default function ExpertiseSection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="mb-4 text-5xl font-bold text-white lg:text-7xl">
-            Core <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">Expertise</span>
+            Core{" "}
+            <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+              Expertise
+            </span>
           </h2>
           <p className="text-lg text-slate-400">
             Technologies and skills I work with daily
@@ -78,7 +81,9 @@ export default function ExpertiseSection() {
                 <div className="mb-6 text-5xl">{skill.icon}</div>
 
                 {/* Category */}
-                <h3 className="mb-6 text-2xl font-bold text-white">{skill.category}</h3>
+                <h3 className="mb-6 text-2xl font-bold text-white">
+                  {skill.category}
+                </h3>
 
                 {/* Skills */}
                 <div className="space-y-5">
@@ -93,7 +98,10 @@ export default function ExpertiseSection() {
                           className="h-full bg-gradient-to-r from-blue-500 to-emerald-500"
                           initial={{ width: 0 }}
                           animate={isInView ? { width: `${item.level}%` } : {}}
-                          transition={{ duration: 1, delay: index * 0.1 + itemIndex * 0.1 }}
+                          transition={{
+                            duration: 1,
+                            delay: index * 0.1 + itemIndex * 0.1,
+                          }}
                         />
                       </div>
                     </div>

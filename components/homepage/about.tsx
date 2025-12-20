@@ -24,7 +24,7 @@ export default function About() {
           transition={{ duration: 0.7 }}
           className="mx-auto mt-16 max-w-4xl"
         >
-          <div className="flex items-center gap-3 mb-8">
+          <div className="mb-8 flex items-center gap-3">
             <div className="flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-400/20 to-pink-400/20">
               <GraduationCap className="size-7 text-pink-400" />
             </div>
@@ -41,11 +41,15 @@ export default function About() {
             >
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
+                  <div className="mb-2 flex items-center gap-3">
                     <Award className="size-5 text-purple-400" />
-                    <h4 className="text-xl font-bold text-white">{education.master.degree}</h4>
+                    <h4 className="text-xl font-bold text-white">
+                      {education.master.degree}
+                    </h4>
                   </div>
-                  <p className="text-base text-pink-400 font-medium">{education.master.specialization}</p>
+                  <p className="text-base font-medium text-pink-400">
+                    {education.master.specialization}
+                  </p>
                   <p className="mt-2 text-sm text-white/60">
                     {education.master.institution} • {education.master.location}
                   </p>
@@ -56,12 +60,18 @@ export default function About() {
               </div>
 
               <div className="mt-6 rounded-2xl border border-pink-400/20 bg-gradient-to-br from-pink-400/10 to-purple-400/5 p-6 backdrop-blur">
-                <div className="flex items-center gap-2 mb-3">
+                <div className="mb-3 flex items-center gap-2">
                   <Rocket className="size-5 text-pink-400" />
-                  <span className="text-sm font-bold uppercase tracking-wider text-pink-400">Master's Thesis</span>
+                  <span className="text-sm font-bold uppercase tracking-wider text-pink-400">
+                    Master's Thesis
+                  </span>
                 </div>
-                <h5 className="text-lg font-bold text-white">{education.master.thesis.title}</h5>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">{education.master.thesis.outcome}</p>
+                <h5 className="text-lg font-bold text-white">
+                  {education.master.thesis.title}
+                </h5>
+                <p className="mt-3 text-sm leading-relaxed text-white/80">
+                  {education.master.thesis.outcome}
+                </p>
               </div>
             </motion.div>
 
@@ -74,9 +84,12 @@ export default function About() {
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h4 className="text-lg font-semibold text-white">{education.bachelor.degree}</h4>
+                  <h4 className="text-lg font-semibold text-white">
+                    {education.bachelor.degree}
+                  </h4>
                   <p className="mt-1 text-sm text-white/50">
-                    {education.bachelor.institution} • {education.bachelor.years}
+                    {education.bachelor.institution} •{" "}
+                    {education.bachelor.years}
                   </p>
                 </div>
               </div>
@@ -92,7 +105,7 @@ export default function About() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="mx-auto mt-20 max-w-4xl"
         >
-          <div className="flex items-center gap-3 mb-8">
+          <div className="mb-8 flex items-center gap-3">
             <div className="flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-400/20 to-pink-400/20">
               <Briefcase className="size-7 text-pink-400" />
             </div>
@@ -112,14 +125,20 @@ export default function About() {
               >
                 <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                   <div className="flex-1">
-                    <div className="flex flex-wrap items-center gap-3 mb-2">
-                      <h4 className="text-2xl font-bold text-white">{exp.role}</h4>
+                    <div className="mb-2 flex flex-wrap items-center gap-3">
+                      <h4 className="text-2xl font-bold text-white">
+                        {exp.role}
+                      </h4>
                       <span className="rounded-full bg-pink-400/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-pink-400 ring-1 ring-pink-400/20">
                         {exp.type}
                       </span>
                     </div>
-                    <p className="text-lg font-semibold text-pink-400">{exp.company}</p>
-                    <p className="mt-4 leading-relaxed text-white/70">{exp.description}</p>
+                    <p className="text-lg font-semibold text-pink-400">
+                      {exp.company}
+                    </p>
+                    <p className="mt-4 leading-relaxed text-white/70">
+                      {exp.description}
+                    </p>
                   </div>
                   <span className="shrink-0 rounded-full bg-purple-400/10 px-4 py-2 text-sm font-bold text-purple-400 ring-1 ring-purple-400/20">
                     {exp.period}

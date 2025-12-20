@@ -11,7 +11,8 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Nicolas Huberty | AI Solutions & Digital Transformation",
-  description: "AI Engineer helping organizations harness the power of AI to streamline operations, automate workflows, and build intelligent systems.",
+  description:
+    "AI Engineer helping organizations harness the power of AI to streamline operations, automate workflows, and build intelligent systems.",
 }
 
 export const viewport: Viewport = {
@@ -29,12 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "min-h-screen antialiased",
-          inter.className,
-        )}
-      >
+      <body className={cn("min-h-screen antialiased", inter.className)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

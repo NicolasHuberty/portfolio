@@ -119,9 +119,9 @@ export default function Hero() {
           Building Intelligent Systems
         </h1>
         <p className="mx-auto mt-8 max-w-2xl text-center text-xl text-white/50">
-          I design, develop, and deploy AI-driven platforms that blend automation,
-          generative intelligence, and seamless user experiences — mainly for the
-          legal and medical industries.
+          I design, develop, and deploy AI-driven platforms that blend
+          automation, generative intelligence, and seamless user experiences —
+          mainly for the legal and medical industries.
         </p>
         <div className="mx-auto mt-10 flex max-w-md justify-center gap-4">
           <a

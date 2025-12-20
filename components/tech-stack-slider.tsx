@@ -42,7 +42,10 @@ export default function TechStackSlider() {
           viewport={{ once: true }}
         >
           <h2 className="mb-4 text-4xl font-bold text-white lg:text-5xl">
-            Tech <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">Stack</span>
+            Tech{" "}
+            <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+              Stack
+            </span>
           </h2>
           <p className="text-lg text-slate-400">
             Languages, frameworks, and tools I work with
@@ -87,7 +90,9 @@ export default function TechStackSlider() {
                     <div className="text-5xl">{tech.icon}</div>
 
                     {/* Name */}
-                    <div className={`bg-gradient-to-r ${tech.color} bg-clip-text text-center text-sm font-semibold text-transparent`}>
+                    <div
+                      className={`bg-gradient-to-r ${tech.color} bg-clip-text text-center text-sm font-semibold text-transparent`}
+                    >
                       {tech.name}
                     </div>
 
@@ -123,7 +128,9 @@ export default function TechStackSlider() {
               <div className="mb-2 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-3xl font-bold text-transparent">
                 {item.count}
               </div>
-              <div className="mb-1 text-sm font-semibold text-white">{item.level}</div>
+              <div className="mb-1 text-sm font-semibold text-white">
+                {item.level}
+              </div>
               <div className="text-xs text-slate-500">{item.tech}</div>
             </motion.div>
           ))}

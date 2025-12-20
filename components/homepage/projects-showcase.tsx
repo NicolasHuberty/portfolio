@@ -17,7 +17,9 @@ export default function ProjectsShowcase() {
           Things I've <span className="text-pink-400">Built</span>
         </h2>
         <p className="mx-auto max-w-2xl text-center text-lg text-white/60">
-          From AI research to production SaaS platforms — here's a selection of projects that showcase my work in AI engineering, automation, and digital transformation.
+          From AI research to production SaaS platforms — here's a selection of
+          projects that showcase my work in AI engineering, automation, and
+          digital transformation.
         </p>
 
         <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -42,7 +44,7 @@ export default function ProjectsShowcase() {
                 </span>
               </div>
 
-              <h3 className="text-2xl font-bold group-hover:text-pink-400 transition-colors">
+              <h3 className="text-2xl font-bold transition-colors group-hover:text-pink-400">
                 {project.title}
               </h3>
 
@@ -57,7 +59,7 @@ export default function ProjectsShowcase() {
               )}
 
               <div className="mt-4 flex flex-wrap gap-2">
-                {project.technologies.slice(0, 4).map((tech) => (
+                {project.technologies.slice(0, 4).map(tech => (
                   <span
                     key={tech}
                     className="rounded-md bg-pink-400/5 px-2 py-1 text-xs text-pink-400/80 ring-1 ring-pink-400/20"
