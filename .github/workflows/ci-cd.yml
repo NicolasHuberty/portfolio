@@ -110,7 +110,7 @@ jobs:
             ${{ env.REGISTRY }}/${{ steps.vars.outputs.lower_image_name }}:latest
           platforms: linux/amd64,linux/arm64
 
-  # Job 5: ArgoCD Rollout via API
+  # Job 5: Deploy via API Overrides
   deploy:
     name: ArgoCD API Rollout
     runs-on: ubuntu-latest
@@ -120,27 +120,18 @@ jobs:
         run: |
           NEW_TAG="sha-${{ needs.docker.outputs.short_sha }}"
           
-          echo "Updating ${{ env.ARGO_APP_NAME }} to tag $NEW_TAG"
-          
+          # This overrides the image.tag in the cluster
           curl -f -X PATCH "https://${{ env.ARGO_SERVER }}/api/v1/applications/${{ env.ARGO_APP_NAME }}" \
             -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
-            -H "Content-Type: application/merge-patch+json" \
+            -H "Content-Type: application/json" \
             -d '{
-              "spec": {
-                "source": {
-                  "helm": {
-                    "parameters": [
-                      {
-                        "name": "image.tag",
-                        "value": "'"$NEW_TAG"'"
-                      }
-                    ]
-                  }
-                }
-              }
+              "name": "${{ env.ARGO_APP_NAME }}",
+              "patch": "{\"spec\":{\"source\":{\"helm\":{\"parameters\":[{\"name\":\"image.tag\",\"value\":\"'"$NEW_TAG"'\"}]}}}}",
+              "patchType": "merge"
             }'
 
       - name: Trigger Sync
         run: |
+          # This forces ArgoCD to pull the new image into the cluster immediately
           curl -f -X POST "https://${{ env.ARGO_SERVER }}/api/v1/applications/${{ env.ARGO_APP_NAME }}/sync" \
             -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}"
