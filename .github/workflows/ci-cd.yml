@@ -8,9 +8,9 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  # ArgoCD Config
-  ARGO_APP_NAME: "portfolio-dev"
-  ARGO_SERVER: "argo.huberty.pro"
+  INFRA_REPO: "NicolasHuberty/vps-huberty-infra"
+  # Base app name (without -dev suffix)
+  APP_BASE_NAME: "portfolio"
 
 jobs:
   # Job 1: Lint and Format Check
@@ -72,23 +72,33 @@ jobs:
     name: Docker Build & Push
     runs-on: ubuntu-latest
     needs: [build]
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev')
+    if: github.event_name == 'push'
     permissions:
       contents: read
       packages: write
     outputs:
       short_sha: ${{ steps.vars.outputs.short_sha }}
       lower_image_name: ${{ steps.vars.outputs.lower_image_name }}
+      environment: ${{ steps.vars.outputs.environment }}
+      app_name: ${{ steps.vars.outputs.app_name }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Set Variables (Short SHA and Lowercase Image Name)
+      - name: Set Variables
         id: vars
         run: |
           echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
-          # This converts "NicolasHuberty/portfolio" to "nicolashuberty/portfolio"
           echo "lower_image_name=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+          
+          # Determine environment based on branch
+          if [[ "${{ github.ref }}" == "refs/heads/dev" ]]; then
+            echo "environment=dev" >> $GITHUB_OUTPUT
+            echo "app_name=${{ env.APP_BASE_NAME }}-dev" >> $GITHUB_OUTPUT
+          else
+            echo "environment=prod" >> $GITHUB_OUTPUT
+            echo "app_name=${{ env.APP_BASE_NAME }}" >> $GITHUB_OUTPUT
+          fi
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -107,31 +117,51 @@ jobs:
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ steps.vars.outputs.lower_image_name }}:sha-${{ steps.vars.outputs.short_sha }}
-            ${{ env.REGISTRY }}/${{ steps.vars.outputs.lower_image_name }}:latest
+            ${{ env.REGISTRY }}/${{ steps.vars.outputs.lower_image_name }}:${{ steps.vars.outputs.environment }}
           platforms: linux/amd64,linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-  # Job 5: Deploy via API Overrides
-  deploy:
-    name: ArgoCD API Rollout
+  # Job 5: Update Infrastructure Repo
+  update-infra:
+    name: Update Infra Repo (${{ needs.docker.outputs.environment }})
     runs-on: ubuntu-latest
     needs: [docker]
     steps:
-      - name: Update ArgoCD Image Parameter
-        run: |
-          NEW_TAG="sha-${{ needs.docker.outputs.short_sha }}"
-          
-          # This overrides the image.tag in the cluster
-          curl -f -X PATCH "https://${{ env.ARGO_SERVER }}/api/v1/applications/${{ env.ARGO_APP_NAME }}" \
-            -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "name": "${{ env.ARGO_APP_NAME }}",
-              "patch": "{\"spec\":{\"source\":{\"helm\":{\"parameters\":[{\"name\":\"image.tag\",\"value\":\"'"$NEW_TAG"'\"}]}}}}",
-              "patchType": "merge"
-            }'
+      - name: Checkout infra repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.INFRA_REPO }}
+          token: ${{ secrets.INFRA_REPO_PAT }}
+          path: infra
 
-      - name: Trigger Sync
+      - name: Update image tag in values.yaml
         run: |
-          # This forces ArgoCD to pull the new image into the cluster immediately
-          curl -f -X POST "https://${{ env.ARGO_SERVER }}/api/v1/applications/${{ env.ARGO_APP_NAME }}/sync" \
-            -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}"
+          cd infra
+          APP_PATH="apps/${{ needs.docker.outputs.app_name }}"
+          SHORT_SHA="${{ needs.docker.outputs.short_sha }}"
+          ENV="${{ needs.docker.outputs.environment }}"
+          
+          echo "🔄 Updating ${APP_PATH} to sha-${SHORT_SHA} (${ENV})"
+          
+          # Update values.yaml - image tag
+          sed -i "s|tag: \".*\"|tag: \"sha-${SHORT_SHA}\"|" "${APP_PATH}/values.yaml"
+          
+          # Update Chart.yaml - appVersion
+          sed -i "s|appVersion: \".*\"|appVersion: \"sha-${SHORT_SHA}\"|" "${APP_PATH}/Chart.yaml"
+
+      - name: Commit and push changes
+        run: |
+          cd infra
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add .
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(${{ needs.docker.outputs.app_name }}): bump to sha-${{ needs.docker.outputs.short_sha }} [${{ needs.docker.outputs.environment }}]"
+            git push
+            echo "✅ Updated ${{ needs.docker.outputs.app_name }} → ArgoCD will sync"
+          fi
