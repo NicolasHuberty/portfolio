@@ -12,14 +12,14 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: "-20px" }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
       <Link href={`/experience/${exp.id}`} className="group block">
-        <div className="flex gap-6 rounded-xl border border-zinc-200 bg-white p-6 transition-all duration-200 hover:border-zinc-300 hover:shadow-lg dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600">
+        <div className="flex flex-col gap-4 rounded-xl border border-zinc-200 bg-white p-4 transition-all duration-200 hover:border-zinc-300 hover:shadow-lg dark:border-slate-700 dark:bg-slate-800 dark:hover:border-slate-600 sm:flex-row sm:gap-6 sm:p-6">
           {/* Logo - Big on the left with white background for dark mode */}
           <div className="flex-shrink-0">
-            <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-xl border border-zinc-100 bg-white p-3 shadow-sm md:h-28 md:w-28">
+            <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl border border-zinc-100 bg-white p-2 shadow-sm sm:h-20 sm:w-20 md:h-28 md:w-28">
               {exp.logo ? (
                 <Image
                   src={exp.logo}
@@ -67,7 +67,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
                   {exp.company}
                 </p>
               </div>
-              <span className="whitespace-nowrap text-sm text-zinc-500 dark:text-slate-500">
+              <span className="text-sm text-zinc-500 dark:text-slate-500">
                 {exp.period}
               </span>
             </div>
@@ -103,7 +103,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
 
 export default function ExperienceSection() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: true, margin: "0px" })
 
   const workExperiences = experiences.filter(e => e.type === "work")
   const educationExperiences = experiences.filter(e => e.type === "education")
@@ -135,18 +135,18 @@ export default function ExperienceSection() {
         </motion.div>
 
         {/* Two Column Layout */}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-8">
           {/* Work Experience Column */}
           <div>
             <h3 className="mb-8 flex items-center gap-2 text-lg font-semibold text-zinc-900 dark:text-white">
               <Briefcase className="h-5 w-5 text-indigo-500" />
               Work Experience
             </h3>
-            <div className="relative ml-3 space-y-12 border-l-2 border-zinc-200 pb-2 dark:border-slate-700">
+            <div className="relative space-y-8 border-l-0 border-zinc-200 pb-2 dark:border-slate-700 sm:ml-3 sm:space-y-12 sm:border-l-2">
               {workExperiences.map((exp, index) => (
-                <div key={exp.id} className="relative pl-8 sm:pl-10">
-                  {/* Timeline Dot */}
-                  <span className="absolute -left-[9px] top-10 z-10 h-[18px] w-[18px] rounded-full border-4 border-white bg-indigo-100 ring-2 ring-indigo-500 dark:border-slate-900 dark:bg-slate-800" />
+                <div key={exp.id} className="relative pl-0 sm:pl-10">
+                  {/* Timeline Dot - Hidden on very small screens, shown above sm */}
+                  <span className="absolute -left-[9px] top-10 z-10 hidden h-[18px] w-[18px] rounded-full border-4 border-white bg-indigo-100 ring-2 ring-indigo-500 dark:border-slate-900 dark:bg-slate-800 sm:block" />
 
                   <ExperienceCard exp={exp} index={index} />
                 </div>
@@ -160,11 +160,11 @@ export default function ExperienceSection() {
               <GraduationCap className="h-5 w-5 text-violet-500" />
               Education
             </h3>
-            <div className="relative ml-3 space-y-12 border-l-2 border-zinc-200 pb-2 dark:border-slate-700">
+            <div className="relative space-y-8 border-l-0 border-zinc-200 pb-2 dark:border-slate-700 sm:ml-3 sm:space-y-12 sm:border-l-2">
               {educationExperiences.map((exp, index) => (
-                <div key={exp.id} className="relative pl-8 sm:pl-10">
-                  {/* Timeline Dot */}
-                  <span className="absolute -left-[9px] top-10 z-10 h-[18px] w-[18px] rounded-full border-4 border-white bg-violet-100 ring-2 ring-violet-500 dark:border-slate-900 dark:bg-slate-800" />
+                <div key={exp.id} className="relative pl-0 sm:pl-10">
+                  {/* Timeline Dot - Hidden on very small screens, shown above sm */}
+                  <span className="absolute -left-[9px] top-10 z-10 hidden h-[18px] w-[18px] rounded-full border-4 border-white bg-violet-100 ring-2 ring-violet-500 dark:border-slate-900 dark:bg-slate-800 sm:block" />
 
                   <ExperienceCard exp={exp} index={index} />
                 </div>

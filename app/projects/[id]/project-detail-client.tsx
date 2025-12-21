@@ -61,7 +61,7 @@ const projectDetails: Record<
   },
   swet: {
     duration: "Ongoing",
-    team: "Freelance (with [Tom Heyerick](https://www.linkedin.com/in/tom-heyerick-79385427b/)",
+    team: "Freelance (with [Tom Heyerick](https://www.linkedin.com/in/tom-heyerick-79385427b/))",
     role: "Odoo Developer & Maintainer",
     client: "SWET BXL",
     year: "2023-Present",

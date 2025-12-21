@@ -6,7 +6,7 @@ export const personalInfo = {
   description:
     "I design, develop, and deploy AI-driven platforms that blend automation, generative intelligence, and seamless user experiences — mainly for the legal and medical industries.",
   email: "huberty.nicolas@hotmail.com", // Update this
-  linkedin: "https://linkedin.com/in/nicolas-huberty", // Update this
+  linkedin: "https://www.linkedin.com/in/nicolas-huberty-a1068723b", // Update this
   github: "https://github.com/NicolasHuberty", // Update this
   location: "Belgium",
 }

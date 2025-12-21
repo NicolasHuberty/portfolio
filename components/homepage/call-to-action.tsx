@@ -7,15 +7,16 @@ export default function CallToAction() {
   const [isHovered, setIsHovered] = useState(false)
   const animation = useRef<AnimationPlaybackControls>()
   const [scope, animate] = useAnimate()
-  const router = useRouter()
+  // eslint-disable-next-line no-unused-vars
+  const _router = useRouter()
 
   useEffect(() => {
     animation.current = animate(
       scope.current,
       { x: "-50%" },
-      { duration: 30, repeat: Infinity, ease: "linear" },
+      { duration: 4, repeat: Infinity, ease: "linear" },
     )
-  }, [])
+  }, [animate])
 
   useEffect(() => {
     if (animation.current) {

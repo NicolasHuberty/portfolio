@@ -96,6 +96,7 @@ export function FacebookPixel({ pixelId }: FacebookPixelProps) {
     <>
       {/* Facebook Pixel noscript fallback */}
       <noscript>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           height="1"
           width="1"
