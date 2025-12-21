@@ -118,10 +118,10 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ steps.vars.outputs.lower_image_name }}:sha-${{ steps.vars.outputs.short_sha }}
             ${{ env.REGISTRY }}/${{ steps.vars.outputs.lower_image_name }}:${{ steps.vars.outputs.environment }}
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
+          
   # Job 5: Update Infrastructure Repo
   update-infra:
     name: Update Infra Repo (${{ needs.docker.outputs.environment }})
@@ -134,6 +134,7 @@ jobs:
           repository: ${{ env.INFRA_REPO }}
           token: ${{ secrets.INFRA_REPO_PAT }}
           path: infra
+          persist-credentials: true  # <-- ADD THIS
 
       - name: Update image tag in values.yaml
         run: |
@@ -155,6 +156,9 @@ jobs:
           cd infra
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Explicitly set the remote URL with the token
+          git remote set-url origin "https://x-access-token:${{ secrets.INFRA_REPO_PAT }}@github.com/${{ env.INFRA_REPO }}.git"
           
           git add .
           
