@@ -415,7 +415,13 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                             : "opacity-60 hover:opacity-100"
                         } transition-all`}
                       >
-                        <Image src={img} alt="" fill sizes="80px" className="object-cover" />
+                        <Image
+                          src={img}
+                          alt=""
+                          fill
+                          sizes="80px"
+                          className="object-cover"
+                        />
                       </button>
                     ))}
                   </div>
