@@ -369,6 +369,9 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                     src={allImages[currentImage]}
                     alt={`${project.title} screenshot`}
                     fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 66vw"
+                    quality={85}
                     className="object-cover object-top"
                   />
 
@@ -412,7 +415,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                             : "opacity-60 hover:opacity-100"
                         } transition-all`}
                       >
-                        <Image src={img} alt="" fill className="object-cover" />
+                        <Image src={img} alt="" fill sizes="80px" className="object-cover" />
                       </button>
                     ))}
                   </div>

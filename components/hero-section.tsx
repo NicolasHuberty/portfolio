@@ -134,6 +134,8 @@ export default function HeroSection() {
                   src="/images/nicolas.jpeg"
                   alt="Nicolas Huberty"
                   fill
+                  priority
+                  sizes="(max-width: 768px) 280px, 320px"
                   className="object-cover"
                 />
 

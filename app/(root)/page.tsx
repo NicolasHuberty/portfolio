@@ -7,10 +7,14 @@ import ProjectsSection from "@/components/projects-section"
 import ContactSection from "@/components/contact-section"
 import Footer from "@/components/footer"
 import { ShiftingContent } from "@/components/shifting-content"
+import WelcomePopup from "@/components/welcome-popup"
 
 export default function Home() {
   return (
     <>
+      {/* Welcome popup */}
+      <WelcomePopup />
+
       {/* Hero section - always full-width */}
       <HeroSection />
 

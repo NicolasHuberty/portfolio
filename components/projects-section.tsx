@@ -52,6 +52,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 src={project.screenshots[currentImage]}
                 alt={`${project.title} screenshot`}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                quality={85}
                 className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
               />
 
