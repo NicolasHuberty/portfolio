@@ -22,6 +22,9 @@ COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 
+# Create cache directory with proper permissions for image optimization
+RUN mkdir -p /app/.next/cache/images && chown -R bun:bun /app/.next/cache
+
 USER bun
 EXPOSE 3000
 CMD ["bun", "run", "start"]
