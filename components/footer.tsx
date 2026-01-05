@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { Github, Linkedin, Mail } from "lucide-react"
 
 export default function Footer() {
@@ -22,14 +21,14 @@ export default function Footer() {
 
           <div className="flex items-center gap-4">
             <a
-              href="mailto:contact@nicolashuberty.com"
+              href="mailto:huberty.nicolas@hotmail.com"
               className="text-zinc-400 transition-colors hover:text-zinc-600 dark:text-slate-500 dark:hover:text-white"
               aria-label="Email"
             >
               <Mail className="h-4 w-4" />
             </a>
             <a
-              href="https://linkedin.com/in/nicolas-huberty"
+              href="https://www.linkedin.com/in/nicolas-huberty-a1068723b"
               target="_blank"
               rel="noopener noreferrer"
               className="text-zinc-400 transition-colors hover:text-zinc-600 dark:text-slate-500 dark:hover:text-white"

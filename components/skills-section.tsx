@@ -5,19 +5,16 @@ import { useRef } from "react"
 import {
   Brain,
   Database,
-  Workflow,
-  MessageSquare,
-  FileSearch,
-  Cloud,
   Search,
-  Rocket,
-  Cog,
-  Sparkles,
-  ArrowRight,
   Cpu,
+  Cog,
+  Rocket,
+  ArrowRight,
   Code2,
   Layers,
   Network,
+  Workflow,
+  Sparkles,
 } from "lucide-react"
 import Image from "next/image"
 
@@ -249,7 +246,7 @@ const techStack = [
 
 export default function ServicesSection() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: true, margin: "0px" })
 
   return (
     <section

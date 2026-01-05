@@ -11,7 +11,6 @@ import {
   Moon,
   ChevronRight,
   Menu,
-  X,
 } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
@@ -22,7 +21,11 @@ export default function Sidebar() {
   const [mounted, setMounted] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const { isExpanded, setIsExpanded, shouldShowSidebar } = useSidebar()
+  const {
+    isExpanded: _isExpanded,
+    setIsExpanded,
+    shouldShowSidebar,
+  } = useSidebar()
 
   useEffect(() => {
     setMounted(true)
@@ -220,7 +223,7 @@ export default function Sidebar() {
                   <Github className="h-4 w-4" />
                 </a>
                 <a
-                  href="https://linkedin.com/in/nicolas-huberty"
+                  href="https://www.linkedin.com/in/nicolas-huberty-a1068723b"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 transition-all hover:bg-[#0077b5] hover:text-white dark:bg-slate-700 dark:text-slate-400"
@@ -229,7 +232,7 @@ export default function Sidebar() {
                   <Linkedin className="h-4 w-4" />
                 </a>
                 <a
-                  href="mailto:contact@nicolashuberty.com"
+                  href="mailto:huberty.nicolas@hotmail.com"
                   className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 transition-all hover:bg-rose-500 hover:text-white dark:bg-slate-700 dark:text-slate-400"
                   title="Email"
                 >
@@ -385,7 +388,7 @@ export default function Sidebar() {
                     <Github className="h-4 w-4" />
                   </a>
                   <a
-                    href="https://linkedin.com/in/nicolas-huberty"
+                    href="https://www.linkedin.com/in/nicolas-huberty-a1068723b"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 transition-all hover:bg-[#0077b5] hover:text-white dark:bg-slate-700 dark:text-slate-400"
@@ -393,7 +396,7 @@ export default function Sidebar() {
                     <Linkedin className="h-4 w-4" />
                   </a>
                   <a
-                    href="mailto:contact@nicolashuberty.com"
+                    href="mailto:huberty.nicolas@hotmail.com"
                     className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100 text-zinc-500 transition-all hover:bg-rose-500 hover:text-white dark:bg-slate-700 dark:text-slate-400"
                   >
                     <Mail className="h-4 w-4" />

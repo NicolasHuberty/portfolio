@@ -1,7 +1,6 @@
 "use client"
 import { motion, useAnimate } from "framer-motion"
 import Image from "next/image"
-import { useSearchParams } from "next/navigation"
 import { useEffect, useRef } from "react"
 
 import Pointer from "@/components/pointer"
@@ -9,12 +8,7 @@ import cursorYouImage from "@/public/images/cursor-you.svg"
 import designExample1Image from "@/public/images/design-example-1.png"
 import designExample2Image from "@/public/images/design-example-2.png"
 
-import SearchForm from "../search-form"
-
 export default function Hero() {
-  const searchParams = useSearchParams()
-  const query = searchParams.get("query") || ""
-
   const [leftDesignScope, leftDesignAnimate] = useAnimate()
   const [leftPointerScope, leftPointerAnimate] = useAnimate()
   const [rightDesignScope, rightDesignAnimate] = useAnimate()
@@ -55,7 +49,16 @@ export default function Hero() {
         { duration: 0.5, ease: "easeInOut" },
       ],
     ])
-  }, [])
+  }, [
+    leftDesignAnimate,
+    leftDesignScope,
+    leftPointerAnimate,
+    leftPointerScope,
+    rightDesignAnimate,
+    rightDesignScope,
+    rightPointerAnimate,
+    rightPointerScope,
+  ])
 
   return (
     <section
@@ -78,6 +81,7 @@ export default function Hero() {
             src={designExample1Image}
             alt="design example 1 image"
             draggable={false}
+            className="h-auto w-32"
           />
         </motion.div>
         <motion.div
@@ -99,6 +103,7 @@ export default function Hero() {
             src={designExample2Image}
             alt="design example 2 image"
             draggable={false}
+            className="h-auto w-32"
           />
         </motion.div>
         <motion.div
@@ -109,32 +114,37 @@ export default function Hero() {
           <Pointer name="Bryan" color="red" />
         </motion.div>
 
-        <div className="flex justify-center">
-          <div className="inline-flex rounded-full bg-gradient-to-r from-purple-400 to-pink-400 px-3 py-1 font-semibold text-neutral-950">
-            💼 AI Engineer & Freelance Developer
-          </div>
+        <div className="flex justify-center gap-3">
+          <span className="inline-flex rounded-full bg-purple-400/10 px-3 py-1 text-sm font-medium text-purple-400 ring-1 ring-inset ring-purple-400/20">
+            Legal Tech
+          </span>
+          <span className="inline-flex rounded-full bg-blue-400/10 px-3 py-1 text-sm font-medium text-blue-400 ring-1 ring-inset ring-blue-400/20">
+            Healthcare AI
+          </span>
+          <span className="inline-flex rounded-full bg-emerald-400/10 px-3 py-1 text-sm font-medium text-emerald-400 ring-1 ring-inset ring-emerald-400/20">
+            Education Tech
+          </span>
         </div>
-        <h1 className="mx-auto mt-6 max-w-4xl text-center text-4xl font-medium md:text-5xl lg:text-8xl">
-          Hi, I'm Nicolas Huberty <br />
-          Building Intelligent Systems
+        <h1 className="mx-auto mt-8 max-w-4xl text-center text-5xl font-medium tracking-tight md:text-7xl">
+          Building intelligent systems that transform organizations
         </h1>
-        <p className="mx-auto mt-8 max-w-2xl text-center text-xl text-white/50">
-          I design, develop, and deploy AI-driven platforms that blend
-          automation, generative intelligence, and seamless user experiences —
-          mainly for the legal and medical industries.
+        <p className="mx-auto mt-8 max-w-2xl text-center text-xl text-white/60">
+          I'm Nicolas, an AI engineer based in Belgium. I design and implement
+          AI-powered solutions that help businesses automate workflows, extract
+          insights from data, and deliver exceptional user experiences.
         </p>
         <div className="mx-auto mt-10 flex max-w-md justify-center gap-4">
           <a
             href="#projects"
-            className="inline-flex rounded-full bg-gradient-to-r from-purple-400 to-pink-400 px-8 py-3 font-semibold text-neutral-950 transition-transform hover:scale-105"
+            className="inline-flex rounded-full bg-white px-8 py-3 font-semibold text-neutral-950 transition-transform hover:scale-105"
           >
-            View Projects
+            View My Work
           </a>
           <a
             href="#contact"
-            className="inline-flex rounded-full border border-purple-400 px-8 py-3 font-semibold text-white transition-all hover:bg-purple-400/10"
+            className="inline-flex rounded-full border border-white/20 bg-white/5 px-8 py-3 font-semibold text-white transition-all hover:bg-white/10"
           >
-            Get in Touch
+            Start a Conversation
           </a>
         </div>
       </div>

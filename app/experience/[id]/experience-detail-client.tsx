@@ -5,14 +5,19 @@ import Image from "next/image"
 import Link from "next/link"
 import {
   ArrowLeft,
+  ExternalLink,
   Calendar,
+  Users,
+  Clock,
+  Circle,
+  ChevronLeft,
+  ChevronRight,
   MapPin,
   Briefcase,
   GraduationCap,
   CheckCircle,
   Lightbulb,
   Wrench,
-  ImageIcon,
 } from "lucide-react"
 import type { Experience } from "@/lib/experience-data"
 

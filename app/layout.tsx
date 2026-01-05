@@ -33,7 +33,7 @@ export default function RootLayout({
       <body className={cn("min-h-screen antialiased", inter.className)}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange={false}
         >

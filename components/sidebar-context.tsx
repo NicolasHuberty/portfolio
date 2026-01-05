@@ -18,7 +18,8 @@ interface SidebarContextType {
 
 const SidebarContext = createContext<SidebarContextType>({
   isExpanded: false,
-  setIsExpanded: () => {},
+  // eslint-disable-next-line no-unused-vars
+  setIsExpanded: (_value: boolean) => {},
   isScrolledPastHero: false,
   shouldShowSidebar: false,
 })
