@@ -11,6 +11,7 @@ import { useScroll, useMotionValueEvent } from "framer-motion"
 
 interface SidebarContextType {
   isExpanded: boolean
+  // eslint-disable-next-line no-unused-vars
   setIsExpanded: (value: boolean) => void
   isScrolledPastHero: boolean
   shouldShowSidebar: boolean

@@ -1,0 +1,22 @@
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a0a2e"/>
+      <stop offset="100%" stop-color="#0f0720"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="26" fill="url(#bg)"/>
+  <!-- Left quote as waveform -->
+  <path d="M28,38 Q28,26 36,26 Q48,26 48,40 Q48,62 32,70" stroke="url(#g)" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M34,43 L34,58" stroke="url(#g)" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <!-- Right quote as waveform -->
+  <path d="M58,38 Q58,26 66,26 Q78,26 78,40 Q78,62 62,70" stroke="url(#g)" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M64,43 L64,58" stroke="url(#g)" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <!-- Waveform below -->
+  <path d="M22,88 Q32,78 42,88 Q52,98 62,88 Q72,78 82,88 Q92,98 98,88" stroke="url(#g)" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <path d="M30,82 Q40,74 50,82 Q60,90 70,82 Q80,74 90,82" stroke="url(#g)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.25"/>
+</svg>

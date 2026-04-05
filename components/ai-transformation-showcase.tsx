@@ -86,7 +86,7 @@ export default function AITransformationShowcase() {
         const layerOpacity = 0.3 + (currentLayer / numLayers) * 0.7
 
         // Update and draw particles for this layer
-        layerParticles.forEach((particle, i) => {
+        layerParticles.forEach(particle => {
           // Mouse interaction with layer-based influence
           const dx = mousePos.x - particle.x
           const dy = mousePos.y - particle.y

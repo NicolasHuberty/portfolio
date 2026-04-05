@@ -21,11 +21,7 @@ export default function Sidebar() {
   const [mounted, setMounted] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
-  const {
-    isExpanded: _isExpanded,
-    setIsExpanded,
-    shouldShowSidebar,
-  } = useSidebar()
+  const { setIsExpanded, shouldShowSidebar } = useSidebar()
 
   useEffect(() => {
     setMounted(true)

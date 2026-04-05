@@ -16,7 +16,7 @@ export default function CallToAction() {
       { x: "-50%" },
       { duration: 4, repeat: Infinity, ease: "linear" },
     )
-  }, [animate])
+  }, [animate, scope])
 
   useEffect(() => {
     if (animation.current) {

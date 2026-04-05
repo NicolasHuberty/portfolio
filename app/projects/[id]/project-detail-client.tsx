@@ -120,6 +120,64 @@ const projectDetails: Record<
       "Full MCP support for standardized tool integration",
     ],
   },
+  ratio: {
+    duration: "Ongoing",
+    team: "Solo Developer",
+    role: "Full-Stack Developer & AI Engineer",
+    year: "2025",
+    context:
+      "Online debates are often dominated by popularity and emotional reactions rather than evidence and logic. There's no platform that rewards well-sourced, credible arguments over viral hot takes.",
+    challenge:
+      "Build a social platform where the quality of arguments matters more than the number of likes. Implement a credibility scoring system powered by AI that can verify sources and assess argument strength.",
+    solution:
+      "Developed **Ratio**, a weighted debate platform using **Next.js** with **Prisma** and **PostgreSQL**. Integrated **Claude AI** for automated fact-checking and source credibility scoring. Added gamification elements including **leagues** (Bronze to Legend), **badges**, **streaks**, and **1v1 duels** to incentivize quality contributions. Users build expertise through verified credentials.",
+    results: [
+      "AI-powered source verification using Claude Haiku",
+      "Gamification system with leagues, badges, and streaks",
+      "1v1 debate duels on trending topics",
+      "Opinion polls tracking mind changes over time",
+      "Credential-based expertise scoring",
+    ],
+  },
+  louise: {
+    duration: "1 month",
+    team: "Solo Developer",
+    role: "Full-Stack Developer",
+    client: "Louise Huberty",
+    year: "2025",
+    context:
+      "A speech-language pathologist needed a professional online presence to showcase her services and make it easy for patients to learn about her practice and get in touch.",
+    challenge:
+      "Create a modern, accessible, and fast website that reflects the professionalism of a healthcare practice while being easy to maintain.",
+    solution:
+      "Built a performant static website with **Next.js** and **Tailwind CSS**, featuring smooth **Framer Motion** animations and a clean, professional design. Deployed on a self-hosted **Coolify** instance for full control.",
+    results: [
+      "Fast, responsive website with excellent accessibility",
+      "Professional design tailored for healthcare",
+      "Self-hosted deployment for data sovereignty",
+      "Easy content management",
+    ],
+  },
+  meetyournotes: {
+    duration: "3 months",
+    team: "Solo Developer",
+    role: "Full-Stack Developer",
+    year: "2025",
+    context:
+      "Meeting notes are often scattered, incomplete, or lost. Professionals need a dedicated tool that combines recording, transcription, and structured summarization — without sending sensitive data to the cloud.",
+    challenge:
+      "Build a **fully local** native desktop application that automatically detects active meeting calls (Teams, Zoom, Google Meet), transcribes them in real-time, and generates structured minutes — all without any data leaving the user's machine.",
+    solution:
+      "Developed a native desktop app using **Tauri** (Rust backend) with a **React** frontend. The app **automatically detects** when a Teams, Zoom, or Google Meet call starts and begins recording/transcription. At the end of the meeting, it generates a structured **procès-verbal** with context, decisions, action items, and open points. Integrated **BlockNote** for rich text editing and an **AI chat assistant** to query meeting content. Everything runs **100% locally** for complete data privacy.",
+    results: [
+      "**Auto-detection** of Teams, Zoom, and Google Meet calls",
+      "**Fully local** — no data leaves the machine",
+      "Automatic structured summary generation (procès-verbal)",
+      "AI chat assistant to query meeting content",
+      "Rich text editor with export to Markdown",
+      "Native cross-platform app (macOS, Windows, Linux)",
+    ],
+  },
   ila: {
     duration: "6 months (Master's Thesis)",
     team: "Solo + Academic Supervisor",

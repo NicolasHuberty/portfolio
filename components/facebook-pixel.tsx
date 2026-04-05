@@ -22,6 +22,7 @@ import { usePathname, useSearchParams } from "next/navigation"
  */
 
 declare global {
+  // eslint-disable-next-line no-unused-vars
   interface Window {
     fbq: any
     _fbq: any
