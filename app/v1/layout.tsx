@@ -3,7 +3,7 @@
 import Sidebar from "@/components/sidebar"
 import { SidebarProvider } from "@/components/sidebar-context"
 
-export default function SiteLayout({
+export default function V1Layout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (

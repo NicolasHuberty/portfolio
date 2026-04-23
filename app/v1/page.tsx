@@ -8,13 +8,10 @@ import ContactSection from "@/components/contact-section"
 import Footer from "@/components/footer"
 import { ShiftingContent } from "@/components/shifting-content"
 
-export default function Home() {
+export default function V1Home() {
   return (
     <>
-      {/* Hero section - always full-width */}
       <HeroSection />
-
-      {/* Content after hero - shifts when sidebar appears */}
       <ShiftingContent>
         <ServicesSection />
         <ExperienceSection />

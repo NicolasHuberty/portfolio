@@ -1,0 +1,187 @@
+/* huberty.os theme tokens + mini-reset scoped to .os-root */
+
+.os-root {
+  /* fonts */
+  --os-ui: var(--font-inter-tight), "Inter Tight", system-ui, sans-serif;
+  --os-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+  --os-display: var(--font-fraunces), "Fraunces", Georgia, serif;
+
+  /* light palette */
+  --os-bg: #f0ede3;
+  --os-bg-window: #fbfaf6;
+  --os-ink: #1a1a1a;
+  --os-ink-muted: #5c5c5c;
+  --os-ink-faint: #8a8a8a;
+  --os-accent: #ff5c8a;
+  --os-accent-2: #8ab2ff;
+  --os-accent-3: #f0c03f;
+  --os-ok: #2dd86f;
+  --os-err: #ff5c5c;
+  --os-terminal-bg: #0c0c0c;
+  --os-terminal-fg: #e8e8e8;
+
+  color: var(--os-ink);
+  background: var(--os-bg);
+  font-family: var(--os-ui);
+  min-height: 100vh;
+}
+
+.os-root[data-os-theme="dark"],
+[data-os-theme="dark"] .os-root {
+  --os-bg: #14130f;
+  --os-bg-window: #1d1c18;
+  --os-ink: #fbfaf6;
+  --os-ink-muted: #bfbbb0;
+  --os-ink-faint: #706d66;
+  --os-terminal-bg: #08080a;
+  --os-terminal-fg: #f2f2f2;
+}
+
+.os-root * {
+  box-sizing: border-box;
+}
+
+.os-window {
+  will-change: transform, opacity;
+}
+
+.os-traffic {
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  transition: transform 120ms ease;
+}
+.os-traffic:hover {
+  transform: scale(1.15);
+}
+
+/* Markdown styles */
+.os-md article,
+.os-md.article,
+.os-md {
+  font-family: var(--os-ui);
+  color: var(--os-ink);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.os-md .os-md-h {
+  font-family: var(--os-display);
+  line-height: 1.2;
+  margin: 1.2em 0 0.4em;
+  font-weight: 500;
+}
+.os-md .os-md-h1 {
+  font-size: 32px;
+}
+.os-md .os-md-h2 {
+  font-size: 22px;
+  margin-top: 1.6em;
+}
+.os-md .os-md-h3 {
+  font-size: 17px;
+}
+.os-md .os-md-p {
+  margin: 0.6em 0;
+}
+.os-md .os-md-hr {
+  border: none;
+  border-top: 1px dashed var(--os-ink-faint);
+  margin: 1.6em 0;
+}
+.os-md .os-md-ul,
+.os-md .os-md-ol {
+  padding-left: 1.2em;
+  margin: 0.4em 0;
+}
+.os-md .os-md-ul li,
+.os-md .os-md-ol li {
+  margin: 0.2em 0;
+}
+.os-md .os-md-bq {
+  border-left: 3px solid var(--os-accent);
+  padding-left: 12px;
+  margin: 1em 0;
+  color: var(--os-ink-muted);
+  font-style: italic;
+}
+.os-md .os-md-code {
+  font-family: var(--os-mono);
+  font-size: 12.5px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--os-ink) 8%, transparent);
+}
+.os-md .os-md-pre {
+  font-family: var(--os-mono);
+  font-size: 12.5px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: var(--os-terminal-bg);
+  color: var(--os-terminal-fg);
+  overflow: auto;
+  margin: 1em 0;
+}
+.os-md .os-md-a {
+  color: var(--os-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.os-md .os-md-img {
+  max-width: 100%;
+  border-radius: 6px;
+  margin: 1em 0;
+  border: 1px solid var(--os-ink-faint);
+}
+
+/* focus ring */
+.os-root :focus-visible {
+  outline: 2px solid var(--os-accent);
+  outline-offset: 2px;
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .os-root *,
+  .os-root *::before,
+  .os-root *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* party mode — triggered by bullet 7-click or `party` terminal command */
+@keyframes os-party-hue {
+  0% {
+    filter: hue-rotate(0deg) saturate(1.2);
+  }
+  100% {
+    filter: hue-rotate(360deg) saturate(1.2);
+  }
+}
+@keyframes os-party-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px) rotate(-0.4deg); }
+  75% { transform: translateX(4px) rotate(0.4deg); }
+}
+.os-party {
+  animation: os-party-hue 1.6s linear infinite, os-party-shake 0.35s ease-in-out infinite;
+}
+.os-party .os-window {
+  animation: os-party-shake 0.4s ease-in-out infinite;
+}
+
+/* scrollbars inside OS */
+.os-root *::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.os-root *::-webkit-scrollbar-track {
+  background: transparent;
+}
+.os-root *::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--os-ink) 25%, transparent);
+  border-radius: 10px;
+}
