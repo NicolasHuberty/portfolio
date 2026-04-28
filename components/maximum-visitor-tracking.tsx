@@ -137,7 +137,7 @@ export default function MaximumVisitorTracking() {
         const result = await fp.get()
         collected.fingerprint = result.visitorId
         collected.confidence = result.confidence.score
-      } catch (e) {}
+      } catch (_e) {}
 
       // 3. MediaDevices
       try {
@@ -157,7 +157,7 @@ export default function MaximumVisitorTracking() {
             .filter(id => id && id !== "default")
             .map(id => id.substring(0, 8))
         }
-      } catch (e) {
+      } catch (_e) {
         collected.cameras = 0
         collected.microphones = 0
         collected.speakers = 0
@@ -197,7 +197,7 @@ export default function MaximumVisitorTracking() {
           collected.voiceNames = voices.slice(0, 5).map(v => v.name)
           collected.defaultVoice = voices.find(v => v.default)?.name
         }
-      } catch (e) {
+      } catch (_e) {
         collected.voiceCount = 0
         collected.voiceNames = []
       }
@@ -236,7 +236,7 @@ export default function MaximumVisitorTracking() {
         try {
           const displays = await (navigator as any).getVRDisplays()
           collected.vrDisplays = displays.map((d: any) => d.displayName)
-        } catch (e) {}
+        } catch (_e) {}
       }
 
       // 10. WebRTC IP Leak
@@ -256,7 +256,7 @@ export default function MaximumVisitorTracking() {
           }
         }
         setTimeout(() => pc.close(), 5000)
-      } catch (e) {}
+      } catch (_e) {}
 
       // 11. Return Visitor
       const storageKey = "visitor_tracking"
@@ -297,7 +297,7 @@ export default function MaximumVisitorTracking() {
         collected.timezone = geoData.timezone
         collected.isp = geoData.org
         collected.ip = geoData.ip
-      } catch (e) {}
+      } catch (_e) {}
 
       setData(collected)
       setLoading(false)

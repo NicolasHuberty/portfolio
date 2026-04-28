@@ -501,7 +501,7 @@ export default function TerminalApp(_props: { win: Win }) {
 
   // --- Secret / easter-egg commands ----------------------------------------
 
-  const secret = (cmd: string, rest: string[], raw: string): Line[] | null => {
+  const secret = (cmd: string, rest: string[], _raw: string): Line[] | null => {
     const arg = rest.join(" ")
     const out = (text: string): Line[] =>
       text.split("\n").map(t => ({ kind: "out" as const, text: t }))

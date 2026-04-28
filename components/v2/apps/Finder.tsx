@@ -49,8 +49,8 @@ export default function FinderApp({ win }: { win: Win }) {
   const [q, setQ] = useState("")
   const { launch } = useWM()
 
-  const children = ls(cwd) ?? []
   const filtered = useMemo(() => {
+    const children = ls(cwd) ?? []
     if (!q.trim()) return children
     const needle = q.toLowerCase()
     return children.filter(c => {
@@ -59,7 +59,7 @@ export default function FinderApp({ win }: { win: Win }) {
         return true
       return false
     })
-  }, [children, q])
+  }, [cwd, q])
 
   const navigate = (path: string) => {
     const next = normalize(cwd, path)

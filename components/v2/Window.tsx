@@ -17,7 +17,6 @@ type Props = {
   focused: boolean
 }
 
-const TITLEBAR_H = 32
 const MENUBAR_H = 28
 const DOCK_H = 76
 

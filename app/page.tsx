@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, Sparkles, Terminal } from "lucide-react"
+import { ArrowRight, BookOpen, Sparkles, Terminal } from "lucide-react"
 
 export default function VersionSelector() {
   return (
@@ -40,7 +40,7 @@ export default function VersionSelector() {
           </p>
         </motion.div>
 
-        <div className="grid w-full max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid w-full max-w-5xl grid-cols-1 gap-6 md:grid-cols-3">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -94,6 +94,35 @@ export default function VersionSelector() {
               </div>
               <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#ff5c8a]/15 blur-3xl" />
               <div className="pointer-events-none absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-[#8ab2ff]/10 blur-3xl" />
+            </Link>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Link
+              href="/v3"
+              className="group relative block h-full overflow-hidden rounded-2xl border border-[#c75c2c]/30 bg-gradient-to-br from-[#1b1813] to-[#0e0c08] p-8 transition-all hover:border-[#c75c2c]/60"
+            >
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#c75c2c]/30 bg-[#c75c2c]/5 px-3 py-1 text-[11px] uppercase tracking-widest text-[#e08a5e]">
+                <BookOpen className="h-3 w-3" />
+                v3 · folio
+              </div>
+              <h2 className="mb-3 text-3xl font-semibold">
+                An editorial ledger
+              </h2>
+              <p className="mb-8 text-sm leading-relaxed text-white/60">
+                Cream paper, Fraunces serif, hairline rules and a marquee
+                ticker. The portfolio typeset as a finance ledger — services,
+                shipped projects, contact.
+              </p>
+              <div className="flex items-center gap-2 text-sm text-[#e08a5e] transition-transform group-hover:translate-x-1">
+                Open folio № 03 <ArrowRight className="h-4 w-4" />
+              </div>
+              <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#c75c2c]/15 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-[#17301f]/40 blur-3xl" />
             </Link>
           </motion.div>
         </div>
