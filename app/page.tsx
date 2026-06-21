@@ -20,11 +20,57 @@ import { FillText, Reveal } from "@/components/portfolio/reveal"
 const NAV = [
   { label: "About", href: "#about" },
   { label: "Process", href: "#process" },
+  { label: "Work", href: "#work" },
   { label: "Stack", href: "#stack" },
   { label: "Contact", href: "#contact" },
 ]
 
-const SECTIONS = ["hero", "about", "process", "stack", "contact"]
+const SECTIONS = ["hero", "about", "process", "work", "stack", "contact"]
+
+const PROJECTS = [
+  {
+    title: "ILA",
+    tag: "AI Research",
+    body: "Medical-document anonymization. Fine-tuning LLMs locally, per institution, beats centralized multi-hospital training — strong results after ~50 annotated documents.",
+    tech: ["BERT", "NER", "Incremental Learning"],
+    link: null,
+  },
+  {
+    title: "DataNest",
+    tag: "SaaS Platform",
+    body: "All-in-one AI platform for law firms — email, invoicing, cases, scheduling — with Nestor, a voice assistant that executes tasks by voice.",
+    tech: ["Nuxt", "OpenAI", "LangChain"],
+    link: "https://datanest.be",
+  },
+  {
+    title: "eMate",
+    tag: "Legal AI",
+    body: "Agentic RAG for lawyers — analyses doctrine, jurisprudence and case files, answering with sourced, explainable reasoning.",
+    tech: ["RAG", "LLM Agents", "Vector DB"],
+    link: null,
+  },
+  {
+    title: "Docuralis",
+    tag: "Document AI",
+    body: "RAG assistant over OneDrive, SharePoint and Google Drive, with domain-tuned agents for medical and legal work.",
+    tech: ["RAG", "Azure", "Multi-tenant"],
+    link: "https://docuralis.com",
+  },
+  {
+    title: "SWET",
+    tag: "Automation",
+    body: "Full digital automation for a Belgian hot-sauce company — invoicing, orders and shipping running hands-free on Odoo.",
+    tech: ["Odoo", "Python", "Self-hosted"],
+    link: null,
+  },
+  {
+    title: "Infrastructure",
+    tag: "DevOps",
+    body: "Private Kubernetes cluster (K8s/K3s) with GitLab CI/CD and ArgoCD hosting my own and clients' services.",
+    tech: ["Kubernetes", "ArgoCD", "CI/CD"],
+    link: null,
+  },
+]
 
 const STEPS = [
   {
@@ -104,7 +150,7 @@ export default function Home() {
             href="#contact"
             onClick={e => {
               e.preventDefault()
-              go(4)
+              go(5)
             }}
             className="shrink-0 rounded-full bg-blue px-4 py-1.5 font-medium text-white transition-transform hover:scale-[1.03]"
           >
@@ -154,7 +200,7 @@ export default function Home() {
             href="#contact"
             onClick={e => {
               e.preventDefault()
-              go(4)
+              go(5)
             }}
             className={`rounded-xl px-4 py-2 text-[14px] font-medium transition-all hover:scale-[1.03] ${
               onDark ? "bg-white text-[#0c1f3d]" : "bg-ink text-white"
@@ -186,9 +232,10 @@ export default function Home() {
       </div>
 
       <main>
-        <HeroSection onPrimary={() => go(4)} onSecondary={() => go(2)} />
+        <HeroSection onPrimary={() => go(5)} onSecondary={() => go(3)} />
         <AboutSection />
         <ProcessSection />
+        <WorkSection onContact={() => go(5)} />
         <StackSection />
         <ContactSection />
       </main>
@@ -429,6 +476,86 @@ function ProcessSection() {
                     {step.body}
                   </p>
                 </div>
+              </Reveal>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ----------------------------- WORK ----------------------------- */
+function WorkSection({ onContact }: { onContact: () => void }) {
+  return (
+    <section
+      data-section="work"
+      id="work"
+      className="snap-section flex items-center bg-paper"
+    >
+      <div className="mx-auto w-full max-w-6xl px-6 pb-16 pt-32 md:pb-0 md:pt-28">
+        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <Reveal>
+              <div className="mb-3 flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-ink/45">
+                <span className="h-2 w-2 rounded-sm bg-blue" />
+                Selected work
+              </div>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <h2 className="max-w-2xl text-balance text-3xl font-medium leading-[1.1] tracking-tight md:text-5xl">
+                Things I&apos;ve{" "}
+                <span className="font-serif-display italic text-blue">
+                  shipped.
+                </span>
+              </h2>
+            </Reveal>
+          </div>
+          <Reveal delay={0.1}>
+            <button
+              onClick={onContact}
+              className="group flex w-fit items-center gap-2 rounded-xl border border-ink/10 bg-white px-4 py-2.5 text-sm font-medium transition-colors hover:bg-ink hover:text-white"
+            >
+              Start a project
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </button>
+          </Reveal>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {PROJECTS.map((p, i) => {
+            const CardTag = p.link ? "a" : "div"
+            return (
+              <Reveal key={p.title} delay={i * 0.07}>
+                <CardTag
+                  {...(p.link
+                    ? { href: p.link, target: "_blank", rel: "noreferrer" }
+                    : {})}
+                  className="group flex h-full flex-col rounded-3xl border border-blue/10 bg-white p-6 shadow-[0_10px_40px_rgba(24,73,139,0.05)] transition-transform duration-300 hover:-translate-y-1"
+                >
+                  <div className="mb-4 flex items-center justify-between">
+                    <span className="text-[11px] uppercase tracking-[0.2em] text-blue">
+                      {p.tag}
+                    </span>
+                    {p.link ? (
+                      <ArrowUpRight className="h-4 w-4 text-ink/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-blue" />
+                    ) : null}
+                  </div>
+                  <h3 className="text-xl font-medium">{p.title}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/60">
+                    {p.body}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {p.tech.map(t => (
+                      <span
+                        key={t}
+                        className="rounded-full bg-ink/5 px-2.5 py-1 text-[11px] text-ink/55"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </CardTag>
               </Reveal>
             )
           })}
