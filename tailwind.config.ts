@@ -24,6 +24,9 @@ const config: Config = {
         lg: "1200px",
       },
       colors: {
+        paper: "#fefefe",
+        ink: "#0e0a07",
+        blue: "#18498b",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

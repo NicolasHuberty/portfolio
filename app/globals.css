@@ -4,98 +4,141 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
+    --paper: #fefefe;
+    --ink: #0e0a07;
+    --blue: #18498b;
     --radius: 0.5rem;
   }
 
-  .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222 47% 11%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 212 26% 83%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
   html {
-    scroll-behavior: smooth;
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
   }
 
   body {
-    @apply bg-white dark:bg-slate-900 text-zinc-900 dark:text-slate-100 antialiased;
+    font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   }
 
-  /* Clean scrollbar */
+  ::selection {
+    background: rgba(24, 73, 139, 0.18);
+    color: var(--blue);
+  }
+
   ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply bg-zinc-100 dark:bg-slate-800;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-zinc-300 dark:bg-slate-600 rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-zinc-400 dark:bg-slate-500;
+    width: 0;
+    height: 0;
   }
 }
 
-/* Modern selection */
-::selection {
-  @apply bg-indigo-500/20 text-indigo-900 dark:text-indigo-100;
+@layer utilities {
+  .font-serif-display {
+    font-family: var(--font-instrument), ui-serif, Georgia, serif;
+  }
 }
 
-/* Slow spin animation */
+/* ---------- Section-by-section snap scroll (fullPage feel) ---------- */
+html {
+  scroll-behavior: smooth;
+}
+.snap-section {
+  min-height: 100vh;
+  position: relative;
+}
+/* Snap only on desktop — on mobile, tall sections scroll naturally
+   (mirrors fullPage.js responsive fallback) so content never clips. */
+@media (min-width: 768px) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
+  .snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+/* ---------- Hero curtain (fluted navy blinds) ---------- */
+.curtain-bg {
+  background-color: #0c1f3d;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.11) 0px,
+      rgba(255, 255, 255, 0.11) 1px,
+      rgba(255, 255, 255, 0) 1px,
+      rgba(255, 255, 255, 0) 22px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(46, 99, 173, 0.55) 0px,
+      rgba(12, 31, 61, 0.1) 11px,
+      rgba(46, 99, 173, 0.55) 22px
+    );
+  background-size: 22px 100%, 22px 100%;
+}
+.curtain-glow {
+  background: radial-gradient(
+    60% 50% at 50% 38%,
+    rgba(120, 165, 230, 0.35) 0%,
+    rgba(12, 31, 61, 0) 70%
+  );
+}
+@keyframes curtain-sheen {
+  0% {
+    transform: translateX(-30%);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(130%);
+    opacity: 0;
+  }
+}
+.curtain-sheen {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 100%
+  );
+  animation: curtain-sheen 7s ease-in-out infinite;
+}
+
+/* ---------- Slow orbit / spin ---------- */
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
 }
-
 .animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
+  animation: spin-slow 40s linear infinite;
+}
+@keyframes spin-rev {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+.animate-spin-rev {
+  animation: spin-rev 50s linear infinite;
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.animate-float {
+  animation: float-y 6s ease-in-out infinite;
 }
