@@ -1,20 +1,20 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import { motion } from "framer-motion"
 import {
   ArrowRight,
   ArrowUpRight,
-  Check,
   Cpu,
   Database,
   Github,
   Linkedin,
   Mail,
   Rocket,
-  Sparkles,
 } from "lucide-react"
 
+import { projects } from "@/lib/projects-data"
 import { FillText, Reveal } from "@/components/portfolio/reveal"
 
 const NAV = [
@@ -26,51 +26,6 @@ const NAV = [
 ]
 
 const SECTIONS = ["hero", "about", "process", "work", "stack", "contact"]
-
-const PROJECTS = [
-  {
-    title: "ILA",
-    tag: "AI Research",
-    body: "Medical-document anonymization. Fine-tuning LLMs locally, per institution, beats centralized multi-hospital training — strong results after ~50 annotated documents.",
-    tech: ["BERT", "NER", "Incremental Learning"],
-    link: null,
-  },
-  {
-    title: "DataNest",
-    tag: "SaaS Platform",
-    body: "All-in-one AI platform for law firms — email, invoicing, cases, scheduling — with Nestor, a voice assistant that executes tasks by voice.",
-    tech: ["Nuxt", "OpenAI", "LangChain"],
-    link: "https://datanest.be",
-  },
-  {
-    title: "eMate",
-    tag: "Legal AI",
-    body: "Agentic RAG for lawyers — analyses doctrine, jurisprudence and case files, answering with sourced, explainable reasoning.",
-    tech: ["RAG", "LLM Agents", "Vector DB"],
-    link: null,
-  },
-  {
-    title: "Docuralis",
-    tag: "Document AI",
-    body: "RAG assistant over OneDrive, SharePoint and Google Drive, with domain-tuned agents for medical and legal work.",
-    tech: ["RAG", "Azure", "Multi-tenant"],
-    link: "https://docuralis.com",
-  },
-  {
-    title: "SWET",
-    tag: "Automation",
-    body: "Full digital automation for a Belgian hot-sauce company — invoicing, orders and shipping running hands-free on Odoo.",
-    tech: ["Odoo", "Python", "Self-hosted"],
-    link: null,
-  },
-  {
-    title: "Infrastructure",
-    tag: "DevOps",
-    body: "Private Kubernetes cluster (K8s/K3s) with GitLab CI/CD and ArgoCD hosting my own and clients' services.",
-    tech: ["Kubernetes", "ArgoCD", "CI/CD"],
-    link: null,
-  },
-]
 
 const STEPS = [
   {
@@ -139,28 +94,8 @@ export default function Home() {
 
   return (
     <>
-      {/* Announcement bar */}
-      <div className="fixed inset-x-0 top-3 z-50 flex justify-center px-4">
-        <div className="flex w-full max-w-3xl items-center justify-between gap-4 rounded-2xl border border-black/5 bg-white/90 px-5 py-3 text-sm shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur">
-          <p className="truncate">
-            <span className="font-semibold">Available for freelance</span>
-            <span className="text-ink/55"> — 2 slots open for Q3 2026.</span>
-          </p>
-          <a
-            href="#contact"
-            onClick={e => {
-              e.preventDefault()
-              go(5)
-            }}
-            className="shrink-0 rounded-full bg-blue px-4 py-1.5 font-medium text-white transition-transform hover:scale-[1.03]"
-          >
-            Book a call
-          </a>
-        </div>
-      </div>
-
       {/* Floating pill navbar */}
-      <nav className="fixed inset-x-0 top-[72px] z-50 flex justify-center px-4">
+      <nav className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
         <div
           className={`flex w-full max-w-5xl items-center justify-between rounded-2xl border px-4 py-2.5 backdrop-blur transition-colors duration-500 ${
             onDark
@@ -523,42 +458,33 @@ function WorkSection({ onContact }: { onContact: () => void }) {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {PROJECTS.map((p, i) => {
-            const CardTag = p.link ? "a" : "div"
-            return (
-              <Reveal key={p.title} delay={i * 0.07}>
-                <CardTag
-                  {...(p.link
-                    ? { href: p.link, target: "_blank", rel: "noreferrer" }
-                    : {})}
-                  className="group flex h-full flex-col rounded-3xl border border-blue/10 bg-white p-6 shadow-[0_10px_40px_rgba(24,73,139,0.05)] transition-transform duration-300 hover:-translate-y-1"
-                >
-                  <div className="mb-4 flex items-center justify-between">
-                    <span className="text-[11px] uppercase tracking-[0.2em] text-blue">
-                      {p.tag}
+          {projects.map((p, i) => (
+            <Reveal key={p.id} delay={i * 0.05}>
+              <Link
+                href={`/projects/${p.id}`}
+                className="group flex h-full flex-col rounded-3xl border border-blue/10 bg-white p-5 shadow-[0_10px_40px_rgba(24,73,139,0.05)] transition-transform duration-300 hover:-translate-y-1"
+              >
+                <div className="mb-3 flex items-center justify-between">
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-blue">
+                    {p.category}
+                  </span>
+                  <ArrowUpRight className="h-4 w-4 text-ink/25 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-blue" />
+                </div>
+                <h3 className="text-lg font-medium">{p.title}</h3>
+                <p className="mt-1 flex-1 text-sm text-ink/55">{p.subtitle}</p>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {p.technologies.slice(0, 3).map(t => (
+                    <span
+                      key={t}
+                      className="rounded-full bg-ink/5 px-2.5 py-1 text-[11px] text-ink/55"
+                    >
+                      {t}
                     </span>
-                    {p.link ? (
-                      <ArrowUpRight className="h-4 w-4 text-ink/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-blue" />
-                    ) : null}
-                  </div>
-                  <h3 className="text-xl font-medium">{p.title}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-ink/60">
-                    {p.body}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {p.tech.map(t => (
-                      <span
-                        key={t}
-                        className="rounded-full bg-ink/5 px-2.5 py-1 text-[11px] text-ink/55"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </CardTag>
-              </Reveal>
-            )
-          })}
+                  ))}
+                </div>
+              </Link>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
@@ -567,7 +493,9 @@ function WorkSection({ onContact }: { onContact: () => void }) {
 
 /* ----------------------------- STACK ----------------------------- */
 function StackSection() {
-  const groups = Object.entries(STACK)
+  const all = Object.values(STACK).flat()
+  const per = Math.ceil(all.length / 3)
+  const rows = [all.slice(0, per), all.slice(per, per * 2), all.slice(per * 2)]
   return (
     <section
       data-section="stack"
@@ -599,24 +527,32 @@ function StackSection() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-          {groups.map(([group, items], gi) => (
-            <Reveal key={group} delay={gi * 0.08}>
-              <p className="mb-3 flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#9ec1f5]">
-                <Sparkles className="h-3.5 w-3.5" />
-                {group}
-              </p>
-              <ul className="flex flex-wrap gap-2">
-                {items.map(t => (
-                  <li
-                    key={t}
-                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-white/80 transition-colors hover:border-white/30 hover:bg-white/10"
-                  >
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
+        <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
+          {Object.keys(STACK).map(g => (
+            <span
+              key={g}
+              className="text-xs uppercase tracking-[0.2em] text-white/40"
+            >
+              {g}
+            </span>
+          ))}
+        </div>
+
+        <div className="marquee-mask mt-10 space-y-3">
+          {rows.map((row, ri) => (
+            <div
+              key={ri}
+              className={`marquee ${ri % 2 === 1 ? "marquee-right" : "marquee-left"}`}
+            >
+              {[...row, ...row].map((t, i) => (
+                <span
+                  key={`${t}-${i}`}
+                  className="whitespace-nowrap rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
           ))}
         </div>
       </div>
@@ -702,10 +638,12 @@ function ContactSection() {
             Nicolas Huberty
           </p>
           <p>Brussels · AI Engineer · {new Date().getFullYear()}</p>
-          <p className="flex items-center gap-1.5">
-            <Check className="h-3.5 w-3.5 text-blue" />
-            Available for freelance
-          </p>
+          <a
+            href="mailto:huberty.nicolas@hotmail.com"
+            className="transition-colors hover:text-ink"
+          >
+            huberty.nicolas@hotmail.com
+          </a>
         </div>
       </footer>
     </section>
