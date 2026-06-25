@@ -5,29 +5,53 @@
 @layer base {
   :root {
     --paper: #fefefe;
+    --cloud: #f5f3ef;
     --ink: #0e0a07;
     --blue: #18498b;
+    --navy: #0c1f3d;
+    --sky: #9ec1f5;
     --radius: 0.5rem;
   }
 
   html {
     background: var(--paper);
     color: var(--ink);
+    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   body {
     font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv01";
   }
 
   ::selection {
-    background: rgba(24, 73, 139, 0.18);
+    background: rgba(24, 73, 139, 0.16);
     color: var(--blue);
   }
 
+  /* Slim, on-brand scrollbar instead of a hidden one (better orientation). */
   ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+    width: 9px;
+    height: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(14, 10, 7, 0.14);
+    border-radius: 9999px;
+    border: 2px solid var(--paper);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(14, 10, 7, 0.28);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
 
@@ -35,25 +59,27 @@
   .font-serif-display {
     font-family: var(--font-instrument), ui-serif, Georgia, serif;
   }
-}
 
-/* ---------- Section-by-section snap scroll (fullPage feel) ---------- */
-html {
-  scroll-behavior: smooth;
-}
-.snap-section {
-  min-height: 100vh;
-  position: relative;
-}
-/* Snap only on desktop — on mobile, tall sections scroll naturally
-   (mirrors fullPage.js responsive fallback) so content never clips. */
-@media (min-width: 768px) {
-  html {
-    scroll-snap-type: y mandatory;
+  /* Editorial display size — oversized, tight, balanced. */
+  .text-display {
+    font-size: clamp(2.6rem, 7vw, 6rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
   }
-  .snap-section {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
+
+  /* Paper grain: a barely-there texture so flat areas don't feel sterile. */
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
   }
 }
 
@@ -74,7 +100,9 @@ html {
       rgba(12, 31, 61, 0.1) 11px,
       rgba(46, 99, 173, 0.55) 22px
     );
-  background-size: 22px 100%, 22px 100%;
+  background-size:
+    22px 100%,
+    22px 100%;
 }
 .curtain-glow {
   background: radial-gradient(
@@ -187,9 +215,17 @@ html {
     transparent
   );
 }
+
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   .marquee-left,
-  .marquee-right {
-    animation: none;
+  .marquee-right,
+  .animate-spin-slow,
+  .animate-spin-rev,
+  .animate-float,
+  .curtain-sheen {
+    animation: none !important;
   }
 }

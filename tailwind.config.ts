@@ -23,10 +23,18 @@ const config: Config = {
         md: "768px",
         lg: "1200px",
       },
+      fontFamily: {
+        sans: ["var(--font-geist)", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["var(--font-instrument)", "ui-serif", "Georgia", "serif"],
+        mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
+      },
       colors: {
         paper: "#fefefe",
+        cloud: "#f5f3ef",
         ink: "#0e0a07",
         blue: "#18498b",
+        navy: "#0c1f3d",
+        sky: "#9ec1f5",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

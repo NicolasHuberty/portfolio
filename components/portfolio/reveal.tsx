@@ -1,9 +1,9 @@
 "use client"
 
 import { type ReactNode } from "react"
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 
-/** Fade + rise on enter, mirroring the section reveals on the reference site. */
+/** Fade + rise on enter. Honours prefers-reduced-motion (renders static). */
 export function Reveal({
   children,
   delay = 0,
@@ -15,11 +15,12 @@ export function Reveal({
   y?: number
   className?: string
 }) {
+  const reduce = useReducedMotion()
   return (
     <motion.div
-      initial={{ opacity: 0, y }}
+      initial={reduce ? false : { opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.4 }}
+      viewport={{ once: true, amount: 0.35 }}
       transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
@@ -36,7 +37,11 @@ export function FillText({
   text: string
   className?: string
 }) {
+  const reduce = useReducedMotion()
   const words = text.split(" ")
+
+  if (reduce) return <p className={className}>{text}</p>
+
   return (
     <p className={className}>
       {words.map((word, i) => (
